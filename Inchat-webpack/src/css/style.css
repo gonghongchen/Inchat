@@ -1,0 +1,37 @@
+/**
+ * @description 通用样式
+ * @author ghc
+ */
+
+.button {
+    padding: 8px 15px;
+    background-color: #eee;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #ddd;
+}
+.success {
+    background-color: #4CAF50;
+    color: #fff;
+}
+.success:hover {
+    background-color: #43A047;
+}
+.danger {
+    background-color: #ef5350;
+    color: #fff;
+}
+.danger:hover {
+    background-color: #e53935;
+}
+.button:disabled {
+    cursor: not-allowed;
+}
+.button:disabled:hover {
+    background-color: #eee;
+}
