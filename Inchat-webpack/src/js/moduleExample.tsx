@@ -21,6 +21,8 @@ export default class ModuleExample extends React.Component < initProps, initStat
                 <input className="button danger" type="button" value="danger" onClick={this.doClick.bind(this, ["error", "错误", -1])} />
                 <input className="button" type="button" value="warning" onClick={this.doClick.bind(this, ["warning", "警告"])} />
                 <input className="button" disabled type="button" value="弹出提示框" onClick={this.doClick.bind(this)} />
+                <input className="input" type="text" placeholder="input..." />
+                <a className="link" href="http://">a link</a>
             </div>
         )
     }

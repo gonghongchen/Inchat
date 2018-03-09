@@ -1,20 +1,28 @@
 .popup-title-frame {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 0;
+    right: 0;
     z-index: 99;
     width: 340px;
     height: auto;
-    min-height: 800px;
-    padding: 20px;
+    text-align: center;
     overflow: hidden;
 }
 .pop-title-box {
+    display: inline-block;
     position: relative;
+    width: 300px;
     height: 80px;
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 0 20px #ddd;
+    background-color: #fff;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;    
+}
+.popup-title-frame div:first-child .pop-title-box {
+    margin-top: 20px;
 }
 .cate {
     float: left;
@@ -32,6 +40,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: bold;
+    text-align: left;
 }
 .close {
     position: absolute;

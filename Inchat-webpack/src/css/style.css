@@ -3,6 +3,7 @@
  * @author ghc
  */
 
+ /* 按钮 */
 .button {
     padding: 8px 15px;
     background-color: #eee;
@@ -34,4 +35,29 @@
 }
 .button:disabled:hover {
     background-color: #eee;
+}
+
+ /* 输入框 */
+ .input {
+    padding: 7px 10px;
+    border: 1px solid #eee;
+    outline: none;
+    font-size: 14px;
+    font-weight: bold;
+ }
+ .input:hover {
+     border-color: #ddd;
+ }
+ .input:focus {
+    border-color: #aaa;
+}
+
+ /* 链接 */
+.link {
+    color: #03A9F4;
+    text-decoration: none;
+}
+.link:hover {
+    color: #4CAF50;
+    text-decoration: underline;
 }

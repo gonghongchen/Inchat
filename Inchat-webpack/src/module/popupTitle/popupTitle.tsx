@@ -20,13 +20,25 @@ interface initState {};
 export default class PopupTitle extends React.Component<initProps, initState> {
     static popupTitleFrame = null
     render(): JSX.Element {
-        const config: any = this.props.config,
+        let config: any = this.props.config,
+            cate = config.cate || "success",
             iStyle = {
-                backgroundImage: "url(" + require(`../../res/icon/${config.cate || "success"}.png`) + ")",
-            };
+                backgroundImage: "url(" + require(`../../res/icon/${cate}.png`) + ")",  //注意图片的引入方式，以及base64的显示方式
+            },
+            animateIn = ((cate) => {    //设置各种提示类型对应的进入动画
+                switch (cate) {
+                    case "success":
+                        return "flipInX";
+                    case "error":
+                        return "shake";
+                    case "warning":
+                        return "swing";
+                }
+            })(cate);
+        animateIn += " pop-title-box animated";
 
         return(
-            <div className="pop-title-box rotateInUpRight animated">
+            <div className={animateIn}>
                <i className="cate" style={iStyle}></i>
                <span className="content" title={config.content}>{config.content}</span>
                <i className="close" onClick={this.doClose.bind(this)}>&times;</i>
@@ -42,7 +54,7 @@ export default class PopupTitle extends React.Component<initProps, initState> {
     static show(config: initProps["config"] = {
         content: "popupTitle",
     }): void {
-        const popupTitleFrame = PopupTitle.popupTitleFrame || (() => {
+        const popupTitleFrame = PopupTitle.popupTitleFrame || (() => {  //读取或者创建弹出提示框的最外框
             const div = document.createElement("div");
 
             div.className = "popup-title-frame";
@@ -52,7 +64,7 @@ export default class PopupTitle extends React.Component<initProps, initState> {
             return div;
         })(),
         parDiv = document.createElement("div"),
-        seconds = config.seconds || 5;
+        seconds = config.seconds || 5;  //设置显示时间
 
         ReactDOM.render(
             <PopupTitle config={config} />,
@@ -70,7 +82,7 @@ export default class PopupTitle extends React.Component<initProps, initState> {
         }
     }
     /**
-     * @description 销毁弹出提示框（自动调用）
+     * @description 移除弹出提示框（自动调用）
      * @param event 
      */
     doClose(event): void {
