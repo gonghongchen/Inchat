@@ -5,7 +5,7 @@
 
  /* 按钮 */
 .button {
-    padding: 8px 15px;
+    padding: 5px 15px;
     background-color: #eee;
     border: none;
     outline: none;
@@ -39,7 +39,7 @@
 
  /* 输入框 */
  .input {
-    padding: 7px 10px;
+    padding: 4px 10px;
     border: 1px solid #eee;
     outline: none;
     font-size: 14px;
@@ -58,6 +58,5 @@
     text-decoration: none;
 }
 .link:hover {
-    color: #4CAF50;
     text-decoration: underline;
 }

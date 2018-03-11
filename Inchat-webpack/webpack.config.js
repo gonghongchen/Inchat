@@ -18,7 +18,7 @@ module.exports = {
     module: {
         rules: [
             {
-				test: /\.css$/,
+				test: /\.(css|less)$/,
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",
 					use: [{
@@ -36,7 +36,10 @@ module.exports = {
 									require('autoprefixer')
 								]
 							}
-						}
+                        },
+                        {
+                            loader: "less-loader"
+                        }
 					]
 				})
 			},
