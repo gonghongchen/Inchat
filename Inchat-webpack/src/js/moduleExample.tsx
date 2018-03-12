@@ -20,7 +20,7 @@ const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
 export default class ModuleExample extends React.Component < initProps, initState > {
     state = {
-        showModal: false,
+        showModal: false
     }
     render(): JSX.Element {
         return(
@@ -40,7 +40,8 @@ export default class ModuleExample extends React.Component < initProps, initStat
                 </Popover>
                 <br /><br />
                 <Button type="primary" onClick={this.setModalVisible.bind(this, true)}>登录</Button>
-                <Login show={this.state.showModal} />
+                <Login show={this.state.showModal}  normalOpen={true} />
+                <br /><br />
             </div>
         )
     }

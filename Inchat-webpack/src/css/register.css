@@ -1,0 +1,33 @@
+/* register */
+.register-box {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 360px;
+    height: auto;
+    padding: 20px;
+    box-shadow: 0 0 15px #eee;
+    transform: translate(-50%, -50%);
+}
+.register-title {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    font-size: 18px;
+}
+.register-form {
+    max-width: auto;
+}
+.register-mult-oper {
+    overflow: hidden;
+}
+.register-form-forgot {
+    float: left;
+}
+.to-login {
+    float: right;
+}
+.register-form-button {
+    width: 100%;
+}

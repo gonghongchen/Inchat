@@ -10,15 +10,20 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 import "antd/dist/antd.less";
 import "./login.css";
 
+/**
+ * @description 初始props数据
+ * @param show 是否显示模态框
+ * @param normalOpen 是否是正常打开模态框，若非为false，则表示非正常，则不会打开模态框
+ */
 interface initProps {
-    show: boolean
+    show: boolean,
+    normalOpen: boolean
 }
 
 class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
     state = {
         modalVisible: false
     }
-    disabledProps: boolean = false
     render(): JSX.Element {
         const { getFieldDecorator } = this.props.form,
             FormItem = Form.Item;
@@ -35,24 +40,24 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
                 cancelText="取消"
                 confirmLoading={false}
                 >
-                <Form onSubmit={this.handleSubmit} className="login-form">
+                <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
                     <FormItem>
                     {getFieldDecorator('userName', {
-                        rules: [{ required: true, whitespace:true, transform: value => value.replace(/\s*/g, ""), min:2, message: '请输入正确的用户名！' }],
+                        rules: [{ required: true, whitespace:true, min:2, message: '请输入正确的用户名！' }],
                     })(
-                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名(大于2个字符)" />
+                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
                     )}
                     </FormItem>
                     <FormItem>
                     {getFieldDecorator('password', {
                         rules: [{ required: true, whitespace:true, pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '请输入正确的密码！' }],
                     })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码(字母和数字组成，长度为6-16)" />
+                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
                     )}
                     </FormItem>
                     <div className="login-mult-oper">
                         <a className="login-form-forgot">忘记密码？</a>
-                        <a className="to-register">注册</a>
+                        <a className="to-register" onClick={this.toRegister.bind(this)}>注册</a>
                     </div>
                 </Form>
             </Modal>
@@ -63,7 +68,9 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
      * @param nextProps 父组件更新后的props的值
      */
     componentWillReceiveProps(nextProps) {
-        this.setState({ modalVisible: nextProps.show });
+       if (nextProps.normalOpen) {
+            this.setState({ modalVisible: nextProps.show });
+       }
     }
     /**
      * @description 设置state中的modalVisible值
@@ -71,6 +78,14 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
      */
     setModalVisible(modalVisible: boolean) {
         this.setState({ modalVisible });
+    }
+    /**
+     * @description 关闭登录弹出框并转到注册页面
+     */
+    toRegister() {
+        this.setModalVisible(false);
+
+        window.location.href = "../../register.html";
     }
     /**
      * @description 处理表单提交
