@@ -8,9 +8,10 @@ import * as ReactDOM from "react-dom";
 import "../css/minireset.css";
 import "../css/style.css";
 import "../css/moduleExample.css";
-import PopupTitle from "./../module/popupTitle/popupTitle";
-import { DatePicker, Popover, Button } from 'antd';
 import 'antd/dist/antd.less';
+import PopupTitle from "./../module/popupTitle/popupTitle";
+import { DatePicker, Input, Popover, Button, Modal } from 'antd';
+import { Login } from "../module/login/login";
 
 interface initProps {};
 interface initState {};
@@ -18,6 +19,9 @@ interface initState {};
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
 export default class ModuleExample extends React.Component < initProps, initState > {
+    state = {
+        showModal: false,
+    }
     render(): JSX.Element {
         return(
             <div>
@@ -28,18 +32,20 @@ export default class ModuleExample extends React.Component < initProps, initStat
                 <input className="input" type="text" placeholder="input..." />
                 <a className="link" href="http://">a link github</a>
                 <DatePicker onChange={this.onChange.bind(this)} />
-                <br /><br />
                 <MonthPicker onChange={this.onChange.bind(this)} placeholder="Select month" />
-                <br /><br />
                 <RangePicker onChange={this.onChange.bind(this)} />
-                <br /><br />
                 <WeekPicker onChange={this.onChange.bind(this)} placeholder="Select week" />
-                <br /><br />
                 <Popover placement="right" content="右侧提示内容" trigger="click">
                     <Button type="primary">Primary</Button>
                 </Popover>
+                <br /><br />
+                <Button type="primary" onClick={this.setModalVisible.bind(this, true)}>登录</Button>
+                <Login show={this.state.showModal} />
             </div>
         )
+    }
+    setModalVisible(showModal) {
+        this.setState({ showModal });
     }
     onChange(date, dateString) {
         console.log(date, dateString);
