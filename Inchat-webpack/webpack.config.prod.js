@@ -7,7 +7,7 @@ const path = require("path"),
 
 module.exports = merge(commonConfig, {
     output: {
-        path: path.resolve(__dirname, 'prod/js'),
+        path: path.resolve(__dirname, './phpStudy/PHPTutorial/WWW/prod/js'),
     },
     mode: "production",
     devtool: "source-map",
@@ -27,7 +27,7 @@ module.exports = merge(commonConfig, {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(path.resolve(__dirname, "prod")),
+        new CleanWebpackPlugin(path.resolve(__dirname, "./phpStudy/PHPTutorial/WWW/prod")),
         ...hwp,
         new ExtractTextPlugin("../css/[name]-[chunkhash].css")
     ]

@@ -8,8 +8,21 @@ import * as ReactDOM from "react-dom";
 import { Input, Icon, Modal, Form, Button, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { Login } from "../module/login/login";
+import { Ajax } from "../module/common";
 import "antd/dist/antd.less";
 import "../css/register.css";
+
+
+Ajax({
+    url: "select-data.php",
+    data: [],
+    success(val) {
+        console.log("success data: ", JSON.parse(val));
+    },
+    error(status) {
+        console.log("error status: ", status);
+    }
+});
 
 interface initProps {}
 

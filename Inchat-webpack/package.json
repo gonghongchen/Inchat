@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --color --progress --config webpack.config.dev.js",
-    "build": "webpack --colors --config webpack.config.prod.js --watch"
+    "build": "webpack --colors --config webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -35,5 +35,6 @@
     "webpack-cli": "^2.0.10",
     "webpack-dev-server": "^3.1.0",
     "webpack-merge": "^4.1.2"
-  }
+  },
+  "dependencies": {}
 }

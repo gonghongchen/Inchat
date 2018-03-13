@@ -1,0 +1,36 @@
+180313 11:28:47 [Note] Plugin 'FEDERATED' is disabled.
+180313 11:28:47 InnoDB: The InnoDB memory heap is disabled
+180313 11:28:47 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180313 11:28:47 InnoDB: Compressed tables use zlib 1.2.3
+180313 11:28:47 InnoDB: Initializing buffer pool, size = 47.0M
+180313 11:28:47 InnoDB: Completed initialization of buffer pool
+180313 11:28:47 InnoDB: highest supported file format is Barracuda.
+180313 11:28:47  InnoDB: Waiting for the background threads to start
+180313 11:28:48 InnoDB: 5.5.53 started; log sequence number 1595675
+180313 11:28:48 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180313 11:28:48 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180313 11:28:48 [Note] Server socket created on IP: '0.0.0.0'.
+180313 17:32:09 [Note] Plugin 'FEDERATED' is disabled.
+180313 17:32:09 InnoDB: The InnoDB memory heap is disabled
+180313 17:32:09 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180313 17:32:09 InnoDB: Compressed tables use zlib 1.2.3
+180313 17:32:09 InnoDB: Initializing buffer pool, size = 47.0M
+180313 17:32:09 InnoDB: Completed initialization of buffer pool
+180313 17:32:09 InnoDB: highest supported file format is Barracuda.
+180313 17:32:09  InnoDB: Waiting for the background threads to start
+180313 17:32:10 InnoDB: 5.5.53 started; log sequence number 1595675
+180313 17:32:10 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180313 17:32:10 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180313 17:32:10 [Note] Server socket created on IP: '0.0.0.0'.
+180313 17:46:19 [Note] Plugin 'FEDERATED' is disabled.
+180313 17:46:19 InnoDB: The InnoDB memory heap is disabled
+180313 17:46:19 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180313 17:46:19 InnoDB: Compressed tables use zlib 1.2.3
+180313 17:46:19 InnoDB: Initializing buffer pool, size = 47.0M
+180313 17:46:19 InnoDB: Completed initialization of buffer pool
+180313 17:46:19 InnoDB: highest supported file format is Barracuda.
+180313 17:46:19  InnoDB: Waiting for the background threads to start
+180313 17:46:20 InnoDB: 5.5.53 started; log sequence number 1595675
+180313 17:46:20 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180313 17:46:20 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180313 17:46:20 [Note] Server socket created on IP: '0.0.0.0'.

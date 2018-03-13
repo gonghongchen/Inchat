@@ -17,7 +17,14 @@ module.exports = merge(commonConfig, {
         contentBase: path.join(__dirname, "dev"),
         compress: true,
         port: 8090,
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            "/php": {
+                target: "http://localhost:80",
+                changeOrigin: true,
+                secure: false
+            }
+        }
     },
     module: {
         rules: [
