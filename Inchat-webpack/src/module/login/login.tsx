@@ -83,9 +83,11 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
      * @description 关闭登录弹出框并转到注册页面
      */
     toRegister() {
+        const href = window.location.href;
+
         this.setModalVisible(false);
 
-        window.location.href = "../../register.html";
+        window.location.href = href.substr(0, href.lastIndexOf("/") + 1) + "register.html";
     }
     /**
      * @description 处理表单提交

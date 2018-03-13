@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --color --progress --config webpack.config.dev.js",
-    "build": "webpack --colors --config webpack.config.prod.js"
+    "build": "webpack --colors --config webpack.config.prod.js --watch"
   },
   "author": "",
   "license": "ISC",
