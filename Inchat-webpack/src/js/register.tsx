@@ -19,7 +19,8 @@ interface initProps {}
 class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
     state = {
         showModal: false,
-        normalOpen: true
+        normalOpen: true,
+        checkCode: this.getCheckCode()
     }
     render(): JSX.Element {
         const { getFieldDecorator } = this.props.form,
@@ -51,6 +52,14 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
                             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="确认密码" />
                         )}
                         </FormItem>
+                        <FormItem>  
+                        {getFieldDecorator('checkCode', {
+                            rules: [{ required: true, message: "请输入右边算式的计算结果！" }, { validator: this.doCheckCode.bind(this) }],
+                        })(
+                            <Input className="check-code-inp" prefix={<Icon type="code-o" style={{ color: 'rgba(0,0,0,.25)' }} />} type="text" placeholder="计算结果" />
+                        )}
+                        <span className="check-code" title="点击更换算式" onClick={this.setCheckCode.bind(this)}>{this.state.checkCode}</span>
+                        </FormItem>
                         <FormItem>
                             <div className="register-mult-oper">
                                 <span className="register-form-forgot">点击注册即表示同意用户协议</span>
@@ -74,6 +83,32 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password')) {
             callback('两次输入的密码不一致！');
+        } else {
+            callback();
+        }
+    }
+    getCheckCode() {
+        const num1 = (Math.random() * 9 + 1).toFixed(0),
+            num2 = (Math.random() * 9 + 1).toFixed(0),
+            oper = ["+", "-", "*"],
+            randomOper = oper[(Math.random()*(oper.length - 1)).toFixed(0)];
+
+        return num1 > num2 ? (num1 + randomOper + num2) : (num2 + randomOper + num1);
+    }
+    setCheckCode() {
+        this.setState({
+            checkCode: this.getCheckCode()
+        });
+    }
+    /**
+     * @description 验证码验证
+     * @param rule 
+     * @param value 输入框的值
+     * @param callback 处理后的提示内容
+     */
+    doCheckCode(rule, value, callback) {
+        if (value && value !== eval(this.state.checkCode).toString()) {
+            callback('计算结果不正确！');
         } else {
             callback();
         }
