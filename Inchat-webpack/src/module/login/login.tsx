@@ -7,6 +7,8 @@ import * as React from 'react';
 import * as ReactDOM from "react-dom";
 import { Input, Icon, Modal, Form, Button, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
+import { Ajax } from "../common";
+import PopupTitle from "../popupTitle/popupTitle";
 import "antd/dist/antd.less";
 import "./login.css";
 
@@ -42,7 +44,7 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
                 >
                 <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
                     <FormItem>
-                    {getFieldDecorator('userName', {
+                    {getFieldDecorator('username', {
                         rules: [{ required: true, whitespace:true, min:2, message: '请输入正确的用户名！' }],
                     })(
                         <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
@@ -97,7 +99,41 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
         event.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
+                Ajax({
+                    url: "login.php",
+                    data: values,
+                    method: "post",
+                    success(val) {
+                        if(val === "success") {
+                            PopupTitle.show({
+                                content: "欢迎回家"
+                            });
+                        } else if(val === "error") {
+                            PopupTitle.show({
+                                content: "用户名或者密码错误",
+                                cate: "error"
+                            });
+                        } else if(val === "noUser") {
+                            PopupTitle.show({
+                                content: "用户名不存在",
+                                cate: "warning"
+                            });
+                        } else {
+                            PopupTitle.show({
+                                content: "登录失败，请重试",
+                                cate: "error"
+                            });
+                        }
+                    },
+                    error(status) {
+                        PopupTitle.show({
+                            content: "登录失败，请重试",
+                            cate: "error"
+                        });
+                        console.log("error status: ", status);
+                    }
+                });
             }
         });
     }

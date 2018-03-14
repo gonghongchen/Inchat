@@ -8,21 +8,11 @@ import * as ReactDOM from "react-dom";
 import { Input, Icon, Modal, Form, Button, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { Login } from "../module/login/login";
+import PopupTitle from "../module/popupTitle/popupTitle";
 import { Ajax } from "../module/common";
 import "antd/dist/antd.less";
 import "../css/register.css";
 
-
-Ajax({
-    url: "select-data.php",
-    data: [],
-    success(val) {
-        console.log("success data: ", JSON.parse(val));
-    },
-    error(status) {
-        console.log("error status: ", status);
-    }
-});
 
 interface initProps {}
 
@@ -36,38 +26,41 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
             FormItem = Form.Item;
 
         return(
-            <div>
-                <Form onSubmit={this.handleSubmit.bind(this)} className="register-form">
-                    <FormItem>
-                    {getFieldDecorator('userName', {
-                        rules: [{ required: true, whitespace:true, min:2, message: '请输入正确的用户名！' }],
-                    })(
-                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名(大于2个字符)" />
-                    )}
-                    </FormItem>
-                    <FormItem>
-                    {getFieldDecorator('password', {
-                        rules: [{ required: true, whitespace:true, pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '请输入正确的密码！' }],
-                    })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码(字母和数字组成，长度为6-16)" />
-                    )}
-                    </FormItem>
-                    <FormItem>  
-                    {getFieldDecorator('confirm', {
-                        rules: [{ required: true, message: "请再次输入密码！" }, { validator: this.compareToFirstPassword.bind(this) }],
-                    })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="确认密码" />
-                    )}
-                    </FormItem>
-                    <FormItem>
-                        <div className="register-mult-oper">
-                            <span className="register-form-forgot">点击注册即表示同意用户协议</span>
-                            <a className="to-login" onClick={this.showLoginModal.bind(this)}>登录</a>
-                        </div>
-                        <Button type="primary" htmlType="submit" onClick={this.handleSubmit.bind(this)} className="register-form-button">注册</Button>
-                    </FormItem>
-                </Form>
-                <Login show={this.state.showModal} normalOpen={this.state.normalOpen} />
+            <div className="register-box">
+                <div className="register-title">注册</div>
+                <div className="register-form-box">
+                    <Form onSubmit={this.handleSubmit.bind(this)} className="register-form">
+                        <FormItem>
+                        {getFieldDecorator('username', {
+                            rules: [{ required: true, whitespace:true, min:2, message: '请输入正确的用户名！' }],
+                        })(
+                            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名(大于2个字符)" />
+                        )}
+                        </FormItem>
+                        <FormItem>
+                        {getFieldDecorator('password', {
+                            rules: [{ required: true, whitespace:true, pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '请输入正确的密码！' }],
+                        })(
+                            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码(字母和数字组成，长度为6-16)" />
+                        )}
+                        </FormItem>
+                        <FormItem>  
+                        {getFieldDecorator('confirm', {
+                            rules: [{ required: true, message: "请再次输入密码！" }, { validator: this.compareToFirstPassword.bind(this) }],
+                        })(
+                            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="确认密码" />
+                        )}
+                        </FormItem>
+                        <FormItem>
+                            <div className="register-mult-oper">
+                                <span className="register-form-forgot">点击注册即表示同意用户协议</span>
+                                <a className="to-login" onClick={this.showLoginModal.bind(this)}>登录</a>
+                            </div>
+                            <Button type="primary" htmlType="submit" onClick={this.handleSubmit.bind(this)} className="register-form-button">注册</Button>
+                        </FormItem>
+                    </Form>
+                    <Login show={this.state.showModal} normalOpen={this.state.normalOpen} />
+                </div>
             </div>
         )
     }
@@ -113,7 +106,36 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
         event.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
+                Ajax({
+                    url: "register.php",
+                    data: values,
+                    method: "post",
+                    success(val) {
+                        if(val === "success") {
+                            PopupTitle.show({
+                                content: "新的世界，新的你，欢迎到来"
+                            });
+                        } else if(val === "registered") {
+                            PopupTitle.show({
+                                content: "此用户名已被注册，请更换",
+                                cate: "warning"
+                            });
+                        } else {
+                            PopupTitle.show({
+                                content: "注册失败，请重试",
+                                cate: "error"
+                            });
+                        }
+                    },
+                    error(status) {
+                        PopupTitle.show({
+                            content: "注册失败，请重试",
+                            cate: "error"
+                        });
+                        console.log("error status: ", status);
+                    }
+                });
             }
         });
     }
@@ -122,5 +144,5 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
 const Register = Form.create<initProps>()(RegisterForm);
 ReactDOM.render(
     <Register />,
-    document.getElementById("register-form-box")
+    document.body.appendChild(document.createElement("div"))
 );

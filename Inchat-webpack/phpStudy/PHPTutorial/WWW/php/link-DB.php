@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "root";
-$dbname = "websocket-test";
+$dbname = "inchat";
    
 // 创建连接
 $conn = new mysqli($servername, $username, $password, $dbname);

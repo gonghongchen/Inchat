@@ -34,3 +34,15 @@
 180313 17:46:20 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
 180313 17:46:20 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
 180313 17:46:20 [Note] Server socket created on IP: '0.0.0.0'.
+180314 15:00:41 [Note] Plugin 'FEDERATED' is disabled.
+180314 15:00:41 InnoDB: The InnoDB memory heap is disabled
+180314 15:00:41 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180314 15:00:41 InnoDB: Compressed tables use zlib 1.2.3
+180314 15:00:41 InnoDB: Initializing buffer pool, size = 47.0M
+180314 15:00:41 InnoDB: Completed initialization of buffer pool
+180314 15:00:41 InnoDB: highest supported file format is Barracuda.
+180314 15:00:41  InnoDB: Waiting for the background threads to start
+180314 15:00:42 InnoDB: 5.5.53 started; log sequence number 1595675
+180314 15:00:42 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180314 15:00:42 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180314 15:00:42 [Note] Server socket created on IP: '0.0.0.0'.
