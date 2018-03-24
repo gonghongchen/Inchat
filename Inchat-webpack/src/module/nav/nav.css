@@ -1,0 +1,20 @@
+/**
+ * @description 导航
+ * @author ghc
+ */
+
+ .nav {
+    width: 100%;
+    background-color: #e4e4e4;
+}
+.nav-box {
+    padding: 10px 0;
+}
+.logo {
+    float: left;
+    font-size: 20px;
+    font-weight: 100;
+}
+.user-entry {
+    float: right;
+}

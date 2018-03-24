@@ -61,3 +61,27 @@
 180314 20:25:56 [Note] Event Scheduler: Loaded 0 events
 180314 20:25:56 [Note] F:\Git\Inchat\Inchat-webpack\phpStudy\PHPTutorial\MySQL\bin\mysqld.exe: ready for connections.
 Version: '5.5.53'  socket: ''  port: 3306  MySQL Community Server (GPL)
+180315 13:20:36 [Note] Plugin 'FEDERATED' is disabled.
+180315 13:20:36 InnoDB: The InnoDB memory heap is disabled
+180315 13:20:36 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180315 13:20:36 InnoDB: Compressed tables use zlib 1.2.3
+180315 13:20:36 InnoDB: Initializing buffer pool, size = 47.0M
+180315 13:20:36 InnoDB: Completed initialization of buffer pool
+180315 13:20:36 InnoDB: highest supported file format is Barracuda.
+180315 13:20:37  InnoDB: Waiting for the background threads to start
+180315 13:20:38 InnoDB: 5.5.53 started; log sequence number 1595675
+180315 13:20:38 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180315 13:20:38 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180315 13:20:38 [Note] Server socket created on IP: '0.0.0.0'.
+180324  9:54:16 [Note] Plugin 'FEDERATED' is disabled.
+180324  9:54:16 InnoDB: The InnoDB memory heap is disabled
+180324  9:54:16 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180324  9:54:16 InnoDB: Compressed tables use zlib 1.2.3
+180324  9:54:16 InnoDB: Initializing buffer pool, size = 47.0M
+180324  9:54:16 InnoDB: Completed initialization of buffer pool
+180324  9:54:16 InnoDB: highest supported file format is Barracuda.
+180324  9:54:16  InnoDB: Waiting for the background threads to start
+180324  9:54:17 InnoDB: 5.5.53 started; log sequence number 1595675
+180324  9:54:17 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180324  9:54:17 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180324  9:54:17 [Note] Server socket created on IP: '0.0.0.0'.

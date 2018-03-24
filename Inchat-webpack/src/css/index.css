@@ -1,0 +1,23 @@
+/**
+ * @description 首页
+ * @author ghc
+ */
+
+
+/* banner */
+.banner {
+    margin: 20px auto;
+}
+.ant-carousel .slick-slide {
+    text-align: center;
+    overflow: hidden;
+}
+.ant-carousel .slick-slide h3 {
+    color: #fff;
+}
+.banner-pic {
+    background: #364d79;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}

@@ -56,7 +56,15 @@
 .link {
     color: #03A9F4;
     text-decoration: none;
+    cursor: pointer;
 }
 .link:hover {
     text-decoration: underline;
+}
+
+/* 外框 */
+.max-width {
+    width: 1380px;
+    margin: 0 auto;
+    overflow: hidden;
 }

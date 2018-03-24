@@ -15,7 +15,7 @@
     height: 80px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 0 20px #ddd;
+    /* box-shadow: 0 0 20px #ddd; */
     background-color: #fff;
     -moz-user-select:none;
     -webkit-user-select:none;

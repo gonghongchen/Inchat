@@ -15,7 +15,7 @@ import "./login.css";
 /**
  * @description 初始props数据
  * @param show 是否显示模态框
- * @param normalOpen 是否是正常打开模态框，若非为false，则表示非正常，则不会打开模态框
+ * @param normalOpen 是否是正常打开模态框，若为false，则表示非正常，就不会打开模态框
  */
 interface initProps {
     show: boolean,
@@ -47,14 +47,14 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
                     {getFieldDecorator('username', {
                         rules: [{ required: true, whitespace:true, min:2, message: '请输入正确的用户名！' }],
                     })(
-                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
+                        <Input size="large" prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
                     )}
                     </FormItem>
                     <FormItem>
                     {getFieldDecorator('password', {
                         rules: [{ required: true, whitespace:true, pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '请输入正确的密码！' }],
                     })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
+                        <Input size="large" prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
                     )}
                     </FormItem>
                     <div className="login-mult-oper">

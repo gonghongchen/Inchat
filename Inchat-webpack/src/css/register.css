@@ -8,14 +8,14 @@ body {
     background-size: cover;
 }
 .register-box {
-    position: relative;
+    position: fixed;
     left: 50%;
     top: 50%;
     width: 360px;
     height: auto;
     padding: 20px 40px;
     background-color: #fff;
-    transform: translate(-50%,65%);
+    transform: translate(-50%,-50%);
 }
 .register-title {
     margin-bottom: 20px;
@@ -39,16 +39,13 @@ body {
 .register-form-button {
     width: 100%;
 }
-.check-code-inp {
-    width: 180px;
-}
 .check-code {
     display: inline-block;
     width: 90px;
     margin: 0 0 0 10px;
     padding: 0 20px;
     font-size: 18px;
-    line-height: 30px;
+    line-height: 40px;
     border: 1px solid #eee;
     background-color: #eee;
     text-align: center;

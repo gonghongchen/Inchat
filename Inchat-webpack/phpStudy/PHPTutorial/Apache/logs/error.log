@@ -4242,3 +4242,17 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Wed Mar 14 20:25:56.736663 2018] [core:notice] [pid 11684:tid 756] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
 [Wed Mar 14 20:25:56.745148 2018] [mpm_winnt:notice] [pid 11684:tid 756] AH00418: Parent: Created child process 2432
 [Wed Mar 14 20:25:58.106871 2018] [mpm_winnt:notice] [pid 2432:tid 872] AH00354: Child: Starting 150 worker threads.
+[Wed Mar 14 23:13:50.750155 2018] [mpm_winnt:crit] [pid 2432:tid 872] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Thu Mar 15 13:20:38.057524 2018] [core:warn] [pid 12716:tid 772] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Thu Mar 15 13:20:38.301671 2018] [mpm_winnt:notice] [pid 12716:tid 772] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Thu Mar 15 13:20:38.301671 2018] [mpm_winnt:notice] [pid 12716:tid 772] AH00456: Server built: Jul  1 2016 16:42:20
+[Thu Mar 15 13:20:38.302172 2018] [core:notice] [pid 12716:tid 772] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Thu Mar 15 13:20:38.312198 2018] [mpm_winnt:notice] [pid 12716:tid 772] AH00418: Parent: Created child process 15752
+[Thu Mar 15 13:20:39.676378 2018] [mpm_winnt:notice] [pid 15752:tid 784] AH00354: Child: Starting 150 worker threads.
+[Thu Mar 15 22:21:12.219337 2018] [mpm_winnt:crit] [pid 15752:tid 784] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Sat Mar 24 09:54:17.618147 2018] [core:warn] [pid 1952:tid 708] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sat Mar 24 09:54:17.941008 2018] [mpm_winnt:notice] [pid 1952:tid 708] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Sat Mar 24 09:54:17.941008 2018] [mpm_winnt:notice] [pid 1952:tid 708] AH00456: Server built: Jul  1 2016 16:42:20
+[Sat Mar 24 09:54:17.941008 2018] [core:notice] [pid 1952:tid 708] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Sat Mar 24 09:54:17.958052 2018] [mpm_winnt:notice] [pid 1952:tid 708] AH00418: Parent: Created child process 21552
+[Sat Mar 24 09:54:19.725754 2018] [mpm_winnt:notice] [pid 21552:tid 704] AH00354: Child: Starting 150 worker threads.

@@ -1,6 +1,6 @@
 /**
  * @description 模块示例
- * @author
+ * @author ghc
  */
 
 import * as React from 'react';
