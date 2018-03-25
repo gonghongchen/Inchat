@@ -10,11 +10,11 @@ import "../css/style.css";
 
 import "../css/index.css";
 import Nav from "../module/nav/nav";
-import { Carousel } from 'antd';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Input, Carousel } from 'antd';
 
 const SubMenu = Menu.SubMenu,
-    MenuItemGroup = Menu.ItemGroup;
+    MenuItemGroup = Menu.ItemGroup,
+    Search = Input.Search;
 
 interface initProps {};
 interface initState {};
@@ -48,20 +48,29 @@ export default class Index extends React.Component < initProps, initState > {
                         }
                     </Carousel>
                 </div>
-                <div className="max-width cate-nav">
-                    <Menu
-                        onClick={this.handleClick}
-                        selectedKeys={[this.state.current]}
-                        mode="horizontal"
-                        style={{backgroundColor: "#f4f4f4"}}
-                    >
-                        <Menu.Item key="random">
-                            <Icon type="bulb" />发现
-                        </Menu.Item>
-                        <Menu.Item key="popular">
-                            <Icon type="heart-o" />热门
-                        </Menu.Item>
-                    </Menu>
+                <div className="max-width nav-search">
+                    <div className="cate-nav">
+                        <Menu
+                            onClick={this.handleClick}
+                            selectedKeys={[this.state.current]}
+                            mode="horizontal"
+                            style={{backgroundColor: "#f4f4f4"}}
+                        >
+                            <Menu.Item key="random">
+                                <Icon type="bulb" />发现
+                            </Menu.Item>
+                            <Menu.Item key="popular">
+                                <Icon type="heart-o" />热门
+                            </Menu.Item>
+                        </Menu>
+                    </div>
+                    <div className="search">
+                        <Search
+                            placeholder="点击回车搜索……"
+                            onSearch={value => console.log(value)}
+                            style={{ width: 300 }}
+                        />
+                    </div>
                 </div>
                 <div className="content">
                     

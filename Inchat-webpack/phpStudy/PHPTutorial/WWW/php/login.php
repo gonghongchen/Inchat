@@ -5,6 +5,8 @@
  * @author ghc
  */
 
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $password = "root";
@@ -30,6 +32,8 @@ if ($dataCount > 0) {	//有聊天记录数据
 	// 输出数据
 	while ($row = $result->fetch_assoc()) {
 		if($row["password"] === $userpwd) {
+			// 通过 session 存储当前登录的用户名
+			$_SESSION['username'] = $username;
 			echo "success";
 		} else {
 			echo "error";

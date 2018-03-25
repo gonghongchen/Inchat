@@ -23,3 +23,11 @@
 }
 
 /* 类别切换&搜索 */
+.nav-search {
+    position: relative;
+}
+.search {
+    position: absolute;
+    right: 0;
+    top: 10px;
+}

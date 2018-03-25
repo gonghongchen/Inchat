@@ -18,6 +18,9 @@
     cursor: pointer;
 }
 .user-entry {
+    margin-right: 20px;
+}
+.user-entry, .user-center {
     float: right;
     line-height: 30px;
 }

@@ -93,7 +93,10 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
      * @param event 
      */
     handleSubmit(event) {
+        const that = this;
+
         event.preventDefault();
+
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 // console.log('Received values of form: ', values);
@@ -103,9 +106,13 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
                     method: "post",
                     success(val) {
                         if(val === "success") {
-                            PopupTitle.show({
-                                content: "欢迎回家"
+                            //存储一些用户信息在本地
+                            localStorage.userInfor = JSON.stringify({
+                                username: values.username,
+                                loginTime: new Date().getTime()
                             });
+                            
+                            window.location.reload();
                         } else if(val === "error") {
                             PopupTitle.show({
                                 content: "用户名或者密码错误",

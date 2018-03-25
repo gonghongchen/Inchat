@@ -158,9 +158,13 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
                     method: "post",
                     success(val) {
                         if(val === "success") {
-                            PopupTitle.show({
-                                content: "新的世界，新的你，欢迎到来"
+                            //存储一些用户信息在本地
+                            localStorage.userInfor = JSON.stringify({
+                                username: values.username,
+                                loginTime: new Date().getTime()
                             });
+                            
+                            toURL("index");
                         } else if(val === "registered") {
                             PopupTitle.show({
                                 content: "此用户名已被注册，请更换",
