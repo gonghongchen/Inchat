@@ -86,7 +86,23 @@ const Ajax = (params: {
     xhr.send(data);
 };
 
+/**
+ * @description 通过【location.href】进行页面跳转
+ * @param filename 转入的页面的文件名
+ */
+const toURL = (filename: string): boolean => {
+    const href = window.location.href;
+
+    if (typeof filename !== "string") {
+        filename = "index";
+    }
+    window.location.href = href.substr(0, href.lastIndexOf("/") + 1) + filename + ".html";
+
+    return false;
+}
+
 export {
     requestHeader,
-    Ajax
+    Ajax,
+    toURL
 };

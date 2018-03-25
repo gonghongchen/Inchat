@@ -7,7 +7,7 @@ import * as React from 'react';
 import * as ReactDOM from "react-dom";
 import { Input, Icon, Modal, Form, Button, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { Ajax } from "../common";
+import { Ajax, toURL } from "../common";
 import PopupTitle from "../popupTitle/popupTitle";
 import "antd/dist/antd.less";
 import "./login.css";
@@ -85,11 +85,8 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
      * @description 关闭登录弹出框并转到注册页面
      */
     toRegister() {
-        const href = window.location.href;
-
         this.setModalVisible(false);
-
-        window.location.href = href.substr(0, href.lastIndexOf("/") + 1) + "register.html";
+        toURL("register");
     }
     /**
      * @description 处理表单提交

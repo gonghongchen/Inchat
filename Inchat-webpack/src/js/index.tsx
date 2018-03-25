@@ -11,6 +11,10 @@ import "../css/style.css";
 import "../css/index.css";
 import Nav from "../module/nav/nav";
 import { Carousel } from 'antd';
+import { Menu, Icon } from 'antd';
+
+const SubMenu = Menu.SubMenu,
+    MenuItemGroup = Menu.ItemGroup;
 
 interface initProps {};
 interface initState {};
@@ -22,10 +26,19 @@ export default class Index extends React.Component < initProps, initState > {
         "3.jpg",
         "4.jpg"
     ]
+    state = {
+        current: 'random',
+    }
+    handleClick = (e) => {
+        console.log('click ', e);
+        e.domEvent.stopPropagation();
+        this.setState({
+            current: e.key,
+        });
+    }
     render(): JSX.Element {
         return (
             <div>
-                <Nav />
                 <div className="banner max-width">
                     <Carousel autoplay>
                         {
@@ -34,6 +47,21 @@ export default class Index extends React.Component < initProps, initState > {
                             )
                         }
                     </Carousel>
+                </div>
+                <div className="max-width cate-nav">
+                    <Menu
+                        onClick={this.handleClick}
+                        selectedKeys={[this.state.current]}
+                        mode="horizontal"
+                        style={{backgroundColor: "#f4f4f4"}}
+                    >
+                        <Menu.Item key="random">
+                            <Icon type="bulb" />发现
+                        </Menu.Item>
+                        <Menu.Item key="popular">
+                            <Icon type="heart-o" />热门
+                        </Menu.Item>
+                    </Menu>
                 </div>
                 <div className="content">
                     
@@ -45,6 +73,11 @@ export default class Index extends React.Component < initProps, initState > {
         );
     }
 }
+
+ReactDOM.render(
+    <Nav />,
+    document.getElementById("nav")
+);
 
 ReactDOM.render(
     <Index />,

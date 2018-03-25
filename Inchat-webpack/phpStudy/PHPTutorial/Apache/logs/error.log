@@ -4256,3 +4256,16 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Sat Mar 24 09:54:17.941008 2018] [core:notice] [pid 1952:tid 708] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
 [Sat Mar 24 09:54:17.958052 2018] [mpm_winnt:notice] [pid 1952:tid 708] AH00418: Parent: Created child process 21552
 [Sat Mar 24 09:54:19.725754 2018] [mpm_winnt:notice] [pid 21552:tid 704] AH00354: Child: Starting 150 worker threads.
+[Sat Mar 24 13:33:50.682318 2018] [mpm_winnt:crit] [pid 21552:tid 704] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Sun Mar 25 10:11:58.293766 2018] [core:warn] [pid 5068:tid 884] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Mar 25 10:11:58.835205 2018] [mpm_winnt:notice] [pid 5068:tid 884] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Sun Mar 25 10:11:58.835205 2018] [mpm_winnt:notice] [pid 5068:tid 884] AH00456: Server built: Jul  1 2016 16:42:20
+[Sun Mar 25 10:11:58.835205 2018] [core:notice] [pid 5068:tid 884] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Sun Mar 25 10:11:58.868293 2018] [mpm_winnt:notice] [pid 5068:tid 884] AH00418: Parent: Created child process 7968
+[Sun Mar 25 10:12:01.263667 2018] [mpm_winnt:notice] [pid 7968:tid 872] AH00354: Child: Starting 150 worker threads.
+[Sun Mar 25 17:33:50.707623 2018] [core:warn] [pid 22520:tid 700] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Mar 25 17:33:51.456115 2018] [mpm_winnt:notice] [pid 22520:tid 700] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Sun Mar 25 17:33:51.456115 2018] [mpm_winnt:notice] [pid 22520:tid 700] AH00456: Server built: Jul  1 2016 16:42:20
+[Sun Mar 25 17:33:51.456115 2018] [core:notice] [pid 22520:tid 700] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Sun Mar 25 17:33:51.773960 2018] [mpm_winnt:notice] [pid 22520:tid 700] AH00418: Parent: Created child process 6408
+[Sun Mar 25 17:33:57.995217 2018] [mpm_winnt:notice] [pid 6408:tid 712] AH00354: Child: Starting 150 worker threads.

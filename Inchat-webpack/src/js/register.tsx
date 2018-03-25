@@ -9,7 +9,7 @@ import { Input, Icon, Modal, Form, Button, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { Login } from "../module/login/login";
 import PopupTitle from "../module/popupTitle/popupTitle";
-import { Ajax } from "../module/common";
+import { Ajax, toURL } from "../module/common";
 import "antd/dist/antd.less";
 import "../css/register.css";
 
@@ -28,7 +28,10 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
 
         return(
             <div className="register-box fadeIn animated">
-                <div className="register-title">注册</div>
+                <div className="register-title">
+                    <a onClick={toURL.bind(null)}>Inchat</a>
+                    <span>注册</span>
+                </div>
                 <div className="register-form-box">
                     <Form onSubmit={this.handleSubmit.bind(this)} className="register-form">
                         <FormItem>
@@ -125,6 +128,7 @@ class RegisterForm extends React.Component<initProps & FormComponentProps, {}> {
      */
     showLoginModal(event) {
         event.preventDefault();
+        event.stopPropagation();
         new Promise((success, error) => {
             this.setState({     //点击【登录】后正常打开登录弹出框
                 showModal: true,

@@ -22,7 +22,14 @@ body {
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
     font-weight: bold;
+    overflow: hidden;
+}
+.register-title a {
+    float: left;
     font-size: 18px;
+}
+.register-title span {
+    float: right;
 }
 .register-form {
     max-width: auto;
