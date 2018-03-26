@@ -31,3 +31,15 @@
     right: 0;
     top: 10px;
 }
+
+/* 内容区域 */
+.container {
+    margin: 20px auto;
+}
+.container li {
+    float: left;
+    margin: 0 0 20px 20px;
+}
+.container li:nth-child(5n+1) {
+    margin-left: 0;
+}

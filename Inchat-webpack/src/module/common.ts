@@ -88,15 +88,25 @@ const Ajax = (params: {
 
 /**
  * @description 通过【location.href】进行页面跳转
- * @param filename 转入的页面的文件名
+ * @param filename 转入的页面的文件名，有无【.html】后缀均可
+ * @param newTarget 是否在新的窗口打开页面
  */
-const toURL = (filename: string): boolean => {
+const toURL = (filename: string, newTarget: boolean = false): boolean => {
     const href = window.location.href;
 
     if (typeof filename !== "string") {
-        filename = "index";
+        filename = "index.html";
+    } else if (!filename.includes(".html")) {
+        filename += ".html"
     }
-    window.location.href = href.substr(0, href.lastIndexOf("/") + 1) + filename + ".html";
+
+    const url = href.substr(0, href.lastIndexOf("/") + 1) + filename;
+
+    if (newTarget) {
+        window.open(url);
+    } else {
+        window.location.href = url;
+    }
 
     return false;
 }

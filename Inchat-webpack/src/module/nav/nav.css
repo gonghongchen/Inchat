@@ -17,10 +17,10 @@
     color: #03A9F4;
     cursor: pointer;
 }
-.user-entry {
-    margin-right: 20px;
-}
 .user-entry, .user-center {
     float: right;
     line-height: 30px;
+}
+.user-center {
+    margin-left: 10px;
 }

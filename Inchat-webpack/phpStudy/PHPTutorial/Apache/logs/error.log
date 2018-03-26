@@ -4270,3 +4270,10 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Sun Mar 25 17:33:51.773960 2018] [mpm_winnt:notice] [pid 22520:tid 700] AH00418: Parent: Created child process 6408
 [Sun Mar 25 17:33:57.995217 2018] [mpm_winnt:notice] [pid 6408:tid 712] AH00354: Child: Starting 150 worker threads.
 [Sun Mar 25 21:09:58.256165 2018] [:error] [pid 6408:tid 2156] [client ::1:57367] PHP Parse error:  syntax error, unexpected '' (T_ENCAPSED_AND_WHITESPACE), expecting identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\getUsername.php on line 25
+[Sun Mar 25 23:16:32.576854 2018] [mpm_winnt:crit] [pid 6408:tid 712] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Mon Mar 26 10:21:20.813129 2018] [core:warn] [pid 18936:tid 836] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Mon Mar 26 10:21:21.106910 2018] [mpm_winnt:notice] [pid 18936:tid 836] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Mon Mar 26 10:21:21.106910 2018] [mpm_winnt:notice] [pid 18936:tid 836] AH00456: Server built: Jul  1 2016 16:42:20
+[Mon Mar 26 10:21:21.106910 2018] [core:notice] [pid 18936:tid 836] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Mon Mar 26 10:21:21.116937 2018] [mpm_winnt:notice] [pid 18936:tid 836] AH00418: Parent: Created child process 5460
+[Mon Mar 26 10:21:22.776353 2018] [mpm_winnt:notice] [pid 5460:tid 784] AH00354: Child: Starting 150 worker threads.
