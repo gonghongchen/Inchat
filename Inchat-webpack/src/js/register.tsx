@@ -13,6 +13,9 @@ import { Ajax, toURL } from "../module/common";
 import "antd/dist/antd.less";
 import "../css/register.css";
 
+if (localStorage.userInfor) {
+    toURL("index");
+}
 
 interface initProps {}
 

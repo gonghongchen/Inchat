@@ -87,7 +87,7 @@ const Ajax = (params: {
 };
 
 /**
- * @description 通过【location.href】进行页面跳转
+ * @description 跳转到/打开指定页面
  * @param filename 转入的页面的文件名，有无【.html】后缀均可
  * @param newTarget 是否在新的窗口打开页面
  */

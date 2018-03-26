@@ -11,21 +11,34 @@ import { toURL } from "../common";
 import { Dropdown, Menu, Icon } from 'antd';
 
 const clickMenu = ({ key }) => {
-        if (key === "logout") { //处理退出
-            localStorage.removeItem("userInfor");
-            window.location.reload();
+        switch (key) {
+            case "newMess":
+                toURL("index");
+                break;
+            case "myChat":
+                toURL("myChat");
+                break;
+            case "infor":
+                toURL("index");
+                break;
+            case "logout":
+                localStorage.removeItem("userInfor");
+                toURL("index");
+                break;
+            default:
+                break;
         }
     },
     menu = (
     <Menu onClick={clickMenu}>
-        <Menu.Item>
-            <a target="_blank" href="#">未读消息</a>
+        <Menu.Item key="newMess">
+            <a>未读消息</a>
         </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" href="#">我的群聊</a>
+        <Menu.Item key="myChat">
+            <a>我的群聊</a>
         </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" href="#">个人信息</a>
+        <Menu.Item key="infor">
+            <a>个人信息</a>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="logout">

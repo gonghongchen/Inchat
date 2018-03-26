@@ -4277,3 +4277,12 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Mon Mar 26 10:21:21.106910 2018] [core:notice] [pid 18936:tid 836] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
 [Mon Mar 26 10:21:21.116937 2018] [mpm_winnt:notice] [pid 18936:tid 836] AH00418: Parent: Created child process 5460
 [Mon Mar 26 10:21:22.776353 2018] [mpm_winnt:notice] [pid 5460:tid 784] AH00354: Child: Starting 150 worker threads.
+[Mon Mar 26 11:49:43.991909 2018] [:error] [pid 5460:tid 2148] [client ::1:50732] PHP Notice:  Undefined index: username in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 24
+[Mon Mar 26 11:49:43.992908 2018] [:error] [pid 5460:tid 2148] [client ::1:50732] PHP Notice:  Undefined index: password in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 25
+[Mon Mar 26 11:51:57.527575 2018] [mpm_winnt:crit] [pid 5460:tid 784] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Mon Mar 26 18:12:00.829083 2018] [core:warn] [pid 12992:tid 792] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Mon Mar 26 18:12:01.105819 2018] [mpm_winnt:notice] [pid 12992:tid 792] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Mon Mar 26 18:12:01.105819 2018] [mpm_winnt:notice] [pid 12992:tid 792] AH00456: Server built: Jul  1 2016 16:42:20
+[Mon Mar 26 18:12:01.105819 2018] [core:notice] [pid 12992:tid 792] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Mon Mar 26 18:12:01.114852 2018] [mpm_winnt:notice] [pid 12992:tid 792] AH00418: Parent: Created child process 15896
+[Mon Mar 26 18:12:02.381215 2018] [mpm_winnt:notice] [pid 15896:tid 796] AH00354: Child: Starting 150 worker threads.
