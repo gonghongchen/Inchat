@@ -25,18 +25,29 @@ $userpwd = $_POST["password"];
 $sql = "SELECT password FROM user where username='" . $username . "'";
 $result = $conn->query($sql);
 $dataCount = $result->num_rows;
+$data = array();	//注册状态及相关信息
 
 if ($dataCount > 0) {	//有聊天记录数据
 	// 此用户名已注册
-	echo "registered";
+	
+	$data["mark"] = "registered";
+	echo json_encode($data);
 } else{
 	//注册
 	$sql2 = "INSERT INTO user (username, password) VALUES ('" . $username . "', '" . $userpwd . "')";
 
 	if ($conn->query($sql2) === TRUE) {
-		echo "success";
+
+		$sql3 = "SELECT id FROM user where username='" . $username . "'";
+		$selResult = $conn->query($sql3);
+		$row = $selResult->fetch_assoc();
+
+		$data["userId"] = $row["id"];
+		$data["mark"] = "success";
+		echo json_encode($data);
 	} else {
-		echo "error";
+		$data["mark"] = "error";
+		echo json_encode($data);
 	}
 }
 

@@ -4286,3 +4286,14 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Mon Mar 26 18:12:01.105819 2018] [core:notice] [pid 12992:tid 792] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
 [Mon Mar 26 18:12:01.114852 2018] [mpm_winnt:notice] [pid 12992:tid 792] AH00418: Parent: Created child process 15896
 [Mon Mar 26 18:12:02.381215 2018] [mpm_winnt:notice] [pid 15896:tid 796] AH00354: Child: Starting 150 worker threads.
+[Mon Mar 26 23:05:45.678562 2018] [mpm_winnt:crit] [pid 15896:tid 796] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Tue Mar 27 09:34:18.416305 2018] [core:warn] [pid 7580:tid 776] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Tue Mar 27 09:34:18.694044 2018] [mpm_winnt:notice] [pid 7580:tid 776] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Tue Mar 27 09:34:18.694044 2018] [mpm_winnt:notice] [pid 7580:tid 776] AH00456: Server built: Jul  1 2016 16:42:20
+[Tue Mar 27 09:34:18.694044 2018] [core:notice] [pid 7580:tid 776] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Tue Mar 27 09:34:18.704072 2018] [mpm_winnt:notice] [pid 7580:tid 776] AH00418: Parent: Created child process 3728
+[Tue Mar 27 09:34:20.110325 2018] [mpm_winnt:notice] [pid 3728:tid 768] AH00354: Child: Starting 150 worker threads.
+[Tue Mar 27 09:45:38.467774 2018] [:error] [pid 3728:tid 2152] [client 127.0.0.1:51227] PHP Notice:  Array to string conversion in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 41, referer: http://localhost:8090/index.html
+[Tue Mar 27 09:57:59.249987 2018] [:error] [pid 3728:tid 2152] [client 127.0.0.1:52366] PHP Notice:  Array to string conversion in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 41, referer: http://localhost:8090/index.html
+[Tue Mar 27 09:59:58.396430 2018] [:error] [pid 3728:tid 2160] [client ::1:52564] PHP Notice:  Undefined index: username in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 24
+[Tue Mar 27 09:59:58.396430 2018] [:error] [pid 3728:tid 2160] [client ::1:52564] PHP Notice:  Undefined index: password in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 25

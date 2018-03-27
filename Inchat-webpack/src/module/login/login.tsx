@@ -105,20 +105,24 @@ class LoginForm extends React.Component<initProps & FormComponentProps, {}> {
                     data: values,
                     method: "post",
                     success(val) {
-                        if(val === "success") {
+                        const data = JSON.parse(val),
+                            mark = data.mark;
+
+                        if(mark === "success") {
                             //存储一些用户信息在本地
                             localStorage.userInfor = JSON.stringify({
+                                userId: data.userId,
                                 username: values.username,
                                 loginTime: new Date().getTime()
                             });
                             
                             window.location.reload();
-                        } else if(val === "error") {
+                        } else if(mark === "error") {
                             PopupTitle.show({
                                 content: "用户名或者密码错误",
                                 cate: "error"
                             });
-                        } else if(val === "noUser") {
+                        } else if(mark === "noUser") {
                             PopupTitle.show({
                                 content: "用户名不存在",
                                 cate: "warning"

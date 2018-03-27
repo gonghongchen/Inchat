@@ -7,7 +7,7 @@
 
 session_start();
 
-if (isset($_SESSION['username'])) {	//有聊天记录数据
+if (isset($_SESSION['username'])) {
 	echo $_SESSION['username'];
 } else{
 	echo "noLogin";

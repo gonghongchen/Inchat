@@ -1,0 +1,69 @@
+/**
+ * @description 我的群聊
+ * @author ghc
+ */
+
+.chat-box {
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+/* 左侧 */
+.chat-left {
+    float: left;
+    width: 260px;
+}
+/* 个人信息 */
+.chat-self {
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+}
+/* 头像 */
+.chat-self > span {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+}
+/* 用户名 */
+.chat-self > h3 {
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 16px;
+}
+/* 创建&加入数量 */
+.chat-num {
+    text-align: center;
+}
+.chat-num > span > i {
+    margin-right: 3px;
+    color: #03a9f4;
+    font-weight: bold;
+    font-style: normal;
+}
+.chat-num > span:nth-child(2) {
+    margin: 0 20px;
+    font-weight: 100;
+}
+/* 个人标签 */
+.chat-style {
+    margin: 20px 0;
+}
+.chat-style > span {
+    display: inline-block;
+    margin: 3px 5px;
+    padding: 0 5px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #ff404a;
+}
+/* 按钮 */
+.chat-self > button {
+    width: 100%;
+}
+
+/* 右侧 */
+.chat-right {
+    margin-left: 280px;
+    border: 1px solid green;
+}

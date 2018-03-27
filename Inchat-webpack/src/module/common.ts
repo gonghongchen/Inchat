@@ -1,8 +1,8 @@
 /**
  * @description 网址头部
  */
-const requestHeader: string = "/php/";  //dev
-// const requestHeader: string = "http://localhost/php/";  //prod
+// const requestHeader: string = "/php/";  //dev
+const requestHeader: string = "http://localhost/php/";  //prod
 
 /**
  * @description 判断是否为空对象
@@ -102,7 +102,7 @@ const toURL = (filename: string, newTarget: boolean = false): boolean => {
 
     const url = href.substr(0, href.lastIndexOf("/") + 1) + filename;
 
-    if (newTarget) {
+    if (newTarget && typeof newTarget === "boolean") {
         window.open(url);
     } else {
         window.location.href = url;

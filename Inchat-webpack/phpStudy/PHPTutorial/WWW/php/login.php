@@ -24,9 +24,10 @@ if ($conn->connect_error) {
 $username = $_POST["username"];
 $userpwd = $_POST["password"];
 
-$sql = "SELECT password FROM user where username='" . $username . "'";
+$sql = "SELECT password, id FROM user where username='" . $username . "'";
 $result = $conn->query($sql);
 $dataCount = $result->num_rows;
+$data = array();	//登录状态及相关信息
 
 if ($dataCount > 0) {	//有聊天记录数据
 	// 输出数据
@@ -34,13 +35,18 @@ if ($dataCount > 0) {	//有聊天记录数据
 		if($row["password"] === $userpwd) {
 			// 通过 session 存储当前登录的用户名
 			$_SESSION['username'] = $username;
-			echo "success";
+
+			$data["userId"] = $row["id"];
+			$data["mark"] = "success";
+			echo json_encode($data);
 		} else {
-			echo "error";
+			$data["mark"] = "error";
+			echo json_encode($data);
 		}
 	}
 } else{
-	echo "noUser";
+	$data["mark"] = "noUser";
+	echo json_encode($data);
 }
 
 $conn->close();
