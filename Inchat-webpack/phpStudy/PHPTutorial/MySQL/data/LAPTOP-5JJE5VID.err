@@ -148,3 +148,30 @@ Version: '5.5.53'  socket: ''  port: 3306  MySQL Community Server (GPL)
 180327  9:34:18 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
 180327  9:34:18 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
 180327  9:34:18 [Note] Server socket created on IP: '0.0.0.0'.
+180327 17:30:18 [Note] Plugin 'FEDERATED' is disabled.
+180327 17:30:18 InnoDB: The InnoDB memory heap is disabled
+180327 17:30:18 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180327 17:30:18 InnoDB: Compressed tables use zlib 1.2.3
+180327 17:30:18 InnoDB: Initializing buffer pool, size = 47.0M
+180327 17:30:18 InnoDB: Completed initialization of buffer pool
+180327 17:30:18 InnoDB: highest supported file format is Barracuda.
+180327 17:30:18  InnoDB: Waiting for the background threads to start
+180327 17:30:19 InnoDB: 5.5.53 started; log sequence number 1595675
+180327 17:30:19 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180327 17:30:19 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180327 17:30:19 [Note] Server socket created on IP: '0.0.0.0'.
+180327 17:30:19 [Note] Event Scheduler: Loaded 0 events
+180327 17:30:19 [Note] F:\Git\Inchat\Inchat-webpack\phpStudy\PHPTutorial\MySQL\bin\mysqld.exe: ready for connections.
+Version: '5.5.53'  socket: ''  port: 3306  MySQL Community Server (GPL)
+180328  9:11:22 [Note] Plugin 'FEDERATED' is disabled.
+180328  9:11:22 InnoDB: The InnoDB memory heap is disabled
+180328  9:11:22 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180328  9:11:22 InnoDB: Compressed tables use zlib 1.2.3
+180328  9:11:22 InnoDB: Initializing buffer pool, size = 47.0M
+180328  9:11:22 InnoDB: Completed initialization of buffer pool
+180328  9:11:22 InnoDB: highest supported file format is Barracuda.
+180328  9:11:22  InnoDB: Waiting for the background threads to start
+180328  9:11:23 InnoDB: 5.5.53 started; log sequence number 1595675
+180328  9:11:23 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180328  9:11:23 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180328  9:11:23 [Note] Server socket created on IP: '0.0.0.0'.

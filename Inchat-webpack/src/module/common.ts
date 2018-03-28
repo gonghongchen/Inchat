@@ -1,8 +1,8 @@
 /**
  * @description 网址头部
  */
-// const requestHeader: string = "/php/";  //dev
-const requestHeader: string = "http://localhost/php/";  //prod
+const requestHeader: string = "/php/";  //dev
+// const requestHeader: string = "http://localhost/php/";  //prod
 
 /**
  * @description 判断是否为空对象
@@ -87,7 +87,7 @@ const Ajax = (params: {
 };
 
 /**
- * @description 跳转到/打开指定页面
+ * @description 跳转到/打开指定页面（同目录下）
  * @param filename 转入的页面的文件名，有无【.html】后缀均可
  * @param newTarget 是否在新的窗口打开页面
  */

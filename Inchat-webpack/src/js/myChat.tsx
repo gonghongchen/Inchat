@@ -10,12 +10,51 @@ import "../css/style.css";
 
 import Nav from "../module/nav/nav";
 import "../css/myChat.css";
-import { Avatar, Button, Icon } from 'antd';
+import { Avatar, Button, Icon, Card } from 'antd';
+import { Ajax, toURL } from "../module/common";
+
+const { Meta } = Card;
 
 interface initProps {};
 interface initState {};
 
 export default class MyChat extends React.Component < initProps, initState > {
+    /**
+     * @description 从数据库获取到的各个卡片的内容数据
+     */
+    cardData = (() => {
+        const data = [
+            {
+                chatId: 28,
+                coverPic: "1.jpg",
+                avatar: "1.jpg",
+                title: "林允儿",
+                description: "一个美丽可爱有趣的女孩子"
+            }
+        ];
+
+        const tData = new Array(9);
+        tData.fill(data[0]);
+        return tData;
+    })()
+    /**
+     * @description 跳转到点击的群聊页面
+     * @param chatId 对应群聊的ID号
+     */
+    toDetailPage(chatId: number) {
+        console.log("chatId: ", chatId);
+        toURL(`chat.html?chatId=${chatId}`, true);
+    }
+    /**
+     * @description 跳转到【设置 | 数据统计】页面
+     * @param cate 点击的按钮类别
+     */
+    doChat(cate: string, event) {
+        event.stopPropagation();
+        
+        console.log(cate);
+        return false;
+    }
     render(): JSX.Element {
         return (
             <div className="max-width chat-box">
@@ -37,7 +76,56 @@ export default class MyChat extends React.Component < initProps, initState > {
                     </div>
                 </div>
                 <div className="chat-right">
-
+                    <div className="chat-cate">
+                        <span className="cate-title">我创建的</span>
+                        <ul className="chat-list">
+                            {
+                                this.cardData.map(item => (
+                                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
+                                        <Card
+                                            style={{ width: 250 }}
+                                            cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
+                                            hoverable={true}
+                                            bodyStyle={{padding: 20}}
+                                            actions={[<span onClick={this.doChat.bind(this, "setting")}><Icon type="setting" />&nbsp;设置</span>, <span onClick={this.doChat.bind(this, "chart")}><Icon type="bar-chart" />&nbsp;数据统计</span>]}
+                                        >
+                                            <Meta
+                                                avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
+                                                title={ item.title }
+                                                description={ item.description }
+                                                style={{ height: 80 }}
+                                            />
+                                        </Card>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                    <div className="chat-cate">
+                        <span className="cate-title">我加入的</span>
+                        <ul className="chat-list">
+                            {
+                                this.cardData.map(item => (
+                                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
+                                        <Card
+                                            style={{ width: 250 }}
+                                            cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
+                                            hoverable={true}
+                                            bodyStyle={{padding: 20}}
+                                            actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;99</span>, <span title="讨论量"><Icon type="message" />&nbsp;999+</span>]}
+                                        >
+                                            <Meta
+                                                avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
+                                                title={ item.title }
+                                                description={ item.description }
+                                                style={{ height: 80 }}
+                                            />
+                                        </Card>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         )

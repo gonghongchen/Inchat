@@ -33,13 +33,13 @@
 }
 
 /* 内容区域 */
-.container {
+.chat-list {
     margin: 20px auto;
 }
-.container li {
+.chat-list li {
     float: left;
     margin: 0 0 20px 20px;
 }
-.container li:nth-child(5n+1) {
+.chat-list li:nth-child(5n+1) {
     margin-left: 0;
 }

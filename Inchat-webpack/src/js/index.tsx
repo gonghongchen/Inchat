@@ -62,7 +62,7 @@ export default class Index extends React.Component < initProps, initState > {
      */
     toDetailPage(chatId: number) {
         console.log("chatId: ", chatId);
-        toURL(`index.html?chatId=${chatId}`, true);
+        toURL(`chat.html?chatId=${chatId}`, true);
     }
     render(): JSX.Element {
         return (
@@ -100,7 +100,7 @@ export default class Index extends React.Component < initProps, initState > {
                         />
                     </div>
                 </div>
-                <ul className="max-width container">
+                <ul className="max-width chat-list">
                     {
                         this.cardData.map(item => (
                             <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
@@ -108,12 +108,14 @@ export default class Index extends React.Component < initProps, initState > {
                                     style={{ width: 260 }}
                                     cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
                                     hoverable={true}
+                                    bodyStyle={{padding: 20}}
+                                    actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;99</span>, <span title="讨论量"><Icon type="message" />&nbsp;999+</span>]}
                                 >
                                     <Meta
                                         avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
                                         title={ item.title }
                                         description={ item.description }
-                                        style={{ height: 120 }}
+                                        style={{ height: 80 }}
                                     />
                                 </Card>
                             </li>

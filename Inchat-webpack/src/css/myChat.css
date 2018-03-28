@@ -65,5 +65,29 @@
 /* 右侧 */
 .chat-right {
     margin-left: 280px;
-    border: 1px solid green;
+}
+.chat-cate {
+    margin-bottom: 20px;
+    padding: 0 20px;
+    background-color: #fff;
+}
+/* 区块标题 */
+.cate-title {
+    display: block;
+    padding: 20px 0 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 1px solid #e4e4e4;
+}
+/* 群聊列表 */
+.chat-list {
+    margin: 20px auto 0 auto;
+    overflow: hidden;
+}
+.chat-list > li {
+    float: left;
+    margin: 0 0 20px 20px;
+}
+.chat-list > li:nth-child(4n+1) {
+    margin-left: 0;
 }

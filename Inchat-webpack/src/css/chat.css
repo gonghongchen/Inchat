@@ -1,0 +1,124 @@
+/**
+ * @description 我的群聊
+ * @author ghc
+ */
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 0;
+} /* 这是针对缺省样式 (必须的) */
+::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.3);
+} /* 滚动条的滑轨背景颜色 */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); 
+} /* 滑块颜色 */
+::-webkit-scrollbar-button {
+    background-color: rgba(0, 0, 0, 0);
+} /* 滑轨两头的监听按钮颜色 */
+::-webkit-scrollbar-corner {
+    background-color: rgba(0, 0, 0, 0);
+} /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+
+/* 聊天窗口 */
+.chat-box {
+    margin: 20px auto;
+    overflow: hidden;
+    background-image: linear-gradient(-225deg, #81D4FA 0%, #B3E5FC 100%);
+}
+/* 群标题 */
+.chat-title {
+    padding: 0 20px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    /* background-color: #03a9f4; */
+    background-image: linear-gradient(to right, #0acffe 0%, #03a9f4 100%);
+}
+/* 聊天窗口 */
+.chat-window {
+    float: left;
+    width: 800px;
+    height: 800px;
+    padding: 20px;
+    border-right: 1px solid #0acffe;
+    /* background-color: #fff; */
+}
+/* 聊天记录 */
+.chat-window-mess {
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.chat-window-mess > li {
+    float: left;
+    width: 80%;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.chat-window-mess > li.right {
+    float: right;
+}
+.chat-window-mess > li > span {
+    float: left;
+}
+.chat-window-mess > li.right > span {
+    float: right;
+}
+.infor {
+    margin-left: 50px;
+}
+.right > .infor {
+    margin: 0 50px 0 0;
+}
+.infor > span {
+    display: block;
+}
+.right > .infor > span {
+    text-align: right;
+}
+.infor > p {
+    margin: 5px 0 0 0;
+    padding: 10px;
+    border-radius: 0 10px 10px 10px;
+    border: 1px solid #03a9f4;
+    background-color: #B3E5FC;
+}
+.right > .infor > p {
+    border-radius: 10px 0 10px 10px;
+}
+/* 编辑框区域 */
+.chat-window-edit {
+    height: 20%;
+    border-top: 1px solid #0acffe;
+}
+/* 表情等icon */
+.icons {
+    padding: 10px 0;
+}
+.icons > i {
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.icons > i:nth-child(2) {
+    font-size: 18px;
+}
+.icons > i:hover {
+    color: #03a9f4;
+}
+/* 输入框 */
+.chat-window-edit  > textarea {
+    width: 100%;
+    height: 40%;
+    background-color: unset;
+    border: none;
+    resize: none;
+    outline: none;
+}
+/* 发送按钮等 */
+.buttons {
+    text-align: right;
+}
