@@ -36,7 +36,7 @@
 .chat-list {
     margin: 20px auto;
 }
-.chat-list li {
+.chat-list > li {
     float: left;
     margin: 0 0 20px 20px;
 }

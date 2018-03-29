@@ -91,3 +91,9 @@
 .chat-list > li:nth-child(4n+1) {
     margin-left: 0;
 }
+
+/* 上传封面图片按钮 */
+.ant-form-item-control > span, .ant-form-item-control > span > button {
+    display: block;
+    width: 100%;
+}

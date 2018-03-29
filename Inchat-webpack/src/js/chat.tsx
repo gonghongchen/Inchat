@@ -119,7 +119,7 @@ export default class Chat extends React.Component < initProps, initState > {
                     </div>
                 </div>
                 <div className="chat-members">
-                    <p className="module-title">成员</p>
+                    <p className="module-title">关注</p>
                     <ul>
                         <li>
                             <Avatar src={require("../res/img/avatar/1.jpg")} size="large" />
