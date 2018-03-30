@@ -156,27 +156,9 @@ interface initProps2 {
 
 class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
     state = {
+        coverPic: "",
         modalVisible: false,
-        previewVisible: false,
-        previewImage: '',
-        fileList: [{
-            size: 1000,
-            type: "png",
-            uid: -1,
-            name: 'xxx.png',
-            status: "done",
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        }]
     }
-    handleCancel = () => this.setState({ previewVisible: false })
-
-    handlePreview = (file) => {
-        this.setState({
-            previewImage: file.url || file.thumbUrl,
-            previewVisible: true,
-        });
-    }
-      handleChange = ({ fileList }) => this.setState({ fileList })
     /**
      * @description 设置state中的modalVisible值
      * @param modalVisible 显示与否
@@ -192,6 +174,50 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
         this.setState({ modalVisible: nextProps.modalVisible });
     }
     /**
+     * @description 压缩图片并转为base64格式
+     * @param pic 要压缩处理的图片
+     * @param resWidth 绘制的宽度
+     */
+    compressPic(pic, resWidth: number = 400): string {
+        let width = pic.width,
+            height = pic.height,
+            rotio = Number.parseFloat((width / height).toFixed(2)), //图片原始宽高比例，精确到两位小数
+            resHeight = Math.floor(resWidth / rotio),     //绘制的高度
+            canvas = document.createElement("canvas"),
+            ctx = canvas.getContext("2d");
+
+        canvas.width = resWidth;
+        canvas.height = resHeight;
+
+        ctx.drawImage(pic, 0, 0, resWidth, resHeight);  //根据原图绘制
+
+        return canvas.toDataURL("image/jpeg", 0.7); //转为base64格式并返回
+    }
+    /**
+     * @description 选择图片
+     * @param event 
+     */
+    selectPic(event): void {
+        let img = document.createElement("img"),
+            coverPic = "";
+
+        img.src = window.URL.createObjectURL(event.target.files[0]);
+
+        new Promise((resolve, reject) => {
+            img.onload = () => {
+                resolve(this.compressPic(img));
+                img = null;
+            };
+        }).then((coverPic) => {
+            this.setState({
+                coverPic
+            });
+        });
+    }
+    doClickSelPic(fileInput) {
+        fileInput.click();
+    }
+    /**
      * @description 处理表单提交
      * @param event 
      */
@@ -202,7 +228,8 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                values.coverPic = this.state.coverPic;
+                // console.log('Received values of form: ', values);
                 Ajax({
                     url: "createChat.php",
                     data: values,
@@ -237,11 +264,10 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
     render(): JSX.Element {
         const { getFieldDecorator } = this.props.form,
             FormItem = Form.Item,
-            { previewVisible, previewImage, fileList } = this.state,
             uploadButton = (
                 <div>
                   <Icon type="plus" />
-                  <div className="ant-upload-text">Upload</div>
+                  <div className="ant-upload-text">上传封面图片</div>
                 </div>
             );
 
@@ -274,27 +300,17 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
                     </FormItem>
                     <FormItem className="upload-cover-pic">
                         {getFieldDecorator('coverPic', {
-                            rules: [{ required: false, whitespace:true, min:20, message: '请输入正确的群简介！' }],
+                            rules: [{ required: true, whitespace:true, min:20, message: '请选择封面图片！' }],
                         })(
-                            <Button disabled>
+                            <Button onClick={ () => { this.doClickSelPic.bind(this)(this.refs.fileInput) } }>
                                 <Icon type="upload" />上传封面图片
+                                <input type="file" onChange={this.selectPic.bind(this)} ref="fileInput" style={{ display: "none" }} />
                             </Button>
                         )}
                     </FormItem>
-                    <FormItem>
-                        <Upload
-                            action="//jsonplaceholder.typicode.com/posts/"
-                            listType="picture-card"
-                            // fileList={fileList}
-                            onPreview={this.handlePreview}
-                            onChange={this.handleChange}
-                            >
-                            {fileList.length >= 1 ? null : uploadButton}
-                        </Upload>
-                        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-                            <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                        </Modal>
-                    </FormItem>
+                    {
+                        this.state.coverPic ? <img src={this.state.coverPic} /> : ""
+                    }
                 </Form>
             </Modal>
         )
