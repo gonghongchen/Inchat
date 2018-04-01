@@ -43,3 +43,9 @@
 .chat-list li:nth-child(5n+1) {
     margin-left: 0;
 }
+/* 封面图片 */
+.chatCoverPic {
+    height: 160px;
+    background-position: center;
+    background-size: cover;
+}

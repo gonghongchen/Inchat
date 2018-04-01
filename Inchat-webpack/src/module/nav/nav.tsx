@@ -19,7 +19,7 @@ const clickMenu = ({ key }) => {
                 toURL("myChat");
                 break;
             case "infor":
-                toURL("index");
+                toURL("userInfor");
                 break;
             case "logout":
                 localStorage.removeItem("userInfor");
@@ -32,13 +32,13 @@ const clickMenu = ({ key }) => {
     menu = (
     <Menu onClick={clickMenu}>
         <Menu.Item key="newMess">
-            <a>未读消息</a>
+            <a>我的私信</a>
         </Menu.Item>
         <Menu.Item key="myChat">
             <a>我的群聊</a>
         </Menu.Item>
         <Menu.Item key="infor">
-            <a>个人信息</a>
+            <a>我的资料</a>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="logout">

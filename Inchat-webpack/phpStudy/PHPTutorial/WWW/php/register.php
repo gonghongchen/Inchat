@@ -5,6 +5,8 @@
  * @author ghc
  */
 
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $password = "root";
@@ -41,6 +43,10 @@ if ($dataCount > 0) {	//有聊天记录数据
 		$sql3 = "SELECT id FROM user where username='" . $username . "'";
 		$selResult = $conn->query($sql3);
 		$row = $selResult->fetch_assoc();
+		
+		// 通过 session 存储当前登录的用户名及用户ID
+		$_SESSION['username'] = $username;
+		$_SESSION['userId'] = $row["id"];
 
 		$data["userId"] = $row["id"];
 		$data["mark"] = "success";

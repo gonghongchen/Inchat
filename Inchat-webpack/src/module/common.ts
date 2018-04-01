@@ -111,8 +111,75 @@ const toURL = (filename: string, newTarget: boolean = false): boolean => {
     return false;
 }
 
+/**
+ * @description 处理选择的图片——压缩至指定大小并转为base64格式
+ * @param callback 回调函数，默认传入参数为转换后的图片数据
+ * @param resWidth 压缩后的图片宽度（高度会根据此宽度按照原图比例自动计算）
+ * @param event 
+ */
+const doSelectPic = (callback: Function, resWidth: number, event?: any) => {
+    let img = document.createElement("img"),
+            coverPic = "";
+
+    img.src = window.URL.createObjectURL(event.target.files[0]);
+
+    new Promise((resolve, reject) => {
+        img.onload = () => {
+            resolve(img);
+            img = null;
+        };
+    }).then((img: any) => {
+        let width = img.width,
+            height = img.height,
+            rotio = Number.parseFloat((width / height).toFixed(2)), //图片原始宽高比例，精确到两位小数
+            resHeight = Math.floor(resWidth / rotio),     //绘制的高度
+            canvas = document.createElement("canvas"),
+            ctx = canvas.getContext("2d");
+
+        canvas.width = resWidth;
+        canvas.height = resHeight;
+
+        ctx.drawImage(img, 0, 0, resWidth, resHeight);  //根据原图绘制
+
+        callback(canvas.toDataURL("image/jpeg", 0.7)); //转为base64格式并传入回调
+    });
+};
+
+/**
+ * @description 在进行关键操作前需要进行后台登录验证
+ */
+const checkLogin = (): boolean => {
+    let userInfor = null,
+        res:boolean = false;
+
+    try {
+        userInfor = JSON.parse(localStorage.userInfor);
+        Ajax({
+            url: "checkLogin.php",
+            data: {
+                userId: userInfor.userId
+            },
+            method: "post",
+            success(val) {
+                if (val === "loggedIn") {
+                    res = true;
+                }
+            },
+            error(status) {
+                console.log("error status: ", status);
+            }
+        });
+    } catch (error) {
+        console.log("error: ", error);
+    }
+
+    return res;
+}
+
 export {
     requestHeader,
     Ajax,
-    toURL
+    toURL,
+    doSelectPic,
+    checkLogin
 };

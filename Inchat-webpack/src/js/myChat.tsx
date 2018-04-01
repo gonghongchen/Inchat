@@ -12,7 +12,7 @@ import Nav from "../module/nav/nav";
 import "../css/myChat.css";
 import { Avatar, Button, Icon, Card, Modal, Form, Input, Upload } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { Ajax, toURL } from "../module/common";
+import { Ajax, toURL, doSelectPic, checkLogin } from "../module/common";
 import PopupTitle from "../module/popupTitle/popupTitle";
 
 const { Meta } = Card,
@@ -31,22 +31,30 @@ class MyChat extends React.Component < initProps, initState > {
         });
     }
     /**
-     * @description 从数据库获取到的各个卡片的内容数据
+     * @description 从数据库获取到的各个群聊卡片的内容数据
      */
-    cardData = (() => {
-        const data = [
-            {
-                chatId: 28,
-                coverPic: "1.jpg",
-                avatar: "1.jpg",
-                title: "林允儿",
-                description: "一个美丽可爱有趣的女孩子"
-            }
-        ];
+    chatData = (() => {
+        let chatData = null;
 
-        const tData = new Array(9);
-        tData.fill(data[0]);
-        return tData;
+        Ajax({
+            url: "selectChat.php",
+            data: {
+                target: "user", //查询的对象是某个确定的用户
+                userId: "current"   //此用户就是当前登录的用户
+            },
+            method: "post",
+            success(data) {
+                data = JSON.parse(data);
+                if (data.mark === "haveData") {
+                    chatData = data.value;
+                }
+            },
+            error(status) {
+                console.log("error: ", status);
+            }
+        });
+
+        return chatData;
     })()
     /**
      * @description 跳转到点击的群聊页面
@@ -70,6 +78,30 @@ class MyChat extends React.Component < initProps, initState > {
         console.log("点击创建新的群聊");
     }
     render(): JSX.Element {
+        const chatData = this.chatData,
+            chatCardList = chatData ? ( //封装群聊卡片列表数据
+                chatData.map(item => (
+                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId }>
+                        <Card
+                            style={{ width: 250 }}
+                            cover={ <div className="chatCoverPic" style={{backgroundImage: `url(${item.chatCoverPicURL})`}}></div> }
+                            hoverable={true}
+                            bodyStyle={{padding: 20}}
+                            actions={[<span onClick={this.doChat.bind(this, "setting")}><Icon type="setting" />&nbsp;管理</span>, <span onClick={this.doChat.bind(this, "chart")}><Icon type="bar-chart" />&nbsp;数据统计</span>]}
+                        >
+                            <Meta
+                                avatar={<Avatar src={require("../res/img/avatar/1.jpg")} size="large" />}
+                                title={ item.chatName }
+                                description={ item.chatIntro.length > 30 ? item.chatIntro.substr(0, 28) + "……" : item.chatIntro }
+                                style={{ height: 80 }}
+                            />
+                        </Card>
+                    </li>
+                ))
+            ) : (
+                <li>现在没有内容哦</li>
+            );
+
         return (
             <div className="max-width chat-box">
                 <div className="chat-left">
@@ -84,10 +116,12 @@ class MyChat extends React.Component < initProps, initState > {
                         <div className="chat-style">
                             <span>吃货</span><span>颜控</span><span>吃货</span><span>颜控</span><span>吃货</span><span>颜控</span>
                         </div>
+                        <CreateChatForm modalVisible={this.state.modalVisible} />
+                    </div>
+                    <div className="chat-self">
                         <Button type="primary" onClick={this.showModal.bind(this, true)}>
                             <Icon type="plus" />创建新群聊
                         </Button>
-                        <CreateChatForm modalVisible={this.state.modalVisible} />
                     </div>
                 </div>
                 <div className="chat-right">
@@ -95,49 +129,15 @@ class MyChat extends React.Component < initProps, initState > {
                         <span className="cate-title">我创建的</span>
                         <ul className="chat-list">
                             {
-                                this.cardData.map(item => (
-                                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
-                                        <Card
-                                            style={{ width: 250 }}
-                                            cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
-                                            hoverable={true}
-                                            bodyStyle={{padding: 20}}
-                                            actions={[<span onClick={this.doChat.bind(this, "setting")}><Icon type="setting" />&nbsp;管理</span>, <span onClick={this.doChat.bind(this, "chart")}><Icon type="bar-chart" />&nbsp;数据统计</span>]}
-                                        >
-                                            <Meta
-                                                avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
-                                                title={ item.title }
-                                                description={ item.description }
-                                                style={{ height: 80 }}
-                                            />
-                                        </Card>
-                                    </li>
-                                ))
+                                chatCardList
                             }
                         </ul>
                     </div>
                     <div className="chat-cate">
-                        <span className="cate-title">我加入的</span>
+                        <span className="cate-title">我关注的</span>
                         <ul className="chat-list">
                             {
-                                this.cardData.map(item => (
-                                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
-                                        <Card
-                                            style={{ width: 250 }}
-                                            cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
-                                            hoverable={true}
-                                            bodyStyle={{padding: 20}}
-                                            actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;99</span>, <span title="讨论量"><Icon type="message" />&nbsp;999+</span>]}
-                                        >
-                                            <Meta
-                                                avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
-                                                title={ item.title }
-                                                description={ item.description }
-                                                style={{ height: 80 }}
-                                            />
-                                        </Card>
-                                    </li>
-                                ))
+                                chatCardList
                             }
                         </ul>
                     </div>
@@ -156,7 +156,7 @@ interface initProps2 {
 
 class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
     state = {
-        coverPic: "",
+        chatCoverPicURL: "",
         modalVisible: false,
     }
     /**
@@ -173,45 +173,9 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
     componentWillReceiveProps(nextProps) {
         this.setState({ modalVisible: nextProps.modalVisible });
     }
-    /**
-     * @description 压缩图片并转为base64格式
-     * @param pic 要压缩处理的图片
-     * @param resWidth 绘制的宽度
-     */
-    compressPic(pic, resWidth: number = 400): string {
-        let width = pic.width,
-            height = pic.height,
-            rotio = Number.parseFloat((width / height).toFixed(2)), //图片原始宽高比例，精确到两位小数
-            resHeight = Math.floor(resWidth / rotio),     //绘制的高度
-            canvas = document.createElement("canvas"),
-            ctx = canvas.getContext("2d");
-
-        canvas.width = resWidth;
-        canvas.height = resHeight;
-
-        ctx.drawImage(pic, 0, 0, resWidth, resHeight);  //根据原图绘制
-
-        return canvas.toDataURL("image/jpeg", 0.7); //转为base64格式并返回
-    }
-    /**
-     * @description 选择图片
-     * @param event 
-     */
-    selectPic(event): void {
-        let img = document.createElement("img"),
-            coverPic = "";
-
-        img.src = window.URL.createObjectURL(event.target.files[0]);
-
-        new Promise((resolve, reject) => {
-            img.onload = () => {
-                resolve(this.compressPic(img));
-                img = null;
-            };
-        }).then((coverPic) => {
-            this.setState({
-                coverPic
-            });
+    showPreViewPic(chatCoverPicURL): void {
+        this.setState({
+            chatCoverPicURL
         });
     }
     doClickSelPic(fileInput) {
@@ -228,21 +192,24 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                values.coverPic = this.state.coverPic;
-                // console.log('Received values of form: ', values);
+                if (!checkLogin()) {
+                    PopupTitle.show({
+                        content: "请重新登录！",
+                        cate: "warning"
+                    });
+        
+                    return false;
+                }
+                
+                values.chatCoverPicURL = this.state.chatCoverPicURL;
+                console.log('Received values of form: ', values);
                 Ajax({
                     url: "createChat.php",
                     data: values,
                     method: "post",
                     success(val) {
-                        const data = JSON.parse(val),
-                            mark = data.mark;
-
-                        if(mark === "success") {
-                            PopupTitle.show({
-                                content: "创建成功"
-                            });
-                            // window.location.reload();
+                        if(val) {   //创建成功
+                            window.location.reload();
                         } else {
                             PopupTitle.show({
                                 content: "创建失败，请重试",
@@ -299,17 +266,17 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
                         )}
                     </FormItem>
                     <FormItem className="upload-cover-pic">
-                        {getFieldDecorator('coverPic', {
+                        {getFieldDecorator('chatCoverPicURL', {
                             rules: [{ required: true, whitespace:true, min:20, message: '请选择封面图片！' }],
                         })(
                             <Button onClick={ () => { this.doClickSelPic.bind(this)(this.refs.fileInput) } }>
                                 <Icon type="upload" />上传封面图片
-                                <input type="file" onChange={this.selectPic.bind(this)} ref="fileInput" style={{ display: "none" }} />
+                                <input type="file" onChange={doSelectPic.bind(null, this.showPreViewPic.bind(this), 400)} ref="fileInput" style={{ display: "none" }} />
                             </Button>
                         )}
                     </FormItem>
                     {
-                        this.state.coverPic ? <img src={this.state.coverPic} /> : ""
+                        this.state.chatCoverPicURL ? <img src={this.state.chatCoverPicURL} /> : ""
                     }
                 </Form>
             </Modal>

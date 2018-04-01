@@ -32,22 +32,29 @@ export default class Index extends React.Component < initProps, initState > {
         current: 'random',
     }
     /**
-     * @description 从数据库获取到的各个卡片的内容数据
+     * @description 从数据库获取到的各个群聊卡片的内容数据
      */
-    cardData = (() => {
-        const data = [
-            {
-                chatId: 28,
-                coverPic: "1.jpg",
-                avatar: "1.jpg",
-                title: "林允儿",
-                description: "一个美丽可爱有趣的女孩子"
-            }
-        ];
+    chatData = (() => {
+        let chatData = null;
 
-        const tData = new Array(9);
-        tData.fill(data[0]);
-        return tData;
+        Ajax({
+            url: "selectChat.php",
+            data: {
+                target: "all", //查询的对象是所有用户
+            },
+            method: "post",
+            success(data) {
+                data = JSON.parse(data);
+                if (data.mark === "haveData") {
+                    chatData = data.value;
+                }
+            },
+            error(status) {
+                console.log("error: ", status);
+            }
+        });
+
+        return chatData;
     })()
     handleClick(e) {
         console.log('click ', e);
@@ -65,6 +72,30 @@ export default class Index extends React.Component < initProps, initState > {
         toURL(`chat.html?chatId=${chatId}`, true);
     }
     render(): JSX.Element {
+        const chatData = this.chatData,
+            chatCardList = chatData ? ( //封装群聊卡片列表数据
+                chatData.map(item => (
+                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId }>
+                        <Card
+                            style={{ width: 260 }}
+                            cover={ <div className="chatCoverPic" style={{backgroundImage: `url(${item.chatCoverPicURL})`}}></div> }
+                            hoverable={true}
+                            bodyStyle={{padding: 20}}
+                            actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;{ item.chatFollow }</span>, <span title="讨论量"><Icon type="message" />&nbsp;{ item.chatDiscuss }</span>]}
+                        >
+                            <Meta
+                                avatar={<Avatar src={require("../res/img/avatar/1.jpg")} size="large" />}
+                                title={ item.chatName }
+                                description={ item.chatIntro.length > 30 ? item.chatIntro.substr(0, 28) + "……" : item.chatIntro }
+                                style={{ height: 80 }}
+                            />
+                        </Card>
+                    </li>
+                ))
+            ) : (
+                <li>现在没有内容哦</li>
+            );
+
         return (
             <div>
                 <div className="banner max-width">
@@ -102,24 +133,25 @@ export default class Index extends React.Component < initProps, initState > {
                 </div>
                 <ul className="max-width chat-list">
                     {
-                        this.cardData.map(item => (
-                            <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
-                                <Card
-                                    style={{ width: 260 }}
-                                    cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
-                                    hoverable={true}
-                                    bodyStyle={{padding: 20}}
-                                    actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;99</span>, <span title="讨论量"><Icon type="message" />&nbsp;999+</span>]}
-                                >
-                                    <Meta
-                                        avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
-                                        title={ item.title }
-                                        description={ item.description }
-                                        style={{ height: 80 }}
-                                    />
-                                </Card>
-                            </li>
-                        ))
+                        // this.cardData.map(item => (
+                        //     <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
+                        //         <Card
+                        //             style={{ width: 260 }}
+                        //             cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
+                        //             hoverable={true}
+                        //             bodyStyle={{padding: 20}}
+                        //             actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;99</span>, <span title="讨论量"><Icon type="message" />&nbsp;999+</span>]}
+                        //         >
+                        //             <Meta
+                        //                 avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
+                        //                 title={ item.title }
+                        //                 description={ item.description }
+                        //                 style={{ height: 80 }}
+                        //             />
+                        //         </Card>
+                        //     </li>
+                        // ))
+                        chatCardList
                     }
                 </ul>
                 <div className="footer">

@@ -33,8 +33,9 @@ if ($dataCount > 0) {	//有聊天记录数据
 	// 输出数据
 	while ($row = $result->fetch_assoc()) {
 		if($row["password"] === $userpwd) {
-			// 通过 session 存储当前登录的用户名
+			// 通过 session 存储当前登录的用户名及用户ID
 			$_SESSION['username'] = $username;
+			$_SESSION['userId'] = $row["id"];
 
 			$data["userId"] = $row["id"];
 			$data["mark"] = "success";

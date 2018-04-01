@@ -15,6 +15,7 @@
 }
 /* 个人信息 */
 .chat-self {
+    margin-bottom: 20px;
     padding: 20px;
     text-align: center;
     background-color: #fff;
@@ -47,7 +48,7 @@
 }
 /* 个人标签 */
 .chat-style {
-    margin: 20px 0;
+    margin-top: 20px;
 }
 .chat-style > span {
     display: inline-block;
@@ -91,7 +92,12 @@
 .chat-list > li:nth-child(4n+1) {
     margin-left: 0;
 }
-
+/* 封面图片 */
+.chatCoverPic {
+    height: 155px;
+    background-position: center;
+    background-size: cover;
+}
 /* 上传封面图片按钮 */
 .ant-form-item-control > span, .ant-form-item-control > span > button {
     display: block;
