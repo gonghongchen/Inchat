@@ -4383,3 +4383,13 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Sun Apr 01 21:22:31.902381 2018] [:error] [pid 8720:tid 2148] [client 127.0.0.1:50485] PHP Notice:  Undefined index: chatDiscuss in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChat.php on line 51, referer: http://localhost:8090/index.html
 [Sun Apr 01 21:22:31.902381 2018] [:error] [pid 8720:tid 2148] [client 127.0.0.1:50485] PHP Notice:  Undefined index: chatDiscuss in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChat.php on line 51, referer: http://localhost:8090/index.html
 [Sun Apr 01 21:22:31.902381 2018] [:error] [pid 8720:tid 2148] [client 127.0.0.1:50485] PHP Notice:  Undefined index: chatDiscuss in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChat.php on line 51, referer: http://localhost:8090/index.html
+[Sun Apr 01 23:13:32.825424 2018] [mpm_winnt:crit] [pid 8720:tid 784] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Mon Apr 02 11:17:06.093193 2018] [core:warn] [pid 9864:tid 704] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Mon Apr 02 11:17:06.393285 2018] [mpm_winnt:notice] [pid 9864:tid 704] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Mon Apr 02 11:17:06.393285 2018] [mpm_winnt:notice] [pid 9864:tid 704] AH00456: Server built: Jul  1 2016 16:42:20
+[Mon Apr 02 11:17:06.393285 2018] [core:notice] [pid 9864:tid 704] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Mon Apr 02 11:17:06.401345 2018] [mpm_winnt:notice] [pid 9864:tid 704] AH00418: Parent: Created child process 5832
+[Mon Apr 02 11:17:07.596487 2018] [mpm_winnt:notice] [pid 5832:tid 836] AH00354: Child: Starting 150 worker threads.
+[Mon Apr 02 11:20:36.960348 2018] [:error] [pid 5832:tid 2152] [client ::1:53088] script 'F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/WWW/php/getUsername.php' not found or unable to stat
+[Mon Apr 02 12:49:01.634799 2018] [:error] [pid 5832:tid 2152] [client ::1:56569] script 'F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/WWW/php/getUsername.php' not found or unable to stat
+[Mon Apr 02 14:07:39.097643 2018] [:error] [pid 5832:tid 2140] [client ::1:59008] PHP Notice:  Undefined index: target in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChat.php on line 24

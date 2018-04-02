@@ -229,3 +229,18 @@ Version: '5.5.53'  socket: ''  port: 3306  MySQL Community Server (GPL)
 180401 19:57:38 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
 180401 19:57:38 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
 180401 19:57:38 [Note] Server socket created on IP: '0.0.0.0'.
+180402 11:17:04 [Note] Plugin 'FEDERATED' is disabled.
+180402 11:17:04 InnoDB: The InnoDB memory heap is disabled
+180402 11:17:04 InnoDB: Mutexes and rw_locks use Windows interlocked functions
+180402 11:17:04 InnoDB: Compressed tables use zlib 1.2.3
+180402 11:17:04 InnoDB: Initializing buffer pool, size = 47.0M
+180402 11:17:04 InnoDB: Completed initialization of buffer pool
+180402 11:17:04 InnoDB: highest supported file format is Barracuda.
+180402 11:17:04  InnoDB: Waiting for the background threads to start
+180402 11:17:05 InnoDB: 5.5.53 started; log sequence number 1595675
+180402 11:17:05 [Note] Server hostname (bind-address): '0.0.0.0'; port: 3306
+180402 11:17:05 [Note]   - '0.0.0.0' resolves to '0.0.0.0';
+180402 11:17:05 [Note] Server socket created on IP: '0.0.0.0'.
+180402 11:17:06 [Note] Event Scheduler: Loaded 0 events
+180402 11:17:06 [Note] F:\Git\Inchat\Inchat-webpack\phpStudy\PHPTutorial\MySQL\bin\mysqld.exe: ready for connections.
+Version: '5.5.53'  socket: ''  port: 3306  MySQL Community Server (GPL)

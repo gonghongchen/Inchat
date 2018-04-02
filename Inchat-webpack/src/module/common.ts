@@ -7,13 +7,46 @@ const requestHeader: string = "/php/";  //dev
 /**
  * @description 判断是否为空对象
  * @param obj 被判断的对象
+ * @return true | false
  */
-const isEmptyObject = (obj: any[] | object) => {
+const isEmptyObject = (obj: any[] | object): boolean => {
     for (let prop in obj) {
         return false;
     }
     
     return true;
+};
+
+/**
+ * @description 检查指定值的数据类型
+ * @param value 要检查类型的值
+ * @return "null" | "undefined" | "boolean" | "number" | "string" | "array" | "object" | "function"
+ */
+const typeOf = (value: any): string => {
+    let type = Object.prototype.toString.call(value);
+
+    return type.substring(8, type.length - 1).toLowerCase();
+};
+
+/**
+ * @description 对数组元素进行去重
+ * @param arr 要去重的数组
+ * @return 新的已去重的数组
+ */
+const removeRepeat = (arr: Array<any>): Array<any> => {
+    let newArr = [];
+
+	try {
+        newArr = [...new Set(arr)];
+    } catch (error) {
+        arr.forEach(item => {
+            if (newArr.indexOf(item) === -1) {
+                newArr.push(item);
+            }
+        });
+    }
+
+    return newArr;
 };
 
 /**
@@ -108,7 +141,7 @@ const toURL = (filename: string, newTarget: boolean = false): boolean => {
         window.location.href = url;
     }
 
-    return false;
+    return true;
 }
 
 /**
@@ -117,7 +150,7 @@ const toURL = (filename: string, newTarget: boolean = false): boolean => {
  * @param resWidth 压缩后的图片宽度（高度会根据此宽度按照原图比例自动计算）
  * @param event 
  */
-const doSelectPic = (callback: Function, resWidth: number, event?: any) => {
+const doSelectPic = (callback: Function, resWidth: number, event?: any): void => {
     let img = document.createElement("img"),
             coverPic = "";
 
@@ -147,6 +180,7 @@ const doSelectPic = (callback: Function, resWidth: number, event?: any) => {
 
 /**
  * @description 在进行关键操作前需要进行后台登录验证
+ * @return true | false
  */
 const checkLogin = (): boolean => {
     let userInfor = null,
