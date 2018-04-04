@@ -250,7 +250,7 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
                 okText="创建"
                 width="360px"
                 >
-                <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+                <Form onSubmit={this.handleSubmit.bind(this)}>
                     <FormItem>
                         {getFieldDecorator('chatName', {
                             rules: [{ required: true, whitespace:true, min:2, message: '请输入正确的群名字！' }],

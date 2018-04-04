@@ -9,16 +9,17 @@
 }
 
 /* 左侧 */
-.chat-left {
+.left-card {
     float: left;
     width: 260px;
 }
 /* 个人信息 */
-.chat-self {
+.card-self {
     margin-bottom: 20px;
     padding: 20px;
     text-align: center;
     background-color: #fff;
+    font-weight: bold;
 }
 /* 头像 */
 .avatar {
@@ -27,45 +28,36 @@
     border-radius: 40px !important;
 }
 /* 用户名 */
-.chat-self > h3 {
+.card-self > h3 {
     margin: 20px 0;
-    font-weight: bold;
     font-size: 16px;
 }
-/* 创建&加入数量 */
-.chat-num {
-    margin-bottom: 20px;
+/* 性别&年龄 */
+.gender-year {
     text-align: center;
-    font-weight: bold;
 }
-.chat-num > span:nth-child(2) {
+.gender-year > span:nth-child(2) {
     margin: 0 20px;
     font-weight: 100;
 }
-/* 个人标签 */
-.chat-style {
-    margin-top: 20px;
-}
-.chat-style > span {
-    display: inline-block;
-    margin: 3px 5px;
-    padding: 0 5px;
-    border-radius: 3px;
-    color: #fff;
-    background-color: #ff404a;
+/* 所在地 */
+.user-location {
+    margin: 20px 0;
 }
 
 /* 右侧 */
-.chat-right {
-    margin-left: 280px;
+.right-card {
+    float: right;
+    width: 1100px;
 }
-.chat-cate {
+/* 基本&安全资料盒子 */
+.base-infor, .security-cate {
     margin-bottom: 20px;
     padding: 0 20px;
     background-color: #fff;
 }
 /* 区块标题 */
-.cate-title {
+.title {
     display: block;
     padding: 20px 0 10px 0;
     font-weight: bold;
@@ -94,4 +86,9 @@
     text-align: center;
     cursor: pointer;
     color: #fff;
+}
+/* 提交按钮 */
+.submit-form-button {
+    width: 160px;
+    margin-top: 20px;
 }
