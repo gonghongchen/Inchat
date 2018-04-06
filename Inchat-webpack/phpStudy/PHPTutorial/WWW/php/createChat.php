@@ -27,7 +27,17 @@ $chatCoverPicURL = $_POST["chatCoverPicURL"];
 
 $sql = "INSERT INTO chat (userId, chatName, chatIntro, chatCoverPicURL) VALUES ('" . $_SESSION['userId'] . "', '" . $chatName . "', '" . $chatIntro . "', '" . $chatCoverPicURL . "')";
 if ($conn->query($sql) === TRUE) {
-	echo true;
+	$sql2 = "select last_insert_id()";
+	$result = $conn->query($sql2);	//获取到刚刚创建的群的ID号
+	$row = $result->fetch_assoc();
+	$chatId = $row["last_insert_id()"];
+
+	$sql3 = "INSERT INTO chatContent (chatId) VALUES (" . $chatId . ")";
+	if ($conn->query($sql3) === TRUE) {	//向chatContent中新增刚刚创建的群的记录
+		echo true;
+	} else {
+		echo false;
+	}
 } else {
 	echo false;
 }

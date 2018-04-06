@@ -15,7 +15,7 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 import { Ajax, toURL, doSelectPic, checkLogin } from "../module/common";
 import PopupTitle from "../module/popupTitle/popupTitle";
 
-const { Meta } = Card,
+let { Meta } = Card,
     { TextArea } = Input;
 
 interface initProps {};
@@ -25,15 +25,31 @@ class MyChat extends React.Component < initProps, initState > {
     state = {
         modalVisible: false
     }
-    showModal(modalVisible: boolean) {
-        this.setState({
-            modalVisible
-        });
-    }
     /**
-     * @description 从数据库获取到的各个群聊卡片的内容数据
+     * @description //获取用户资料
      */
-    chatData = (() => {
+    userInfor = (() => {
+        let userInfor = null;
+
+        Ajax({  
+            url: "selectUserInfor.php",
+            data: {
+                userId: 0
+            },
+            success(data) {
+                userInfor = JSON.parse(data);
+            },
+            error(status) {
+                window.location.reload();
+            }
+        });
+
+        return userInfor;
+    })()
+    /**
+     * @description 从数据库获取到的创建的群聊的内容数据
+     */
+    createChatData = (() => {
         let chatData = null;
 
         Ajax({
@@ -42,7 +58,6 @@ class MyChat extends React.Component < initProps, initState > {
                 target: "user", //查询的对象是某个确定的用户
                 userId: "current"   //此用户就是当前登录的用户
             },
-            method: "post",
             success(data) {
                 data = JSON.parse(data);
                 if (data.mark === "haveData") {
@@ -57,11 +72,42 @@ class MyChat extends React.Component < initProps, initState > {
         return chatData;
     })()
     /**
+    * @description 从数据库获取到的关注的群聊的内容数据
+    */
+    followChatData = (() => {
+        let followChatId = this.userInfor.followChat,
+            chatData = null;
+
+        if (followChatId) {
+            Ajax({
+                url: "selectFollowChat.php",
+                data: {
+                    target: "current"
+                },
+                success(data) {
+                    data = JSON.parse(data);
+                    if (data.mark === "haveData") {
+                        chatData = data.value;
+                    }
+                },
+                error(status) {
+                    console.log("error: ", status);
+                }
+            });
+        }
+
+        return chatData;
+    })()
+    showModal(modalVisible: boolean) {
+        this.setState({
+            modalVisible
+        });
+    }
+    /**
      * @description 跳转到点击的群聊页面
      * @param chatId 对应群聊的ID号
      */
     toDetailPage(chatId: number) {
-        console.log("chatId: ", chatId);
         toURL(`chat.html?chatId=${chatId}`, true);
     }
     /**
@@ -74,13 +120,12 @@ class MyChat extends React.Component < initProps, initState > {
         console.log(cate);
         return false;
     }
-    createNewChat() {
-        console.log("点击创建新的群聊");
-    }
     render(): JSX.Element {
-        const chatData = this.chatData,
-            chatCardList = chatData ? ( //封装群聊卡片列表数据
-                chatData.map(item => (
+        const userInfor = this.userInfor,
+            createChatData = this.createChatData,
+            followChatData = this.followChatData,
+            createChatCardList = createChatData ? ( //封装群聊卡片列表数据
+                createChatData.map(item => (
                     <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId }>
                         <Card
                             style={{ width: 250 }}
@@ -90,7 +135,7 @@ class MyChat extends React.Component < initProps, initState > {
                             actions={[<span onClick={this.doChat.bind(this, "setting")}><Icon type="setting" />&nbsp;管理</span>, <span onClick={this.doChat.bind(this, "chart")}><Icon type="bar-chart" />&nbsp;数据统计</span>]}
                         >
                             <Meta
-                                avatar={<Avatar src={require("../res/img/avatar/1.jpg")} size="large" />}
+                                avatar={<Avatar src={userInfor.avatar} size="large" />}
                                 title={ item.chatName }
                                 description={ item.chatIntro.length > 30 ? item.chatIntro.substr(0, 28) + "……" : item.chatIntro }
                                 style={{ height: 80 }}
@@ -99,19 +144,41 @@ class MyChat extends React.Component < initProps, initState > {
                     </li>
                 ))
             ) : (
-                <li>现在没有内容哦</li>
+                <li>现在没有内容哦，赶快去创建吧</li>
+            ),
+            followChatCardList = followChatData ? ( //封装群聊卡片列表数据
+                followChatData.map(item => (
+                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId }>
+                        <Card
+                            style={{ width: 250 }}
+                            cover={ <div className="chatCoverPic" style={{backgroundImage: `url(${item.chatCoverPicURL})`}}></div> }
+                            hoverable={true}
+                            bodyStyle={{padding: 20}}
+                            actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;{ item.chatFollowNum }</span>, <span title="讨论量"><Icon type="message" />&nbsp;{ item.chatContentNum }</span>]}
+                        >
+                            <Meta
+                                avatar={<Avatar src={item.avatar} size="large" />}
+                                title={ item.chatName }
+                                description={ item.chatIntro.length > 30 ? item.chatIntro.substr(0, 28) + "……" : item.chatIntro }
+                                style={{ height: 80 }}
+                            />
+                        </Card>
+                    </li>
+                ))
+            ) : (
+                <li>现在没有内容哦，去关注看看吧</li>
             );
 
         return (
             <div className="max-width chat-box">
                 <div className="chat-left">
                     <div className="chat-self">
-                        <Avatar size="large" src={require("../res/img/avatar/1.jpg")} />
-                        <h3>林允儿</h3>
+                        <Avatar size="large" src={userInfor.avatar} />
+                        <h3>{userInfor.username}</h3>
                         <div className="chat-num">
-                            <span><i>9</i>创建</span>
+                            <span><i>{userInfor.createChatNum}</i>创建</span>
                             <span>|</span>
-                            <span><i>99</i>加入</span>
+                            <span><i>{userInfor.followChatNum}</i>关注</span>
                         </div>
                         <CreateChatForm modalVisible={this.state.modalVisible} />
                     </div>
@@ -126,7 +193,7 @@ class MyChat extends React.Component < initProps, initState > {
                         <span className="cate-title">我创建的</span>
                         <ul className="chat-list">
                             {
-                                chatCardList
+                                createChatCardList
                             }
                         </ul>
                     </div>
@@ -134,7 +201,7 @@ class MyChat extends React.Component < initProps, initState > {
                         <span className="cate-title">我关注的</span>
                         <ul className="chat-list">
                             {
-                                chatCardList
+                                followChatCardList
                             }
                         </ul>
                     </div>

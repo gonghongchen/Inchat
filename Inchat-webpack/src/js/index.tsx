@@ -42,7 +42,6 @@ export default class Index extends React.Component < initProps, initState > {
             data: {
                 target: "all", //查询的对象是所有用户
             },
-            method: "post",
             success(data) {
                 data = JSON.parse(data);
                 if (data.mark === "haveData") {
@@ -68,7 +67,6 @@ export default class Index extends React.Component < initProps, initState > {
      * @param chatId 对应群聊的ID号
      */
     toDetailPage(chatId: number) {
-        console.log("chatId: ", chatId);
         toURL(`chat.html?chatId=${chatId}`, true);
     }
     render(): JSX.Element {
@@ -81,10 +79,10 @@ export default class Index extends React.Component < initProps, initState > {
                             cover={ <div className="chatCoverPic" style={{backgroundImage: `url(${item.chatCoverPicURL})`}}></div> }
                             hoverable={true}
                             bodyStyle={{padding: 20}}
-                            actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;{ item.chatFollow }</span>, <span title="讨论量"><Icon type="message" />&nbsp;{ item.chatDiscuss }</span>]}
+                            actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;{ item.chatFollowNum }</span>, <span title="访问量"><Icon type="eye-o" />&nbsp;{ item.chatVisitNum }</span>]}
                         >
                             <Meta
-                                avatar={<Avatar src={require("../res/img/avatar/1.jpg")} size="large" />}
+                                avatar={<Avatar src={item.avatar} size="large" />}
                                 title={ item.chatName }
                                 description={ item.chatIntro.length > 30 ? item.chatIntro.substr(0, 28) + "……" : item.chatIntro }
                                 style={{ height: 80 }}
