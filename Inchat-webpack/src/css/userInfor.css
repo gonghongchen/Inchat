@@ -72,7 +72,6 @@
 /* 头像外框 */
 .avatar-box {
     display: inline-block;
-    margin-bottom: 20px;
 }
 .avatar-box > .avatar:hover::after {
     content: "更换头像";

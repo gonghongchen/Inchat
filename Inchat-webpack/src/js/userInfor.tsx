@@ -112,7 +112,7 @@ class UserInfor extends React.Component < initProps, initState > {
                     <div className="security-cate">
                         <span className="title">安全资料</span>
                         <div className="infor-form">
-                            
+                            <SecurityInforForm />
                         </div>
                     </div>
                 </div>
@@ -264,6 +264,125 @@ class BaseInfor extends React.Component<{} & FormComponentProps, {}> {
     }
 }
 const BaseInforForm = Form.create<{}>()(BaseInfor);
+
+
+// 安全资料区域
+class SecurityInfor extends React.Component<{} & FormComponentProps, {}> {
+    /**
+     * @description 第二次密码输入确认
+     * @param rule 
+     * @param value 输入框的值
+     * @param callback 处理后的提示内容
+     */
+    compareToFirstPassword(rule, value, callback) {
+        const form = this.props.form;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('两次输入的密码不一致！');
+        } else {
+            callback();
+        }
+    }
+    /**
+     * @description 处理表单提交
+     * @param event 
+     */
+    doSubmit(event) {
+        const that = this;
+        event.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                if (values.oldPassword === values.password) {
+                    PopupTitle.show({
+                        content: "新密码不能和原密码一样",
+                        cate: "warning"
+                    });
+        
+                    return false;
+                }
+
+                if (!checkLogin()) {
+                    PopupTitle.show({
+                        content: "请重新登录！",
+                        cate: "warning"
+                    });
+        
+                    return false;
+                }
+
+                // console.log('Received values of form: ', values);
+                Ajax({
+                    url: "updateSecurityInfor.php",
+                    data: values,
+                    method: "post",
+                    success(val) {
+                        if(val === "samePassword") {
+                            PopupTitle.show({
+                                content: "新密码不能和原密码一样",
+                                cate: "warning"
+                            });
+                        } else if(val === "oldPasswordError") {
+                            PopupTitle.show({
+                                content: "原密码错误，请重新输入",
+                                cate: "error"
+                            });
+                        } else if(val === "success") {
+                            PopupTitle.show({
+                                content: "密码已更新"
+                            });
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            PopupTitle.show({
+                                content: "更新密码失败，请重试",
+                                cate: "error"
+                            });
+                        }
+                    },
+                    error(status) {
+                        PopupTitle.show({
+                            content: "更新密码失败，请重试",
+                            cate: "error"
+                        });
+                        console.log("error status: ", status);
+                    }
+                });
+            }
+        });
+    }
+    render(): JSX.Element {
+        const { getFieldDecorator } = this.props.form,
+            FormItem = Form.Item;
+
+        return (
+            <Form onSubmit={this.doSubmit.bind(this)}>
+                <FormItem>
+                    {getFieldDecorator('oldPassword', {
+                        rules: [{ required: true, whitespace:true, pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '密码格式不正确！' }],
+                    })(
+                        <Input type="password" placeholder="原密码(由6-16位字母和数字组成)" style={{ width: '260px' }} />
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, whitespace:true, pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, message: '密码格式不正确！' }],
+                    })(
+                        <Input type="password" placeholder="新密码(由6-16位字母和数字组成)" style={{ width: '260px' }} />
+                    )}
+                </FormItem>
+                <FormItem>  
+                    {getFieldDecorator('confirm', {
+                        rules: [{ required: true, message: "请再次输入密码！" }, { validator: this.compareToFirstPassword.bind(this) }],
+                    })(
+                        <Input type="password" placeholder="确认密码" style={{ width: '260px' }} />
+                    )}
+                </FormItem>
+                <Button type="primary" htmlType="submit" className="submit-form-button" onClick={this.doSubmit.bind(this)}>修改</Button>
+            </Form>
+        )
+    }
+}
+const SecurityInforForm = Form.create<{}>()(SecurityInfor);
 
 
 ReactDOM.render(

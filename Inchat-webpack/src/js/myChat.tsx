@@ -113,9 +113,6 @@ class MyChat extends React.Component < initProps, initState > {
                             <span>|</span>
                             <span><i>99</i>加入</span>
                         </div>
-                        <div className="chat-style">
-                            <span>吃货</span><span>颜控</span><span>吃货</span><span>颜控</span><span>吃货</span><span>颜控</span>
-                        </div>
                         <CreateChatForm modalVisible={this.state.modalVisible} />
                     </div>
                     <div className="chat-self">

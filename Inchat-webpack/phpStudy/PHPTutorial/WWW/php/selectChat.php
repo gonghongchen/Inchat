@@ -27,9 +27,9 @@ if ($target === "user") {	//查询特定用户的群聊数据
 	if ($userId === "current") {	//查询当前登录用户的群聊数据
 		$userId = $_SESSION["userId"];
 	}
-	$sql = "SELECT chatId, chatName, chatIntro, chatCoverPicURL, chatFollow, chatDiscuss FROM chat where userId='" . $userId . "'";
+	$sql = "SELECT chatId, chatName, chatIntro, chatCoverPicURL, chatFollowNum, chatContentNum FROM chat where userId='" . $userId . "'";
 } else {
-	$sql = "SELECT chatId, chatName, chatIntro, chatCoverPicURL, chatFollow, chatDiscuss FROM chat";
+	$sql = "SELECT chatId, chatName, chatIntro, chatCoverPicURL, chatFollowNum, chatContentNum FROM chat";
 }
 
 
@@ -47,8 +47,8 @@ if ($dataCount > 0) {	//有数据
 			"chatName"=>$row["chatName"],
 			"chatIntro"=>$row["chatIntro"],
 			"chatCoverPicURL"=>$row["chatCoverPicURL"],
-			"chatFollow"=>$row["chatFollow"],
-			"chatDiscuss"=>$row["chatDiscuss"]
+			"chatFollowNum"=>$row["chatFollowNum"],
+			"chatContentNum"=>$row["chatContentNum"]
 		);
 	}
 	$data["value"] = $value;
