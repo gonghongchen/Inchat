@@ -24,8 +24,9 @@ if ($conn->connect_error) {
 $chatName = $_POST["chatName"];
 $chatIntro = $_POST["chatIntro"];
 $chatCoverPicURL = $_POST["chatCoverPicURL"];
+$userId = $_SESSION['userId'];
 
-$sql = "INSERT INTO chat (userId, chatName, chatIntro, chatCoverPicURL) VALUES ('" . $_SESSION['userId'] . "', '" . $chatName . "', '" . $chatIntro . "', '" . $chatCoverPicURL . "')";
+$sql = "INSERT INTO chat (userId, chatName, chatIntro, chatCoverPicURL) VALUES ('" . $userId . "', '" . $chatName . "', '" . $chatIntro . "', '" . $chatCoverPicURL . "')";
 if ($conn->query($sql) === TRUE) {
 	$sql2 = "select last_insert_id()";
 	$result = $conn->query($sql2);	//获取到刚刚创建的群的ID号
@@ -34,7 +35,18 @@ if ($conn->query($sql) === TRUE) {
 
 	$sql3 = "INSERT INTO chatContent (chatId) VALUES (" . $chatId . ")";
 	if ($conn->query($sql3) === TRUE) {	//向chatContent中新增刚刚创建的群的记录
-		echo true;
+		$sql4 = "SELECT createChatNum FROM userInfor WHERE userId=".$userId;	//拿到userInfor中的createChatNum，并加1
+		$result4 = $conn->query($sql4);	//获取到刚刚创建的群的ID号
+		$row4 = $result4->fetch_assoc();
+		$createChatNum = (int)$row4["createChatNum"];
+		$createChatNum++;
+
+		$sql5 = "UPDATE userInfor SET createChatNum=".$createChatNum." WHERE userId=".$userId;
+		if ($conn->query($sql5) === TRUE) {
+			echo true;
+		} else {
+			echo false;
+		}
 	} else {
 		echo false;
 	}

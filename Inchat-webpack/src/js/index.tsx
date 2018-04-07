@@ -11,7 +11,8 @@ import "../css/style.css";
 import "../css/index.css";
 import Nav from "../module/nav/nav";
 import { Menu, Icon, Input, Carousel, Card, Avatar } from 'antd';
-import { Ajax, toURL } from "../module/common";
+import { Ajax, toURL, checkLogin } from "../module/common";
+import PopupTitle from "../module/popupTitle/popupTitle";
 
 const SubMenu = Menu.SubMenu,
     MenuItemGroup = Menu.ItemGroup,
@@ -56,7 +57,6 @@ export default class Index extends React.Component < initProps, initState > {
         return chatData;
     })()
     handleClick(e) {
-        console.log('click ', e);
         e.domEvent.stopPropagation();
         this.setState({
             current: e.key,
@@ -67,6 +67,13 @@ export default class Index extends React.Component < initProps, initState > {
      * @param chatId 对应群聊的ID号
      */
     toDetailPage(chatId: number) {
+        if (!checkLogin()) {
+            PopupTitle.show({
+                content: "请您先登录哦",
+                cate: "warning"
+            });
+            return false;
+        }
         toURL(`chat.html?chatId=${chatId}`, true);
     }
     render(): JSX.Element {
@@ -131,24 +138,6 @@ export default class Index extends React.Component < initProps, initState > {
                 </div>
                 <ul className="max-width chat-list">
                     {
-                        // this.cardData.map(item => (
-                        //     <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId + (Math.random()*1000).toFixed() }>
-                        //         <Card
-                        //             style={{ width: 260 }}
-                        //             cover={<img alt="example" src={require("../res/img/" + item.coverPic)} />}
-                        //             hoverable={true}
-                        //             bodyStyle={{padding: 20}}
-                        //             actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;99</span>, <span title="讨论量"><Icon type="message" />&nbsp;999+</span>]}
-                        //         >
-                        //             <Meta
-                        //                 avatar={<Avatar src={require("../res/img/avatar/" + item.avatar)} size="large" />}
-                        //                 title={ item.title }
-                        //                 description={ item.description }
-                        //                 style={{ height: 80 }}
-                        //             />
-                        //         </Card>
-                        //     </li>
-                        // ))
                         chatCardList
                     }
                 </ul>

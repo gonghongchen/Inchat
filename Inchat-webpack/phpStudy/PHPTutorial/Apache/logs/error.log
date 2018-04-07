@@ -4594,3 +4594,23 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Fri Apr 06 23:23:19.509698 2018] [:error] [pid 27184:tid 2136] [client 127.0.0.1:60849] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectFollowChat.php on line 45, referer: http://localhost:8090/myChat.html
 [Fri Apr 06 23:25:21.188761 2018] [:error] [pid 27184:tid 2136] [client 127.0.0.1:61070] PHP Notice:  Undefined index: chatContentNum in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectFollowChat.php on line 52, referer: http://localhost:8090/myChat.html
 [Fri Apr 06 23:25:21.189263 2018] [:error] [pid 27184:tid 2136] [client 127.0.0.1:61070] PHP Notice:  Undefined index: chatContentNum in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectFollowChat.php on line 52, referer: http://localhost:8090/myChat.html
+[Sat Apr 07 00:12:59.296745 2018] [mpm_winnt:crit] [pid 27184:tid 768] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Sat Apr 07 13:06:07.374056 2018] [core:warn] [pid 21216:tid 596] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sat Apr 07 13:06:07.666980 2018] [mpm_winnt:notice] [pid 21216:tid 596] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Sat Apr 07 13:06:07.666980 2018] [mpm_winnt:notice] [pid 21216:tid 596] AH00456: Server built: Jul  1 2016 16:42:20
+[Sat Apr 07 13:06:07.667483 2018] [core:notice] [pid 21216:tid 596] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Sat Apr 07 13:06:07.675506 2018] [mpm_winnt:notice] [pid 21216:tid 596] AH00418: Parent: Created child process 25300
+[Sat Apr 07 13:06:09.422646 2018] [mpm_winnt:notice] [pid 25300:tid 764] AH00354: Child: Starting 150 worker threads.
+[Sat Apr 07 13:25:05.432420 2018] [:error] [pid 25300:tid 2152] [client ::1:52241] PHP Notice:  Undefined index: target in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChat.php on line 24
+[Sat Apr 07 13:50:43.520639 2018] [mpm_winnt:crit] [pid 25300:tid 764] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Sat Apr 07 14:14:19.996499 2018] [core:warn] [pid 17028:tid 832] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sat Apr 07 14:14:20.163477 2018] [mpm_winnt:notice] [pid 17028:tid 832] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Sat Apr 07 14:14:20.163477 2018] [mpm_winnt:notice] [pid 17028:tid 832] AH00456: Server built: Jul  1 2016 16:42:20
+[Sat Apr 07 14:14:20.163477 2018] [core:notice] [pid 17028:tid 832] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Sat Apr 07 14:14:20.173959 2018] [mpm_winnt:notice] [pid 17028:tid 832] AH00418: Parent: Created child process 4764
+[Sat Apr 07 14:14:21.445842 2018] [mpm_winnt:notice] [pid 4764:tid 668] AH00354: Child: Starting 150 worker threads.
+[Sat Apr 07 15:15:41.312596 2018] [:error] [pid 4764:tid 2156] [client ::1:64602] PHP Notice:  Undefined index: chatId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChatInfor.php on line 24
+[Sat Apr 07 16:36:26.703731 2018] [:error] [pid 4764:tid 2152] [client ::1:57577] PHP Notice:  Undefined index: chatId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChatInfor.php on line 24
+[Sat Apr 07 16:51:26.489734 2018] [:error] [pid 4764:tid 2152] [client 127.0.0.1:59359] PHP Notice:  Undefined index: userId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChatInfor.php on line 31, referer: http://localhost:8090/chat.html?chatId=28
+[Sat Apr 07 18:06:25.029693 2018] [:error] [pid 4764:tid 2148] [client ::1:49441] PHP Notice:  Undefined index: chatId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChatInfor.php on line 24
+[Sat Apr 07 21:29:39.754146 2018] [:error] [pid 4764:tid 2148] [client 127.0.0.1:49575] PHP Notice:  Undefined index: userId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChatInfor.php on line 31, referer: http://localhost:8090/chat.html?chatId=28

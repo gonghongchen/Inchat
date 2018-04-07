@@ -81,6 +81,7 @@
     text-align: right;
 }
 .infor > p {
+    float: left;
     margin: 5px 0 0 0;
     padding: 10px;
     border-radius: 0 10px 10px 10px;
@@ -88,6 +89,7 @@
     background-color: #B3E5FC;
 }
 .right > .infor > p {
+    float: right;
     border-radius: 10px 0 10px 10px;
 }
 /* 编辑框区域 */
@@ -207,4 +209,20 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* 上传图片区域 */
+.upload-pic {
+    width: 300px;
+    height: 180px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.upload-btns {
+    margin-top: 20px;
+    text-align: center;
+}
+.upload-btns > button:first-child {
+    margin-right: 20px;
 }
