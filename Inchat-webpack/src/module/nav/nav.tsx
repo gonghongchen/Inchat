@@ -7,8 +7,15 @@ import * as React from 'react';
 import * as ReactDOM from "react-dom";
 import "./nav.css";
 import { Login } from "../login/login";
-import { toURL } from "../common";
+import { toURL, checkLogin } from "../common";
 import { Dropdown, Menu, Icon } from 'antd';
+
+const isLogin = checkLogin();
+if (!isLogin) {
+    if (!window.location.href.includes("index.html")) {
+        toURL("index");
+    }
+}
 
 const clickMenu = ({ key }) => {
         switch (key) {
@@ -55,22 +62,22 @@ export default class Nav extends React.Component < initProps > {
     }
     render(): JSX.Element {
         const userInfor = localStorage.userInfor && JSON.parse(localStorage.userInfor) || null,
-            isLoginContent = userInfor ? 
-                <div>
-                    <div className="user-center">
-                        <Dropdown overlay={menu}>
-                            <a className="ant-dropdown-link">
-                                个人中心 <Icon type="down" />
-                            </a>
-                        </Dropdown>
-                    </div>
-                    <span className="user-entry">欢迎您，{userInfor.username}</span>
+            isLoginContent = isLogin ? 
+            <div>
+                <div className="user-center">
+                    <Dropdown overlay={menu}>
+                        <a className="ant-dropdown-link">
+                            个人中心 <Icon type="down" />
+                        </a>
+                    </Dropdown>
                 </div>
-             : 
-                <div>
-                    <span className="user-entry">欢迎您，请先&nbsp;<a className="link" onClick={this.showLogin.bind(this)}>登录</a>&nbsp;/&nbsp;<a className="link" onClick={toURL.bind(null, "register")}>注册</a></span>
-                    <Login show={this.state.showModal}  normalOpen={true} />
-                </div>
+                <span className="user-entry">欢迎您，{userInfor.username}</span>
+            </div>
+            : 
+            <div>
+                <span className="user-entry">欢迎您，请先&nbsp;<a className="link" onClick={this.showLogin.bind(this)}>登录</a>&nbsp;/&nbsp;<a className="link" onClick={toURL.bind(null, "register")}>注册</a></span>
+                <Login show={this.state.showModal}  normalOpen={true} />
+            </div>
             ;
 
         return (

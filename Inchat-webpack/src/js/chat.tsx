@@ -13,16 +13,9 @@ import "../css/chat.css";
 import { Avatar, Button, Icon, Popover } from 'antd';
 import { Ajax, toURL, doSelectPic, checkLogin } from "../module/common";
 import PopupTitle from "../module/popupTitle/popupTitle";
+import ShowBigPicture from "./../module/showBigPicture/showBigPicture";
 
 const express = require("../config/config.express.json");
-
-if (!checkLogin()) {
-    PopupTitle.show({
-        content: "请您登录后再访问本页面",
-        cate: "error"
-    });
-    setTimeout(toURL("index"), 2000);
-}
 
 interface initProps {};
 interface initState {};
@@ -32,7 +25,9 @@ export default class Chat extends React.Component < initProps, initState > {
         isFollow: false,    //是否关注的标识
         uploadPopVisible: false,    //上传图片的气泡卡片是否可见
         selectedPic: "",    //选择的图片数据
-        chatContentList: [] //聊天内容列表
+        chatContentList: [], //聊天内容列表
+        bigPictureURL: "",  //查看大图时的图片路径
+        showBigPicModal: false  //是否显示查看大图
     }
     isFollow = false
     chatId = 0
@@ -78,6 +73,10 @@ export default class Chat extends React.Component < initProps, initState > {
         }
         return chatInfor;
     })()
+    /**
+     * @description 更新聊天记录列表
+     * @param chatContentList 当前最新的的聊天记录列表
+     */
     updateChatConList(chatContentList) {
         this.setState({
             chatContentList
@@ -122,19 +121,20 @@ export default class Chat extends React.Component < initProps, initState > {
             console.log("data:   ", data);
 
             if(data instanceof Array) {
-                let newConList = data.map((item) => {
+                let newConList = data.map((item) => {   //聊天记录列表
                     return (
                         <li key={Math.random()} className={(item.userId === currentUserId ? "right" : "") + " flipInX" + " animated"}>
-                            <Avatar data-userid={item.userId} src={item.avatar} size="large" />
+                            <span style={{cursor: "pointer"}} onClick={self.toVisitorPage.bind(self, item.userId)} title={`访问【${item.username}】的主页`}>
+                                <Avatar data-userid={item.userId} src={item.avatar} size="large"  />
+                            </span>
                             <div className="infor">
                                 <span>{item.username}</span>
-                                <p>{/^data:image\/jpeg;base64/.test(item.content) ? <img src={item.content}/> : htmlDecode(item.content)}</p>
+                                <p>{/^data:image\/jpeg;base64/.test(item.content) ? <img src={item.content} onDoubleClick={self.showBigPic.bind(self, item.content)} style={{width: 300}} /> : htmlDecode(item.content)}</p>
                             </div>
                         </li>
                     );
                 });
                 chatContentList = chatContentList.concat(newConList);
-                console.log(chatContentList);
                 self.updateChatConList(chatContentList);
             } else if (data === "noNewChatContent") {	//没有新的聊天记录
                 console.log("%c没有新的聊天记录", "color: #2196F3");
@@ -179,7 +179,7 @@ export default class Chat extends React.Component < initProps, initState > {
         this.createaddChatConWS();  //启动发送新的聊天记录的websocket
     }
     componentDidMount() {
-        this.chatContentListUL = this.refs.chatContentListUL;
+        this.chatContentListUL = this.refs.chatContentListUL;   //获取并存储真实的聊天列表的UL标签的DOM
     }
     /**
      * @description 处理点击【表情 | 图片】等icon时的事件
@@ -334,10 +334,36 @@ export default class Chat extends React.Component < initProps, initState > {
             uploadPopVisible
         });
     }
+    /**
+     * @description 访问用户主页
+     * @param userId 访问的用户的Id
+     */
+    toVisitorPage(userId: number) {
+        toURL("visitor.html?userId=" + userId, true);
+    }
+    /**
+     * @description 查看大图
+     * @param picData 图片数据
+     */
+    showBigPic(bigPictureURL) {
+        this.setState({
+            bigPictureURL,
+            showBigPicModal: true
+        });
+    }
+    /**
+     * @description 子组件自己隐藏自己时的回调函数——用于将showBigPicModal值设置为false，以避免本类里面其它地方调用setState时重复打开该组件
+     */
+    closeBigPicCallback() {
+        this.setState({
+            bigPictureURL: "",
+            showBigPicModal: false
+        });
+    }
     render(): JSX.Element {
         const chatInfor = this.chatInfor,
             isFollow = this.state.isFollow,
-            upPicLayout = (
+            upPicLayout = ( //上传图片弹出框
                 <div>
                     <div className="upload-pic" style={{backgroundImage: `url(${this.state.selectedPic})`}}></div>
                     <div className="upload-btns">
@@ -345,6 +371,19 @@ export default class Chat extends React.Component < initProps, initState > {
                         <Button size="small" type="primary" onClick={this.sendPicMess.bind(this)}>发送</Button>
                     </div>
                 </div>
+            ),
+            followList = (  //关注列表
+                chatInfor.chatFollowList.map((item) => {
+                    return (
+                        <li key={Math.random()} onClick={this.toVisitorPage.bind(this, item.userId)} title={`访问【${item.username}】的主页`}>
+                            <Avatar src={item.avatar} size="large" />
+                            <div>
+                                <span>{item.username}</span>
+                                <p title={item.intro}>{item.intro}</p>
+                            </div>
+                        </li>
+                    );
+                })
             );
 
         return (
@@ -403,41 +442,16 @@ export default class Chat extends React.Component < initProps, initState > {
                         <p className="module-title">简介</p>
                         <p>{chatInfor.chatIntro}</p>
                     </div>
-                    <div className="chat-infor-notice">
-                        <p className="module-title">公告</p>
+                    <div className="chat-members">
+                        <p className="module-title">关注</p>
                         <ul>
-                            <li>
-                                <p>公告标题</p>
-                                <p>公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容</p>
-                                <p>3-28 17:28</p>
-                            </li>
-                            <li>
-                                <p>公告标题</p>
-                                <p>公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容</p>
-                                <p>3-28 17:28</p>
-                            </li>
+                            {
+                                followList
+                            }
                         </ul>
                     </div>
                 </div>
-                <div className="chat-members">
-                    <p className="module-title">关注</p>
-                    <ul>
-                        <li>
-                            <Avatar src={require("../res/img/avatar/1.jpg")} size="large" />
-                            <div>
-                                <span>林允儿</span>
-                                <p>允儿林允儿林允儿儿林允儿允儿林允儿林允儿儿林允儿</p>
-                            </div>
-                        </li>
-                        <li>
-                            <Avatar src={require("../res/img/avatar/1.jpg")} size="large" />
-                            <div>
-                                <span>林允儿</span>
-                                <p>允儿林允儿林允儿儿林允儿允儿林允儿林允儿儿林允儿</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <ShowBigPicture pictureURL={this.state.bigPictureURL} visible={this.state.showBigPicModal} closeCallback={this.closeBigPicCallback.bind(this)}/>
             </div>
         )
     }

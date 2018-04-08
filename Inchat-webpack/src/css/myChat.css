@@ -19,6 +19,7 @@
     padding: 20px;
     text-align: center;
     background-color: #fff;
+    font-weight: bold;
 }
 /* 头像 */
 .chat-self > span {
@@ -29,8 +30,8 @@
 /* 用户名 */
 .chat-self > h3 {
     margin: 20px 0;
-    font-weight: bold;
     font-size: 16px;
+    font-weight: bold;
 }
 /* 创建&加入数量 */
 .chat-num {
@@ -39,12 +40,24 @@
 .chat-num > span > i {
     margin-right: 3px;
     color: #03a9f4;
-    font-weight: bold;
     font-style: normal;
 }
 .chat-num > span:nth-child(2) {
     margin: 0 20px;
     font-weight: 100;
+}
+/* 性别&年龄 */
+.gender-year {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.gender-year > span:nth-child(2) {
+    margin: 0 20px;
+    font-weight: 100;
+}
+/* 所在地 */
+.user-location {
+    margin: 20px 0;
 }
 /* 个人标签 */
 .chat-style {

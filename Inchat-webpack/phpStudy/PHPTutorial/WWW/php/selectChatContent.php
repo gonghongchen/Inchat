@@ -27,6 +27,15 @@ if ($conn->connect_error) {
 	echo "linkSuccess" . "\n";
 }
 
+//向chat表里面新增访客记录
+$sql = "SELECT chatVisitNum FROM chat WHERE chatId = " . $chatId;
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$chatVisitNum = (int)$row["chatVisitNum"];
+$chatVisitNum++;
+$sql = "UPDATE chat SET chatVisitNum=" . $chatVisitNum . " WHERE chatId = " . $chatId;
+$conn->query($sql);
+
 //定时更新数据
 $timeCount = 300;	//定时刷新以便从数据库获取最新数据的的次数
 $hadChatContentCount = 0;	//已获取的聊天记录的条数

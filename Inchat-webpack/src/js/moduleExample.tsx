@@ -10,6 +10,7 @@ import "../css/style.css";
 import "../css/moduleExample.css";
 import 'antd/dist/antd.less';
 import PopupTitle from "./../module/popupTitle/popupTitle";
+import ShowBigPicture from "./../module/showBigPicture/showBigPicture";
 import { DatePicker, Input, Popover, Button, Modal } from 'antd';
 import { Login } from "../module/login/login";
 
@@ -20,7 +21,9 @@ const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
 export default class ModuleExample extends React.Component < initProps, initState > {
     state = {
-        showModal: false
+        showModal: false,
+        bigPictureURL: "",
+        showBigPicModal: false
     }
     render(): JSX.Element {
         return(
@@ -42,8 +45,22 @@ export default class ModuleExample extends React.Component < initProps, initStat
                 <Button type="primary" onClick={this.setModalVisible.bind(this, true)}>登录</Button>
                 <Login show={this.state.showModal}  normalOpen={true} />
                 <br /><br />
+                <Button type="primary" onClick={this.showBigPic.bind(this)}>查看大图</Button>
+                <ShowBigPicture pictureURL={this.state.bigPictureURL} visible={this.state.showBigPicModal} closeCallback={this.closeCallback.bind(this)}/>
             </div>
         )
+    }
+    showBigPic() {
+        this.setState({
+            bigPictureURL: "../../res/img/1.jpg",
+            showBigPicModal: true
+        });
+    }
+    closeCallback() {
+        this.setState({
+            bigPictureURL: "",
+            showBigPicModal: false
+        });
     }
     setModalVisible(showModal) {
         this.setState({ showModal });

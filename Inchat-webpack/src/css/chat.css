@@ -41,7 +41,7 @@
 /* 聊天窗口 */
 .chat-window {
     float: left;
-    width: 800px;
+    width: 1090px;
     height: 800px;
     padding: 20px;
     border-right: 1px solid #0acffe;
@@ -143,13 +143,12 @@
     background-color: #e4e4e4;
 }
 
-/* 简介&公告 */
-.chat-infor, .chat-members {
+/* 简介&成员 */
+.chat-infor {
     float: left;
     width: 290px;
     height: 800px;
     padding: 20px;
-    border-right: 1px solid #0acffe;
 }
 /* 简介 */
 .chat-infor-des {
@@ -162,31 +161,14 @@
     font-weight: bold;
     text-align: center;
 }
-/* 公告列表 */
-.chat-infor-notice {
-    height: 80%;
-    padding-top: 20px;
-}
-.chat-infor-notice > ul {
-    height: 550px;
-    overflow: auto;
-}
-.chat-infor-notice > ul > li {
-    margin-bottom: 20px;
-}
-.chat-infor-notice > ul > li > p {
-    margin-bottom: 5px;
-}
-.chat-infor-notice > ul > li > p:first-child {
-    font-weight: bold;
-}
 
 /* 成员 */
 .chat-members {
-    border-right: none;
+    height: 80%;
+    padding-top: 20px;
 }
 .chat-members > ul {
-    height: 720px;
+    height: 550px;
     overflow: auto;
 }
 .chat-members > ul > li {

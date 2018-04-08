@@ -26,7 +26,7 @@ $userId = 0;
 if ($target === "current") {
 	$userId = $_SESSION["userId"];	//查询当前登录用户关注的群聊
 } else {
-	$userId = $_GET["userId"];		//查询指定ID的用户关注的群聊
+	$userId = $target;		//查询指定ID的用户关注的群聊
 }
 $sql = "SELECT followChat FROM userInfor where userId=".$userId;
 
