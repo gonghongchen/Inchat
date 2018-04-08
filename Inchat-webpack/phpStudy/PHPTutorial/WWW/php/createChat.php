@@ -1,7 +1,7 @@
 <?php
 	
 /**
- * @description login
+ * @description 创建群聊
  * @author ghc
  */
 
@@ -43,15 +43,15 @@ if ($conn->query($sql) === TRUE) {
 
 		$sql5 = "UPDATE userInfor SET createChatNum=".$createChatNum." WHERE userId=".$userId;
 		if ($conn->query($sql5) === TRUE) {
-			echo true;
+			echo "success";
 		} else {
-			echo false;
+			echo "error";
 		}
 	} else {
-		echo false;
+		echo "error";
 	}
 } else {
-	echo false;
+	echo "error";
 }
 
 $conn->close();

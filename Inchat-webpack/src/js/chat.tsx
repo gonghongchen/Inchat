@@ -372,7 +372,7 @@ export default class Chat extends React.Component < initProps, initState > {
                     </div>
                 </div>
             ),
-            followList = (  //关注列表
+            followList = Array.isArray(chatInfor.chatFollowList) ? (  //关注列表
                 chatInfor.chatFollowList.map((item) => {
                     return (
                         <li key={Math.random()} onClick={this.toVisitorPage.bind(this, item.userId)} title={`访问【${item.username}】的主页`}>
@@ -384,7 +384,7 @@ export default class Chat extends React.Component < initProps, initState > {
                         </li>
                     );
                 })
-            );
+            ) : <li style={{textAlign: "center"}}>暂无关注用户</li>;
 
         return (
             <div className="max-width chat-box">
@@ -401,22 +401,8 @@ export default class Chat extends React.Component < initProps, initState > {
                 </div>
                 <div className="chat-window">
                     <ul className="chat-window-mess" ref="chatContentListUL">
-                        <li>
-                            <Avatar src={require("../res/img/avatar/1.jpg")} size="large" />
-                            <div className="infor">
-                                <span>林允儿</span>
-                                <p>林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿林允儿</p>
-                            </div>
-                        </li>
-                        <li className="right">
-                            <Avatar src={require("../res/img/avatar/1.jpg")} size="large" />
-                            <div className="infor">
-                                <span>林允儿</span>
-                                <p><img src={require("../res/img/register-bg.jpg")}/></p>
-                            </div>
-                        </li>
                         {
-                            this.state.chatContentList || "没有新的聊天内容哦"
+                            this.state.chatContentList || "还没有新的聊天内容哦"
                         }
                     </ul>
                     <div className="chat-window-edit">

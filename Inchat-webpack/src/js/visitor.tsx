@@ -126,6 +126,16 @@ class MyChat extends React.Component < initProps, initState > {
         const userInfor = this.userInfor,
             createChatData = this.createChatData,
             followChatData = this.followChatData,
+            ta = ((g) => {
+                switch (g) {
+                    case "保密":
+                        return "TA";
+                    case "女":
+                        return "她";
+                    case "男":
+                        return "他";
+                }
+            })(userInfor.gender),
             createChatCardList = createChatData ? ( //封装群聊卡片列表数据
                 createChatData.map(item => (
                     <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId }>
@@ -146,7 +156,7 @@ class MyChat extends React.Component < initProps, initState > {
                     </li>
                 ))
             ) : (
-                <li>现在没有内容哦，赶快去创建吧</li>
+                <li>{ta}还没有创建过群聊哦</li>
             ),
             followChatCardList = followChatData ? ( //封装群聊卡片列表数据
                 followChatData.map(item => (
@@ -168,7 +178,7 @@ class MyChat extends React.Component < initProps, initState > {
                     </li>
                 ))
             ) : (
-                <li>现在没有内容哦，去关注看看吧</li>
+                <li>{ta}还没有关注的群聊哦</li>
             ),
             gender = ((g) => {
                 switch (g) {
@@ -178,16 +188,6 @@ class MyChat extends React.Component < initProps, initState > {
                         return <Icon type="woman" style={{color: "#ef5350"}} />;
                     case "男":
                         return <Icon type="man" style={{color: "#03a9f4"}} />;
-                }
-            })(userInfor.gender),
-            ta = ((g) => {
-                switch (g) {
-                    case "保密":
-                        return "TA";
-                    case "女":
-                        return "她";
-                    case "男":
-                        return "他";
                 }
             })(userInfor.gender),
             year = ((b) => {

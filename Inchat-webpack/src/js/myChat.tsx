@@ -12,18 +12,53 @@ import Nav from "../module/nav/nav";
 import "../css/myChat.css";
 import { Avatar, Button, Icon, Card, Modal, Form, Input, Upload } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { Ajax, toURL, doSelectPic, checkLogin } from "../module/common";
+import { Ajax, toURL, doSelectPic } from "../module/common";
 import PopupTitle from "../module/popupTitle/popupTitle";
 
 let { Meta } = Card,
-    { TextArea } = Input;
+    { TextArea } = Input,
+    createdChatData = null,
+    initChatConfig = {
+        modalVisible: false,
+        titleText: "",
+        chatName: "",
+        chatIntro: "",
+        chatCoverPicURL: "",
+        okBtnText: "",
+        submitURL: "",
+        errorText: "",
+        mustChatCoverPicURL: true
+    },
+    createChatConfig = {
+        modalVisible: true,
+        titleText: "创建新群聊",
+        chatName: "",
+        chatIntro: "",
+        chatCoverPicURL: "",
+        okBtnText: "创建",
+        submitURL: "createChat.php",
+        errorText: "创建失败，请重试",
+        mustChatCoverPicURL: true
+    },
+    updateChatConfig = {
+        modalVisible: true,
+        titleText: "修改群聊资料",
+        chatName: "",
+        chatIntro: "",
+        chatCoverPicURL: "",
+        okBtnText: "修改",
+        submitURL: "updateChat.php",
+        errorText: "修改失败，请重试",
+        mustChatCoverPicURL: false
+    },
+    oldChatInfor = null;
 
 interface initProps {};
 interface initState {};
 
 class MyChat extends React.Component < initProps, initState > {
     state = {
-        modalVisible: false
+        chatModalConfig: null
     }
     /**
      * @description //获取用户资料
@@ -69,6 +104,8 @@ class MyChat extends React.Component < initProps, initState > {
             }
         });
 
+        createdChatData = chatData;
+
         return chatData;
     })()
     /**
@@ -98,9 +135,12 @@ class MyChat extends React.Component < initProps, initState > {
 
         return chatData;
     })()
-    showModal(modalVisible: boolean) {
+    /**
+     * @description 显示创建/修改群聊的弹出框
+     */
+    showModal() {
         this.setState({
-            modalVisible
+            chatModalConfig: createChatConfig
         });
     }
     /**
@@ -111,14 +151,33 @@ class MyChat extends React.Component < initProps, initState > {
         toURL(`chat.html?chatId=${chatId}`, true);
     }
     /**
-     * @description 跳转到【管理 | 数据统计】页面
+     * @description 点击【修改资料 | 数据统计】的操作
      * @param cate 点击的按钮类别
      */
-    doChat(cate: string, event) {
+    doAction(cate: string, chatId, event) {
         event.stopPropagation();
 
-        console.log(cate);
-        return false;
+        if (cate === "setting") {   //修改资料
+            for (const item of createdChatData) {   //初始化弹出框的内容
+                if (item.chatId === chatId) {
+                    updateChatConfig.chatName = item.chatName;
+                    updateChatConfig.chatIntro = item.chatIntro;
+                    updateChatConfig.chatCoverPicURL = item.chatCoverPicURL;
+
+                    oldChatInfor = {    //存储更新前的群聊资料
+                        chatName: item.chatName,
+                        chatIntro: item.chatIntro,
+                        chatCoverPicURL: item.chatCoverPicURL,
+                        chatId
+                    };
+
+                    break;
+                }
+            }
+            this.setState({
+                chatModalConfig: updateChatConfig
+            });
+        }
     }
     render(): JSX.Element {
         const userInfor = this.userInfor,
@@ -132,7 +191,7 @@ class MyChat extends React.Component < initProps, initState > {
                             cover={ <div className="chatCoverPic" style={{backgroundImage: `url(${item.chatCoverPicURL})`}}></div> }
                             hoverable={true}
                             bodyStyle={{padding: 20}}
-                            actions={[<span onClick={this.doChat.bind(this, "setting")}><Icon type="setting" />&nbsp;管理</span>, <span onClick={this.doChat.bind(this, "chart")}><Icon type="bar-chart" />&nbsp;数据统计</span>]}
+                            actions={[<span onClick={this.doAction.bind(this, "setting", item.chatId)}><Icon type="setting" />&nbsp;修改资料</span>, <span onClick={this.doAction.bind(this, "chart", item.chatId)}><Icon type="bar-chart" />&nbsp;数据统计</span>]}
                         >
                             <Meta
                                 avatar={<Avatar src={userInfor.avatar} size="large" />}
@@ -180,10 +239,10 @@ class MyChat extends React.Component < initProps, initState > {
                             <span>|</span>
                             <span><i>{userInfor.followChatNum}</i>关注</span>
                         </div>
-                        <CreateChatForm modalVisible={this.state.modalVisible} />
+                        <CreateChatForm config={this.state.chatModalConfig} />
                     </div>
                     <div className="chat-self">
-                        <Button type="primary" onClick={this.showModal.bind(this, true)}>
+                        <Button type="primary" onClick={this.showModal.bind(this)}>
                             <Icon type="plus" />创建新群聊
                         </Button>
                     </div>
@@ -214,15 +273,23 @@ class MyChat extends React.Component < initProps, initState > {
 /**
  * 创建新群聊的弹出框
  */
+interface config {
+    modalVisible: boolean,
+    titleText: string,
+    chatName: string,
+    chatIntro: string,
+    chatCoverPicURL: string,
+    okBtnText: string,
+    submitURL: string,
+    errorText: string,
+    mustChatCoverPicURL: boolean
+}
 interface initProps2 {
-    modalVisible: boolean
+    config: config
 }
 
 class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
-    state = {
-        chatCoverPicURL: "",
-        modalVisible: false,
-    }
+    state = initChatConfig
     /**
      * @description 设置state中的modalVisible值
      * @param modalVisible 显示与否
@@ -235,9 +302,12 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
      * @param nextProps 父组件更新后的props的值
      */
     componentWillReceiveProps(nextProps) {
-        this.setState({ modalVisible: nextProps.modalVisible });
+        console.log("nextProps", nextProps);
+        this.setState(nextProps.config);
     }
     showPreViewPic(chatCoverPicURL): void {
+        createChatConfig.chatCoverPicURL = chatCoverPicURL; //将createChatConfig.chatCoverPicURL的数据实时更新，以避免当父组件render后导致弹出框里面没有刚刚选择的图片数据，下同
+        updateChatConfig.chatCoverPicURL = chatCoverPicURL;
         this.setState({
             chatCoverPicURL
         });
@@ -250,43 +320,53 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
      * @param event 
      */
     handleSubmit(event) {
-        const that = this;
+        const self = this;
 
         event.preventDefault();
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                if (!checkLogin()) {
-                    PopupTitle.show({
-                        content: "请重新登录！",
-                        cate: "warning"
-                    });
-        
-                    return false;
-                }
-                
                 values.chatCoverPicURL = this.state.chatCoverPicURL;
-                console.log('Received values of form: ', values);
+                
+                if (oldChatInfor) { //表示更新群数据，且在更新群聊资料时需要做数据是否修改的判断，并把chatId封装到数据中去
+                    values.chatId = oldChatInfor.chatId;
+                    //由于执行了validateFields方法后，各个输入框里面的值就会被固定，导致点击修改其它群聊的时候初始化显示的内容有误，故在没有想到解决方法之前这里现在还不能做判断
+                    if (JSON.stringify(oldChatInfor) === JSON.stringify(values)) {  //没有修改任何内容
+                        // PopupTitle.show({
+                        //     content: "没有修改任何内容",
+                        //     cate: "warning"
+                        // });
+                        values.hasModify = "no" ;
+
+                        // return false;
+                    } else {
+                        values.hasModify = "yes" ;
+                    }
+                }
+
+                event.target.disabled = true;
                 Ajax({
-                    url: "createChat.php",
+                    url: self.state.submitURL,
                     data: values,
                     method: "post",
                     success(val) {
-                        if(val) {   //创建成功
+                        if(val === "success") {   //创建/修改成功
                             window.location.reload();
                         } else {
                             PopupTitle.show({
-                                content: "创建失败，请重试",
+                                content: self.state.errorText,
                                 cate: "error"
                             });
+                            event.target.disabled = false;
                         }
                     },
                     error(status) {
                         PopupTitle.show({
-                            content: "创建失败，请重试",
+                            content: self.state.errorText,
                             cate: "error"
                         });
                         console.log("error status: ", status);
+                        event.target.disabled = false;
                     }
                 });
             }
@@ -301,23 +381,24 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
                   <div className="ant-upload-text">上传封面图片</div>
                 </div>
             );
-
+            
         return (
             <Modal
-                title="创建新群聊"
+                title={this.state.titleText}
                 visible={this.state.modalVisible}
                 onOk={this.handleSubmit.bind(this)}
                 onCancel={this.setModalVisible.bind(this, false)}
                 wrapClassName="vertical-center-modal"
                 maskClosable={false}
                 cancelText="取消"
-                okText="创建"
+                okText={this.state.okBtnText}
                 width="360px"
                 >
                 <Form onSubmit={this.handleSubmit.bind(this)}>
                     <FormItem>
                         {getFieldDecorator('chatName', {
                             rules: [{ required: true, whitespace:true, min:2, message: '请输入正确的群名字！' }],
+                            initialValue: this.state.chatName
                         })(
                             <Input size="large" placeholder="群名字（大于2个字符）" />
                         )}
@@ -325,13 +406,14 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
                     <FormItem>
                         {getFieldDecorator('chatIntro', {
                             rules: [{ required: true, whitespace:true, min:20, message: '请输入正确的群简介！' }],
+                            initialValue: this.state.chatIntro
                         })(
                             <TextArea autosize={{ minRows: 3, maxRows: 5 }} placeholder="群简介（大于20个字符）" />
                         )}
                     </FormItem>
                     <FormItem className="upload-cover-pic">
                         {getFieldDecorator('chatCoverPicURL', {
-                            rules: [{ required: true, whitespace:true, min:20, message: '请选择封面图片！' }],
+                            rules: [{ required: this.state.mustChatCoverPicURL, whitespace:true, min:20, message: '请选择封面图片！' }],
                         })(
                             <Button onClick={ () => { this.doClickSelPic.bind(this)(this.refs.fileInput) } }>
                                 <Icon type="upload" />上传封面图片

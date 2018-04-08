@@ -152,9 +152,19 @@ const toURL = (filename: string, newTarget: boolean = false): boolean => {
  */
 const doSelectPic = (callback: Function, resWidth: number, event?: any): void => {
     let img = document.createElement("img"),
-            coverPic = "";
+        coverPic = "",
+        selectedFile = event.target.files[0];
 
-    img.src = window.URL.createObjectURL(event.target.files[0]);
+    if (!selectedFile) {    //在选择文件窗口点击了取消
+        console.log("点击了取消按钮");
+        return;
+    }
+    if (!/(\.png|\.jpg|\.gif)$/.test(selectedFile.name)) {  //选择的不是指定格式的图片文件
+        console.log("选择的不是图片文件");
+        event.target.value = null;  //将文件选择框里面的值清除掉
+        return;
+    }
+    img.src = window.URL.createObjectURL(selectedFile);
 
     new Promise((resolve, reject) => {
         img.onload = () => {
