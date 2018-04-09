@@ -44,6 +44,7 @@ if ($followChat) {
 			$result = $conn->query($sql2);
 			$row = $result->fetch_assoc();
 			$value[$i] = array(
+				"userId"=>$row["userId"],
 				"chatId"=>$row["chatId"],
 				"chatName"=>$row["chatName"],
 				"chatIntro"=>$row["chatIntro"],

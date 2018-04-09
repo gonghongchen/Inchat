@@ -76,20 +76,28 @@ export default class Index extends React.Component < initProps, initState > {
         }
         toURL(`chat.html?chatId=${chatId}`, true);
     }
+    /**
+     * @description 访问用户主页
+     * @param userId 访问的用户的Id
+     */
+    toVisitorPage(userId: number,event) {
+        event.stopPropagation();
+        toURL("visitor.html?userId=" + userId, true);
+    }
     render(): JSX.Element {
         const chatData = this.chatData,
             chatCardList = chatData ? ( //封装群聊卡片列表数据
                 chatData.map(item => (
-                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId }>
+                    <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId } title="进入群聊">
                         <Card
                             style={{ width: 260 }}
                             cover={ <div className="chatCoverPic" style={{backgroundImage: `url(${item.chatCoverPicURL})`}}></div> }
                             hoverable={true}
                             bodyStyle={{padding: 20}}
-                            actions={[<span title="关注量"><Icon type="heart-o" />&nbsp;{ item.chatFollowNum }</span>, <span title="访问量"><Icon type="eye-o" />&nbsp;{ item.chatVisitNum }</span>]}
+                            actions={[<span title="关注量" style={{cursor: "default"}}><Icon type="heart-o" />&nbsp;{ item.chatFollowNum }</span>, <span title="访问量" style={{cursor: "default"}}><Icon type="eye-o" />&nbsp;{ item.chatVisitNum }</span>]}
                         >
                             <Meta
-                                avatar={<Avatar src={item.avatar} size="large" />}
+                                avatar={<span onClick={this.toVisitorPage.bind(this, item.userId)} title="访问主页" ><Avatar src={item.avatar} size="large" /></span>}
                                 title={ item.chatName }
                                 description={ item.chatIntro.length > 30 ? item.chatIntro.substr(0, 28) + "……" : item.chatIntro }
                                 style={{ height: 80 }}
@@ -123,9 +131,9 @@ export default class Index extends React.Component < initProps, initState > {
                             <Menu.Item key="random">
                                 <Icon type="bulb" />发现
                             </Menu.Item>
-                            <Menu.Item key="popular">
+                            {/* <Menu.Item key="popular">
                                 <Icon type="heart-o" />热门
-                            </Menu.Item>
+                            </Menu.Item> */}
                         </Menu>
                     </div>
                     <div className="search">

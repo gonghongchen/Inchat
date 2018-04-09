@@ -71,6 +71,9 @@ export default class Chat extends React.Component < initProps, initState > {
                 this.isFollow = true;
             }
         }
+
+        document.getElementsByTagName("title")[0].innerText = "【" + chatInfor.chatName + "】 - Inchat";
+
         return chatInfor;
     })()
     /**

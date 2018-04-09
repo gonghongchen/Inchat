@@ -46,6 +46,7 @@ if ($dataCount > 0) {	//有数据
 	if ($hasAvatar) {
 		while ($row = $result->fetch_assoc()) {
 			$value[$index] = array(
+				"userId"=>$row["userId"],
 				"chatId"=>$row["chatId"],
 				"chatName"=>$row["chatName"],
 				"chatIntro"=>$row["chatIntro"],
