@@ -4649,3 +4649,21 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Mon Apr 09 10:01:06.232598 2018] [mpm_winnt:notice] [pid 16688:tid 808] AH00418: Parent: Created child process 13656
 [Mon Apr 09 10:01:07.477393 2018] [mpm_winnt:notice] [pid 13656:tid 724] AH00354: Child: Starting 150 worker threads.
 [Mon Apr 09 10:25:48.586688 2018] [:error] [pid 13656:tid 2156] [client ::1:63620] PHP Notice:  Undefined index: target in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChat.php on line 24
+[Mon Apr 09 16:05:09.909560 2018] [mpm_winnt:crit] [pid 13656:tid 724] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Mon Apr 09 16:05:15.085162 2018] [core:warn] [pid 7924:tid 160] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Mon Apr 09 16:05:15.531141 2018] [mpm_winnt:notice] [pid 7924:tid 160] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Mon Apr 09 16:05:15.531141 2018] [mpm_winnt:notice] [pid 7924:tid 160] AH00456: Server built: Jul  1 2016 16:42:20
+[Mon Apr 09 16:05:15.531141 2018] [core:notice] [pid 7924:tid 160] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Mon Apr 09 16:05:15.543173 2018] [mpm_winnt:notice] [pid 7924:tid 160] AH00418: Parent: Created child process 20968
+[Mon Apr 09 16:05:17.302886 2018] [mpm_winnt:notice] [pid 20968:tid 772] AH00354: Child: Starting 150 worker threads.
+[Mon Apr 09 16:28:12.006937 2018] [:error] [pid 20968:tid 2156] [client ::1:59702] PHP Notice:  Undefined index: chatId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChatInfor.php on line 24
+[Mon Apr 09 17:50:39.277031 2018] [:error] [pid 20968:tid 2152] [client ::1:60846] PHP Notice:  Undefined index: username in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 24
+[Mon Apr 09 17:50:39.277031 2018] [:error] [pid 20968:tid 2152] [client ::1:60846] PHP Notice:  Undefined index: password in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\login.php on line 25
+[Mon Apr 09 20:12:27.728605 2018] [mpm_winnt:crit] [pid 20968:tid 772] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Sun Apr 15 12:48:33.921959 2018] [core:warn] [pid 12948:tid 864] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Apr 15 12:48:34.355115 2018] [mpm_winnt:notice] [pid 12948:tid 864] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Sun Apr 15 12:48:34.355115 2018] [mpm_winnt:notice] [pid 12948:tid 864] AH00456: Server built: Jul  1 2016 16:42:20
+[Sun Apr 15 12:48:34.355115 2018] [core:notice] [pid 12948:tid 864] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Sun Apr 15 12:48:34.358256 2018] [mpm_winnt:notice] [pid 12948:tid 864] AH00418: Parent: Created child process 16016
+[Sun Apr 15 12:48:35.965164 2018] [mpm_winnt:notice] [pid 16016:tid 792] AH00354: Child: Starting 150 worker threads.
+[Sun Apr 15 13:03:14.192341 2018] [mpm_winnt:crit] [pid 16016:tid 792] AH02538: Child: Parent process exited abruptly. Child process is ending

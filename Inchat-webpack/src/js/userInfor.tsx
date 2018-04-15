@@ -38,50 +38,50 @@ interface initState {};
 class UserInfor extends React.Component < initProps, initState > {
     render(): JSX.Element {
         const gender = ((g) => {
-            switch (g) {
-                case "保密":
-                    return "性别保密";
-                case "女":
-                    return <Icon type="woman" style={{color: "#ef5350"}} />;
-                case "男":
-                    return <Icon type="man" style={{color: "#03a9f4"}} />;
-            }
-        })(userInfor.gender),
-        year = ((b) => {
-            /**
-             * @description 根据指定的秒速计算出到今天为止的年龄并格式化为指定的显示规则
-             * @param seconds 秒数
-             * @return "*岁"
-             */
-            const formatYear = (seconds: number): string => {
+                switch (g) {
+                    case "保密":
+                        return "性别保密";
+                    case "女":
+                        return <Icon type="woman" style={{color: "#ef5350"}} />;
+                    case "男":
+                        return <Icon type="man" style={{color: "#03a9f4"}} />;
+                }
+            })(userInfor.gender),
+            year = ((b) => {
                 /**
-                 * @description 根据给定的日期对象，返回该对象的年月日
+                 * @description 根据指定的秒速计算出到今天为止的年龄并格式化为指定的显示规则
                  * @param seconds 秒数
-                 * @return [年, 月, 日]
+                 * @return "*岁"
                  */
-                const getTime = (seconds? : number): number[] => {
-                    let date = typeof seconds === "number" ? new Date(seconds) : new Date();
-                    return [
-                        date.getFullYear(),
-                        date.getMonth() + 1,
-                        date.getDate()
-                    ];
+                const formatYear = (seconds: number): string => {
+                    /**
+                     * @description 根据给定的日期对象，返回该对象的年月日
+                     * @param seconds 秒数
+                     * @return [年, 月, 日]
+                     */
+                    const getTime = (seconds? : number): number[] => {
+                        let date = typeof seconds === "number" ? new Date(seconds) : new Date();
+                        return [
+                            date.getFullYear(),
+                            date.getMonth() + 1,
+                            date.getDate()
+                        ];
+                    };
+
+                    let birthTime = getTime(seconds),
+                        nowTime = getTime(),
+                        spaceY = nowTime[0] - birthTime[0],
+                        spaceM = nowTime[1] - birthTime[1],
+                        spaceD = nowTime[2] - birthTime[2],
+                        year = spaceM > 0 ? spaceY : (spaceM < 0 ? spaceY-1 : (spaceD >= 0 ? spaceY : spaceY-1));
+
+                    return year + "岁";
                 };
 
-                let birthTime = getTime(seconds),
-                    nowTime = getTime(),
-                    spaceY = nowTime[0] - birthTime[0],
-                    spaceM = nowTime[1] - birthTime[1],
-                    spaceD = nowTime[2] - birthTime[2],
-                    year = spaceM > 0 ? spaceY : (spaceM < 0 ? spaceY-1 : (spaceD >= 0 ? spaceY : spaceY-1));
+                b = Number.parseInt(b);
 
-                return year + "岁";
-            };
-
-            b = Number.parseInt(b);
-
-            return b === 0 ? "年龄未知" : formatYear(b);
-        })(userInfor.birthday);
+                return b === 0 ? "年龄未知" : formatYear(b);
+            })(userInfor.birthday);
 
         return (
             <div className="max-width chat-box">

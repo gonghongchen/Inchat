@@ -25,7 +25,7 @@ $chatId = $_POST["chatId"];
 $isFollow = $_POST["isFollow"];
 $userId = $_SESSION['userId'];
 
-function updateFollow($cate) {
+function updateFollow($cate) {      //更新关注数据
     global $conn, $chatId, $isFollow, $userId;
 
     if ($cate === 1) {
