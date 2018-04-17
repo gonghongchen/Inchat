@@ -1,0 +1,175 @@
+-->WebSocket
+
+WebSocket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection. The WebSocket protocol was standardized by the IETF as RFC 6455 in 2011, and the WebSocket API in Web IDL is being standardized by the W3C.
+
+WebSocket is a different TCP protocol from HTTP. Both protocols are located at layer 7 in the OSI model and, as such, depend on TCP at layer 5. Although they are different, RFC 6455 states that WebSocket "is designed to work over HTTP ports 80 and 443 as well as to support HTTP proxies and intermediaries" thus making it compatible with the HTTP protocol. To achieve compatibility, the WebSocket handshake uses the HTTP Upgrade header[1] to change from the HTTP protocol to the WebSocket protocol.
+
+The WebSocket protocol enables interaction between a web client (such as a browser) and a web server with lower overheads, facilitating real-time data transfer from and to the server. This is made possible by providing a standardized way for the server to send content to the client without being first requested by the client, and allowing messages to be passed back and forth while keeping the connection open. In this way, a two-way ongoing conversation can take place between the client and the server. The communications are done over TCP port number 80 (or 443 in the case of TLS-encrypted connections), which is of benefit for those environments which block non-web Internet connections using a firewall. Similar two-way browser-server communications have been achieved in non-standardized ways using stopgap technologies such as Comet.
+
+The WebSocket protocol is currently supported in most major browsers including Google Chrome, Microsoft Edge, Internet Explorer, Firefox, Safari and Opera. WebSocket also requires web applications on the server to support it.
+
+-->Overview
+Unlike HTTP, WebSocket provides full-duplex communication.[2][3] Additionally, WebSocket enables streams of messages on top of TCP. TCP alone deals with streams of bytes with no inherent concept of a message. Before WebSocket, port 80 full-duplex communication was attainable using Comet channels; however, Comet implementation is nontrivial, and due to the TCP handshake and HTTP header overhead, it is inefficient for small messages. The WebSocket protocol aims to solve these problems without compromising security assumptions of the web.
+
+The WebSocket protocol specification defines ws (WebSocket) and wss (WebSocket Secure) as two new uniform resource identifier (URI) schemes[4] that are used for unencrypted and encrypted connections, respectively. Apart from the scheme name and fragment (# is not supported), the rest of the URI components are defined to use URI generic syntax.[5]
+
+Using browser developer tools, developers can inspect the WebSocket handshake as well as the WebSocket frames.[6]
+
+
+-->History
+WebSocket was first referenced as TCPConnection in the HTML5 specification, as a placeholder for a TCP-based socket API.[7] In June 2008, a series of discussions were led by Michael Carter that resulted in the first version of the protocol known as WebSocket.[8]
+
+The name "WebSocket" was coined by Ian Hickson and Michael Carter shortly thereafter through collaboration on the #whatwg IRC chat room,[9] and subsequently authored for inclusion in the HTML5 specification by Ian Hickson, and announced on the cometdaily blog by Michael Carter.[10] In December 2009, Google Chrome 4 was the first browser to ship full support for the standard, with WebSocket enabled by default.[11] Development of the WebSocket protocol was subsequently moved from the W3C and WHATWG group to the IETF in February 2010, and authored for two revisions under Ian Hickson.[12]
+
+After the protocol was shipped and enabled by default in multiple browsers, the RFC was finalized under Ian Fette in December 2011.[13]
+
+
+-->Browser implementation
+A secure version of the WebSocket protocol is implemented in Firefox 6,[14] Safari 6, Google Chrome 14,[15] Opera 12.10 and Internet Explorer 10.[16] A detailed protocol test suite report[17] lists the conformance of those browsers to specific protocol aspects.
+
+An older, less secure version of the protocol was implemented in Opera 11 and Safari 5, as well as the mobile version of Safari in iOS 4.2.[18] The BlackBerry Browser in OS7 implements WebSockets.[19] Because of vulnerabilities, it was disabled in Firefox 4 and 5,[20] and Opera 11.[21]
+
+
+-->Protocol handshake
+To establish a WebSocket connection, the client sends a WebSocket handshake request, for which the server returns a WebSocket handshake response, as shown in the example below.[30]
+
+Client request (just like in HTTP, each line ends with \r\n and there must be an extra blank line at the end):
+GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+Sec-WebSocket-Protocol: chat, superchat
+Sec-WebSocket-Version: 13
+Origin: http://example.com
+
+Server response:
+
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+Sec-WebSocket-Protocol: chat
+
+The handshake resembles HTTP in allowing servers to handle HTTP connections as well as WebSocket connections on the same port. Once the connection is established, communication switches to a bidirectional binary protocol which doesn't conform to the HTTP protocol.
+
+In addition to Upgrade headers, the client sends a Sec-WebSocket-Key header containing base64-encoded random bytes, and the server replies with a hash of the key in the Sec-WebSocket-Accept header. This is intended to prevent a caching proxy from re-sending a previous WebSocket conversation,[31] and does not provide any authentication, privacy or integrity. The hashing function appends the fixed string 258EAFA5-E914-47DA-95CA-C5AB0DC85B11 (a GUID) to the value from Sec-WebSocket-Key header (which is not decoded from base64), applies the SHA-1 hashing function, and encodes the result using base64.[32]
+
+Once the connection is established, the client and server can send WebSocket data or text frames back and forth in full-duplex mode. The data is minimally framed, with a small header followed by payload. WebSocket transmissions are described as "messages", where a single message can optionally be split across several data frames. This can allow for sending of messages where initial data is available but the complete length of the message is unknown (it sends one data frame after another until the end is reached and marked with the FIN bit). With extensions to the protocol, this can also be used for multiplexing several streams simultaneously (for instance to avoid monopolizing use of a socket for a single large payload).
+
+It is important (from a security perspective) to validate the "Origin" header during the connection establishment process on the server side (against the expected origins) to avoid Cross-Site WebSocket Hijacking attacks, which might be possible when the connection is authenticated with Cookies or HTTP authentication. It is better to use tokens or similar protection mechanisms to authenticate the WebSocket connection when sensitive (private) data is being transferred over the WebSocket.[33]
+
+
+-->Proxy traversal
+WebSocket protocol client implementations try to detect if the user agent is configured to use a proxy when connecting to destination host and port and, if it is, uses HTTP CONNECT method to set up a persistent tunnel.
+
+While the WebSocket protocol itself is unaware of proxy servers and firewalls, it features an HTTP-compatible handshake thus allowing HTTP servers to share their default HTTP and HTTPS ports (80 and 443) with a WebSocket gateway or server. The WebSocket protocol defines a ws:// and wss:// prefix to indicate a WebSocket and a WebSocket Secure connection, respectively. Both schemes use an HTTP upgrade mechanism to upgrade to the WebSocket protocol. Some proxy servers are transparent and work fine with WebSocket; others will prevent WebSocket from working correctly, causing the connection to fail. In some cases, additional proxy server configuration may be required, and certain proxy servers may need to be upgraded to support WebSocket.
+
+If unencrypted WebSocket traffic flows through an explicit or a transparent proxy server without WebSockets support, the connection will likely fail.[34]
+
+If an encrypted WebSocket connection is used, then the use of Transport Layer Security (TLS) in the WebSocket Secure connection ensures that an HTTP CONNECT command is issued when the browser is configured to use an explicit proxy server. This sets up a tunnel, which provides low-level end-to-end TCP communication through the HTTP proxy, between the WebSocket Secure client and the WebSocket server. In the case of transparent proxy servers, the browser is unaware of the proxy server, so no HTTP CONNECT is sent. However, since the wire traffic is encrypted, intermediate transparent proxy servers may simply allow the encrypted traffic through, so there is a much better chance that the WebSocket connection will succeed if WebSocket Secure is used. Using encryption is not free of resource cost, but often provides the highest success rate since it would be travelling through a secure tunnel.
+
+A mid-2010 draft (version hixie-76) broke compatibility with reverse proxies and gateways by including eight bytes of key data after the headers, but not advertising that data in a Content-Length: 8 header.[35] This data was not forwarded by all intermediates, which could lead to protocol failure. More recent drafts (e.g., hybi-09[36]) put the key data in a Sec-WebSocket-Key header, solving this problem.
+
+
+-->Special nouns
+
+-->Full duplex
+A full-duplex (FDX) system, or sometimes called double-duplex, allows communication in both directions, and, unlike half-duplex, allows this to happen simultaneously. Land-line telephone networks are full-duplex, since they allow both callers to speak and be heard at the same time, with the transition from four to two wires being achieved by a hybrid coil in a telephone hybrid. Modern cell phones are also full-duplex.[1]
+
+A good analogy for a full-duplex system is a two-lane road with one lane for each direction. Moreover, in most full-duplex mode systems carrying computer data, transmitted data does not appear to be sent until it has been received and an acknowledgment is sent back by the other party. In this way, such systems implement reliable transmission methods.
+
+Two-way radios can be designed as full-duplex systems, transmitting on one frequency and receiving on another; this is also called frequency-division duplex. Frequency-division duplex systems can extend their range by using sets of simple repeater stations because the communications transmitted on any single frequency always travel in the same direction.
+
+Full-duplex Ethernet connections work by making simultaneous use of two physical twisted pairs inside the same jacket, which are directly connected to each networked device: one pair is for receiving packets, while the other pair is for sending packets. This effectively makes the cable itself a collision-free environment and doubles the maximum total transmission capacity supported by each Ethernet connection.
+
+Full-duplex has also several benefits over the use of half-duplex. First, there are no collisions so time is not wasted by having to retransmit frames. Second, full transmission capacity is available in both directions because the send and receive functions are separate. Third, since there is only one transmitter on each twisted pair, stations (nodes) do not need to wait for others to complete their transmissions.
+
+Some computer-based systems of the 1960s and 1970s required full-duplex facilities, even for half-duplex operation, since their poll-and-response schemes could not tolerate the slight delays in reversing the direction of transmission in a half-duplex line.
+
+-->TCP
+The Transmission Control Protocol (TCP) is one of the main protocols of the Internet protocol suite. It originated in the initial network implementation in which it complemented the Internet Protocol (IP). Therefore, the entire suite is commonly referred to as TCP/IP. TCP provides reliable, ordered, and error-checked delivery of a stream of octets (bytes) between applications running on hosts communicating by an IP network. Major Internet applications such as the World Wide Web, email, remote administration, and file transfer rely on TCP. Applications that do not require reliable data stream service may use the User Datagram Protocol (UDP), which provides a connectionless datagram service that emphasizes reduced latency over reliability.
+
+-->HTTP/1.1 Upgrade header
+The Upgrade header field is an HTTP header field introduced in HTTP/1.1. In the exchange, the client begins by making a cleartext request, which is later upgraded to a newer HTTP protocol version or switched to a different protocol. Connection upgrade must be requested by the client; if the server wants to enforce an upgrade it may send a 426 Upgrade Required response. The client can then send a new request with the appropriate upgrade headers while keeping the connection open.
+
+
+-->OSI model
+The Open Systems Interconnection model (OSI model) is a conceptual model that characterizes and standardizes the communication functions of a telecommunication or computing system without regard to its underlying internal structure and technology. Its goal is the interoperability of diverse communication systems with standard protocols. The model partitions a communication system into abstraction layers. The original version of the model defined seven layers.
+
+A layer serves the layer above it and is served by the layer below it. For example, a layer that provides error-free communications across a network provides the path needed by applications above it, while it calls the next lower layer to send and receive packets that comprise the contents of that path. Two instances at the same layer are visualized as connected by a horizontal connection in that layer.
+
+
+
+
+
+
+WebSocket
+WebSocket是一种计算机通信协议，通过单个TCP连接上提供全双工通信信道。2011年，IETF将WebSocket协议标准化为RFC 6455，而且Web IDL中的WebSocket API正在被W3C标准化。
+WebSocket是一种有别于HTTP协议的TCP协议。这两种协议都位于OSI模型中的第七层，因此依赖于第五层的TCP。尽管它们是不一样的，当RFC 6455指出WebSocket“旨在通过HTTP端口80和443工作，并支持HTTP代理和中介”，从而使其与HTTP协议兼容。 为了实现兼容性，WebSocket握手使用HTTP升级头，从HTTP协议更改为WebSocket协议。
+WebSocket协议支持Web客户端（例如浏览器）和Web服务器之间的交互，开销较低，便于来往于服务器的实时数据传输。这可以通过为服务器提供一种标准化的方式来向客户端发送内容而不需要客户端首先请求，并允许消息在保持连接打开的同时来回传递。 通过这种方式，可以在客户端和服务器之间进行双向正在进行的对话。通信是通过TCP端口号80（或TLS加密连接情况下的443端口）完成的，这对于那些使用防火墙阻止非Web互联网连接的环境是有益的。类似的双向浏览器 - 服务器通信已经以非标准化的方式使用诸如Comet之类的临时技术来实现。
+目前大多数主流浏览器都支持WebSocket协议，包括Google Chrome，Microsoft Edge，Internet Explorer，Firefox，Safari和Opera。 WebSocket还需要服务器上的Web应用程序来支持它。
+
+概述
+与HTTP不同，WebSocket提供全双工通信。另外，WebSocket在TCP之上启用消息流。仅TCP就处理字节流，没有固有的消息概念。 在WebSocket之前，使用Comet通道可以实现端口80全双工通信; 然而，Comet实现并不重要，并且由于TCP握手和HTTP头开销，对于小型消息而言效率低下。 WebSocket协议旨在解决这些问题而不会影响网络的安全假设。
+WebSocket协议规范将ws（WebSocket）和wss（WebSocket Secure）定义为分别用于未加密和加密连接的两个新的统一资源标识符（URI）方案。 除了方案名称和片段（＃不被支持）之外，其余的URI组件被定义为使用URI通用语法。
+使用浏览器开发工具，开发人员可以检查WebSocket握手以及WebSocket框架。
+
+历史
+WebSocket在HTML5规范中首次被引用为TCPConnection，作为基于TCP的套接字API的占位符。 2008年6月，由Michael Carter领导的一系列讨论导致协议的第一个版本被称为WebSocket。
+“WebSocket”这个名字由Ian Hickson和Michael Carter在#whatwg IRC聊天室中通过合作后不久创建，随后由Ian Hickson撰写并加入到HTML5规范中，并由Michael Carter在cometdaily博客上发布。 2009年12月，Google Chrome 4成为第一个支持该标准的浏览器，默认情况下启用了WebSocket。WebSocket协议的开发随后于2010年2月从W3C和WHATWG小组迁移到IETF，并创作了两个 伊恩希克森下的修订。
+协议在多个浏览器中默认运行并启用后，RFC于2011年12月在Ian Fette下完成。
+
+浏览器实现
+在Firefox 6，Safari 6，Google Chrome 14，Opera 12.10和Internet Explorer 10中实现了WebSocket协议的安全版本。详细的协议测试套件报告列出了这些浏览器与特定协议方面的一致性。
+在Opera 11和Safari 5中实现了一个较老的，安全性较低的协议版本，以及iOS 4.2中的Safari移动版。OS 7中的BlackBerry Browser实现了WebSockets。由于存在漏洞，它在Firefox 4和5以及Opera 11中被禁用 。
+
+协议握手
+为了建立一个WebSocket连接，客户端发送一个WebSocket握手请求，为此服务器返回一个WebSocket握手响应，如下例所示。
+客户端请求（就像在HTTP中一样，每行都以\ r \ n结尾，最后必须有一个额外的空白行）：
+GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+Sec-WebSocket-Protocol: chat, superchat
+Sec-WebSocket-Version: 13
+Origin: http://example.com
+服务器响应：
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+Sec-WebSocket-Protocol: chat
+握手与HTTP类似，允许服务器处理HTTP连接以及同一端口上的WebSocket连接。 一旦连接建立，通信就切换到不符合HTTP协议的双向二进制协议。
+除升级标题外，客户端还发送包含base64编码的随机字节的Sec-WebSocket-Key标头，服务器在Sec-WebSocket-Accept标头中使用密钥的散列回应。 这旨在防止缓存代理重新发送先前的WebSocket对话，并且不提供任何身份验证，隐私或完整性。 哈希函数将固定字符串258EAFA5-E914-47DA-95CA-C5AB0DC85B11（一个GUID）附加到来自Sec-WebSocket-Key标头（不是从base64解码）的值中，应用SHA-1哈希函数，并对 结果使用base64。
+连接建立后，客户端和服务器可以以全双工模式来回发送WebSocket数据或文本帧。 数据被最小限度地构造，具有小的报头，然后是有效载荷。 WebSocket传输被描述为“消息”，其中单个消息可以可选地跨多个数据帧分开。 这可以允许在初始数据可用的情况下发送消息，但是消息的完整长度是未知的（它将一个接一个地发送一个数据帧直到达到结尾并用FIN位标记）。 通过对协议的扩展，这也可以用于同时复用多个流（例如为了避免垄断单个大型有效负载使用套接字）。
+为了避免跨站点WebSocket劫持攻击，在服务器端的连接建立过程中（针对预期的起源）验证“Origin”头是非常重要的，这可能在连接通过身份验证时 Cookie或HTTP身份验证。 当通过WebSocket传输敏感（专用）数据时，最好使用令牌或类似的保护机制来验证WebSocket连接。
+
+代理遍历
+WebSocket协议客户端实现尝试检测用户代理是否配置为在连接到目标主机和端口时使用代理，如果是，则使用HTTP CONNECT方法设置持久通道。
+虽然WebSocket协议本身并不知道代理服务器和防火墙，但它具有HTTP兼容握手功能，因此允许HTTP服务器使用WebSocket网关或服务器共享其默认HTTP和HTTPS端口（80和443）。 WebSocket协议分别定义了一个ws：//和wss：//前缀来分别表示一个WebSocket和一个WebSocket安全连接。 两种方案都使用HTTP升级机制升级到WebSocket协议。 一些代理服务器是透明的，并且可以很好地使用WebSocket; 其他人将阻止WebSocket正常工作，导致连接失败。 在某些情况下，可能需要额外的代理服务器配置，并且某些代理服务器可能需要升级以支持WebSocket。
+如果未加密的WebSocket流量通过不带WebSockets支持的显式或透明代理服务器流动，则连接可能会失败。
+如果使用加密的WebSocket连接，那么在WebSocket安全连接中使用传输层安全性（TLS）可确保在浏览器配置为使用显式代理服务器时发出HTTP CONNECT命令。 这会在WebSocket安全客户端和WebSocket服务器之间建立一个通过HTTP代理提供低级端到端TCP通信的隧道。 在透明代理服务器的情况下，浏览器不知道代理服务器，所以不发送HTTP CONNECT。 但是，由于有线流量是加密的，所以中间透明代理服务器可以简单地允许加密流量通过，所以如果使用WebSocket Secure，则WebSocket连接将成功的可能性更大。 使用加密不是免费的资源成本，但通常会提供最高的成功率，因为它将通过安全隧道。
+2010年年中的草案（版本hixie-76）通过在标题后包含八个字节的关键数据，打破了与逆向代理和网关的兼容性，但不在Content-Length：8标头中公布该数据。该数据未被所有 中间体，这可能导致协议失败。 最近的草案（例如hybi-09）将关键数据放入Sec-WebSocket-Key标题中，解决了这个问题。
+
+
+专用名词
+
+全双工：
+全双工（FDX）系统或有时称为双工双工允许双向通信，并且与半双工不同，允许同时进行。 陆线电话网络是全双工的，因为它们允许两个呼叫者同时说话并被听到，从电话混合中的混合线圈实现从四线到两线的转换。 现代手机也是全双工的。
+全双工系统的一个很好的类比是双向车道，每个方向有一个车道。 而且，在大多数承载计算机数据的全双工模式系统中，发送的数据在接收到对方发送的确认之前似乎不会被发送。 这样，这样的系统实现可靠的传输方法。
+双向无线电可以设计为全双工系统，在一个频率上发射并在另一个频率上接收; 这也被称为频分双工。 频分双工系统可以通过使用一组简单的中继站来扩展其范围，因为在任何单一频率上传输的通信总是以相同的方向传播。
+全双工以太网连接通过同时使用同一夹克内部的两个物理双绞线来工作，它们直接连接到每个联网设备：一对用于接收数据包，而另一对用于发送数据包。 这有效地使电缆本身成为无碰撞的环境，并使每个以太网连接支持的最大总传输容量加倍。
+与使用半双工相比，全双工还有几个优点。 首先，没有冲突，所以不必浪费时间来重新传输帧。 其次，由于发送和接收功能是分开的，因此可以在两个方向上提供全部传输容量。 第三，由于每个双绞线上只有一个发射器，所以站点（节点）不需要等待其他人完成其发射。
+一些二十世纪六十年代和七十年代的基于计算机的系统甚至需要半双工操作，因为它们的轮询和响应方案不能容忍在半双工线路中反转传输方向的轻微延迟，所以需要全双工设施。
+
+TCP：
+传输控制协议（TCP）是Internet协议套件的主要协议之一。 它起源于最初的网络实现，它补充了互联网协议（IP）。 因此，整个套件通常被称为TCP / IP。 TCP在IP网络通信的主机上运行的应用程序之间提供可靠的，有序的和错误检查的八位字节（字节）流。 诸如万维网，电子邮件，远程管理和文件传输等主要互联网应用依赖于TCP。 不需要可靠数据流服务的应用程序可以使用用户数据报协议（UDP），该协议提供了无连接数据报服务，该服务强调的是可靠性降低的延迟。
+
+HTTP / 1.1升级头：
+升级头字段是HTTP / 1.1中引入的HTTP头字段。 在交换中，客户端首先发出明文请求，稍后将其升级到较新的HTTP协议版本或切换到不同的协议。 连接升级必须由客户请求; 如果服务器想要执行升级，它可能会发送一个426 Upgrade Required响应。 然后，客户端可以在保持连接打开的情况下发送带有适当升级头的新请求。
+
+OSI模型：
+开放系统互连模型（OSI模型）是一种概念模型，它表征并标准化电信或计算系统的通信功能，而不考虑其基础内部结构和技术。 其目标是各种通信系统与标准协议的互操作性。 该模型将通信系统划分为抽象层。 该模型的原始版本定义了七层。七层包括：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。
+一个图层服务于它上面的图层，并由它下面的图层提供服务。 例如，通过网络提供无差错通信的层提供其上层应用程序所需的路径，同时它调用下一层来发送和接收包含该路径内容的数据包。 在同一层的两个实例可视化为通过该层中的水平连接进行连接。

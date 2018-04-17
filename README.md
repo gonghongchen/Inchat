@@ -36,3 +36,8 @@ Home:
 }```
 并通过props传递过去就好了，如
 ```<A visible={this.state.visibleA} closeCallback={this.closeCallback.bind(this)}/>```
+
+
+为什么不在子组件里面使用shouldComponentUpdate 进行是否更新的判断呢？
+原因一：问题的根本在于父组件传递过来的值不合理，所以应该对症下药。
+原因二：如果使用这个方法在子组件进行判断，那么当子组件进行正常的setState时也会进行判断，显然这是没有必要的。
