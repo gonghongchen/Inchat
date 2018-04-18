@@ -4667,3 +4667,15 @@ httpd.exe: Syntax error on line 486 of D:/CmsToolClient/Running/Release/Unicode/
 [Sun Apr 15 12:48:34.358256 2018] [mpm_winnt:notice] [pid 12948:tid 864] AH00418: Parent: Created child process 16016
 [Sun Apr 15 12:48:35.965164 2018] [mpm_winnt:notice] [pid 16016:tid 792] AH00354: Child: Starting 150 worker threads.
 [Sun Apr 15 13:03:14.192341 2018] [mpm_winnt:crit] [pid 16016:tid 792] AH02538: Child: Parent process exited abruptly. Child process is ending
+[Wed Apr 18 16:19:58.846397 2018] [core:warn] [pid 14060:tid 632] AH00098: pid file F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Wed Apr 18 16:19:59.394855 2018] [mpm_winnt:notice] [pid 14060:tid 632] AH00455: Apache/2.4.23 (Win32) OpenSSL/1.0.2j PHP/5.4.45 configured -- resuming normal operations
+[Wed Apr 18 16:19:59.395357 2018] [mpm_winnt:notice] [pid 14060:tid 632] AH00456: Server built: Jul  1 2016 16:42:20
+[Wed Apr 18 16:19:59.395357 2018] [core:notice] [pid 14060:tid 632] AH00094: Command line: 'F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\Apache\\bin\\httpd.exe -d F:/Git/Inchat/Inchat-webpack/phpStudy/PHPTutorial/Apache'
+[Wed Apr 18 16:19:59.421426 2018] [mpm_winnt:notice] [pid 14060:tid 632] AH00418: Parent: Created child process 16720
+[Wed Apr 18 16:20:02.089019 2018] [mpm_winnt:notice] [pid 16720:tid 852] AH00354: Child: Starting 150 worker threads.
+[Wed Apr 18 16:39:36.825549 2018] [:error] [pid 16720:tid 2176] [client ::1:62564] PHP Notice:  Undefined index: userId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectUserInfor.php on line 24
+[Wed Apr 18 16:39:36.825549 2018] [:error] [pid 16720:tid 2176] [client ::1:62564] PHP Notice:  Undefined index: userId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectUserInfor.php on line 26
+[Wed Apr 18 16:39:36.831564 2018] [:error] [pid 16720:tid 2176] [client ::1:62564] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectUserInfor.php on line 30
+[Wed Apr 18 17:09:11.973145 2018] [:error] [pid 16720:tid 2176] [client 127.0.0.1:49201] PHP Notice:  Undefined index: userId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectUserInfor.php on line 26, referer: http://localhost:8090/myChat.html
+[Wed Apr 18 17:09:11.973902 2018] [:error] [pid 16720:tid 2176] [client 127.0.0.1:49201] PHP Fatal error:  Call to a member function fetch_assoc() on a non-object in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectUserInfor.php on line 30, referer: http://localhost:8090/myChat.html
+[Wed Apr 18 17:09:12.986507 2018] [:error] [pid 16720:tid 2176] [client 127.0.0.1:49204] PHP Notice:  Undefined index: userId in F:\\Git\\Inchat\\Inchat-webpack\\phpStudy\\PHPTutorial\\WWW\\php\\selectChat.php on line 29, referer: http://localhost:8090/myChat.html

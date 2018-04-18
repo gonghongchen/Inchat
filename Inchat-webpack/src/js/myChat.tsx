@@ -199,7 +199,7 @@ class MyChat extends React.Component < initProps, initState > {
                             cover={ <div className="chatCoverPic" style={{backgroundImage: `url(${item.chatCoverPicURL})`}}></div> }
                             hoverable={true}
                             bodyStyle={{padding: 20}}
-                            actions={[<span onClick={this.doAction.bind(this, "setting", item.chatId)}><Icon type="setting" />&nbsp;修改资料</span>, <span onClick={this.doAction.bind(this, "chart", item.chatId)}><Icon type="bar-chart" />&nbsp;数据统计</span>]}
+                            actions={[<span onClick={this.doAction.bind(this, "setting", item.chatId)}><Icon type="setting" />&nbsp;修改资料</span>, <span><Icon type="message" />&nbsp;进入群聊</span>]}
                         >
                             <Meta
                                 avatar={<Avatar src={userInfor.avatar} size="large" />}

@@ -248,7 +248,7 @@ class MyChat extends React.Component < initProps, initState > {
                         <div>
                             {userInfor.intro}
                         </div>
-                        <CreateChatForm modalVisible={this.state.modalVisible} />
+                        <SendMessageForm modalVisible={this.state.modalVisible} />
                     </div>
                     <div className="chat-self">
                         <Button type="primary" onClick={this.showModal.bind(this, true)}>
@@ -286,7 +286,7 @@ interface initProps2 {
     modalVisible: boolean
 }
 
-class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
+class SendMessage extends React.Component<initProps2 & FormComponentProps, {}> {
     state = {
         modalVisible: false,
     }
@@ -323,25 +323,32 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
         
                     return false;
                 }
-
+                values.receiverId = userId;
+                values.time = ((date) => {
+                    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                })(new Date());
                 console.log('Received values of form: ', values);
                 Ajax({
                     url: "sendMessage.php",
                     data: values,
                     method: "post",
                     success(val) {
-                        if(val) {   //创建成功
-                            window.location.reload();
+                        if(val === "success") {
+                            PopupTitle.show({
+                                content: "发送成功"
+                            });
+                            that.setModalVisible.bind(that)(false); //这个地方不知道什么原因导致虽然调用了setModalVisible方法，却改变不了state =======================
+                            // window.location.reload();
                         } else {
                             PopupTitle.show({
-                                content: "创建失败，请重试",
+                                content: "发送失败，请重试",
                                 cate: "error"
                             });
                         }
                     },
                     error(status) {
                         PopupTitle.show({
-                            content: "创建失败，请重试",
+                            content: "发送失败，请重试",
                             cate: "error"
                         });
                         console.log("error status: ", status);
@@ -366,9 +373,9 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
                 okText="发送"
                 width="360px"
                 >
-                <Form onSubmit={this.handleSubmit.bind(this)}>
+                <Form>
                     <FormItem>
-                        {getFieldDecorator('chatIntro', {
+                        {getFieldDecorator('content', {
                             rules: [{ required: true, whitespace:true, min:10, message: '请输入不小于10个字符的内容！' }],
                         })(
                             <TextArea autosize={{ minRows: 5, maxRows: 10 }} placeholder="内容（大于10个字符）" />
@@ -379,7 +386,7 @@ class CreateChat extends React.Component<initProps2 & FormComponentProps, {}> {
         )
     }
 }
-const CreateChatForm = Form.create<initProps2>()(CreateChat);
+const SendMessageForm = Form.create<initProps2>()(SendMessage);
 
 
 ReactDOM.render(
