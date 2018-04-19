@@ -52,3 +52,11 @@ closeCallback() {
 ### 问题：
 为什么在Ajax成功后的success函数里面正确调用了setState函数，却不能改变指定的state的值？？？比如visitor.ts里面发送私信成功后关闭发送私信弹出框的功能
 
+### 网站截图示例：
+![Aaron Swartz](https://raw.githubusercontent.com/gonghongchen/Inchat/master/showPics/home.png)
+
+![Aaron Swartz](https://raw.githubusercontent.com/gonghongchen/Inchat/master/showPics/chat.png)
+
+![Aaron Swartz](https://raw.githubusercontent.com/gonghongchen/Inchat/master/showPics/myChat.png)
+
+![Aaron Swartz](https://raw.githubusercontent.com/gonghongchen/Inchat/master/showPics/visitor.png)
