@@ -1,0 +1,59 @@
+/**
+ * @description 我的私信
+ * @author ghc
+ */
+
+ /* 区块 */
+ .message-cate {
+    margin-top: 20px;
+    padding: 0 20px;
+    background-color: #fff;
+}
+/* 区块标题 */
+.message-title {
+    display: block;
+    padding: 20px 0 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 1px solid #e4e4e4;
+}
+/* 群聊列表 */
+.message-list {
+    margin: 20px auto 0 auto;
+    overflow: hidden;
+}
+.message-list > li {
+    margin-bottom: 20px;
+    line-height: 32px;
+    overflow: hidden;
+}
+.message-list > li > span {
+    float: left;
+}
+.avatar {
+    cursor: pointer;
+}
+.username {
+    margin: 0 20px 0 10px;
+    width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+.time {
+    margin-left: 40px;
+}
+.message-list > li > span.operation {
+    float: right;
+}
+.messContent {
+    width: 860px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+.operation > button:first-child {
+    margin-right: 10px;
+}

@@ -20,7 +20,7 @@ if (!isLogin) {
 const clickMenu = ({ key }) => {
         switch (key) {
             case "newMess":
-                toURL("index");
+                toURL("message");
                 break;
             case "myChat":
                 toURL("myChat");
