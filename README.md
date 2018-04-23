@@ -61,4 +61,4 @@ closeCallback() {
 
 ![Aaron Swartz](https://raw.githubusercontent.com/gonghongchen/Inchat/master/showPics/visitor.png)
 
-![Aaron Swartz](https://raw.githubusercontent.com/gonghongchen/Inchat/master/showPics/register.png)
+![Aaron Swartz](https://raw.githubusercontent.com/gonghongchen/Inchat/master/showPics/register.jpg)
