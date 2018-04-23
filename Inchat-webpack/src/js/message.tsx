@@ -10,7 +10,7 @@ import "../css/style.css";
 
 import Nav from "../module/nav/nav";
 import "../css/message.css";
-import { Avatar, Button, Icon, Form, Input, Modal } from 'antd';
+import { Avatar, Button, Icon, Form, Input, Modal, Popconfirm } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { Ajax, checkLogin, toURL } from "../module/common";
 import PopupTitle from "../module/popupTitle/popupTitle";
@@ -21,6 +21,7 @@ interface initProps {};
 interface initState {};
 
 class Message extends React.Component < initProps, initState > {
+    delButton = null
     state = {
         config: {
 
@@ -68,12 +69,46 @@ class Message extends React.Component < initProps, initState > {
 
         return userReceiveMessage.mark === "noData" ? false : userReceiveMessage.value.reverse();
     })()
+    stashButton(event) {
+        this.delButton = event.target;
+    }
     /**
      * @description 删除指定的私信
      * @param messageId 被删除的私信ID号
      */
-    deleteMessage(messageId: string) {
-        console.log(messageId);
+    deleteMessage(messageId: string, cate: string, event) {
+        const target = this.delButton;
+        target.disabled = true;
+        Ajax({  
+            url: "deleteMessage.php",
+            data: {
+                messageId,
+                cate
+            },
+            success(data) {
+                if (data === "success") {
+                    PopupTitle.show({
+                        content: "删除成功",
+                        seconds: 2
+                    });
+                    let li = target.parentElement.parentElement;
+                    li.parentElement.removeChild(li);
+                } else {
+                    PopupTitle.show({
+                        content: "删除失败，请重试",
+                        cate: "error"
+                    });
+                    event.target.disabled = false;
+                }
+            },
+            error(status) {
+                PopupTitle.show({
+                    content: "删除失败，请重试",
+                    cate: "error"
+                });
+                event.target.disabled = false;
+            }
+        });
     }
     /**
      * @description 弹出详情框
@@ -112,9 +147,9 @@ class Message extends React.Component < initProps, initState > {
                             })}>
                                 详细
                             </Button>
-                            <Button type="danger" size="small" onClick={this.deleteMessage.bind(this, item.messageId)}>
-                                删除
-                            </Button>
+                            <Popconfirm placement="topRight" title={"确定删除这条私信吗？"} onConfirm={this.deleteMessage.bind(this, item.messageId, "send")} okText="确定" cancelText="取消">
+                                <Button type="danger" size="small" onClick={this.stashButton.bind(this)}>删除</Button>
+                            </Popconfirm>
                         </span>
                     </li>
                 ))
@@ -138,9 +173,9 @@ class Message extends React.Component < initProps, initState > {
                             })}>
                                 详细
                             </Button>
-                            <Button type="danger" size="small" onClick={this.deleteMessage.bind(this, item.messageId)}>
-                                删除
-                            </Button>
+                            <Popconfirm placement="topRight" title={"确定删除这条私信吗？"} onConfirm={this.deleteMessage.bind(this, item.messageId, "receive")} okText="确定" cancelText="取消">
+                                <Button type="danger" size="small" onClick={this.stashButton.bind(this)}>删除</Button>
+                            </Popconfirm>
                         </span>
                     </li>
                 ))
@@ -239,10 +274,13 @@ class SendMessage extends React.Component<initProps2 & FormComponentProps, {}> {
                     success(val) {
                         if(val === "success") {
                             PopupTitle.show({
-                                content: "发送成功"
+                                content: "发送成功",
+                                seconds: 2
                             });
                             that.setModalVisible.bind(that)(false); //这个地方不知道什么原因导致虽然调用了setModalVisible方法，却改变不了state =======================
-                            // window.location.reload();
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
                         } else {
                             PopupTitle.show({
                                 content: "发送失败，请重试",
@@ -275,16 +313,21 @@ class SendMessage extends React.Component<initProps2 & FormComponentProps, {}> {
                 maskClosable={false}
                 width="360px"
                 >
-                <Form>
-                    <FormItem>
-                        {getFieldDecorator('content', {
-                            rules: [{ required: true, whitespace:true, min:10, message: '请输入不小于10个字符的内容！' }],
-                            initialValue: this.state.content
-                        })(
-                            <TextArea autosize={{ minRows: 5, maxRows: 10 }} placeholder="内容（大于10个字符）" />
-                        )}
-                    </FormItem>
-                </Form>
+                <p style={{whiteSpace: "normal", fontWeight: "bold"}}>{this.state.content}</p>
+                {
+                    this.state.reply ? 
+                    <Form>
+                        <FormItem>
+                            {getFieldDecorator('content', {
+                                rules: [{ required: true, whitespace:true, min:10, message: '请输入不小于10个字符的内容！' }]
+                            })(
+                                <TextArea autosize={{ minRows: 5, maxRows: 10 }} placeholder="内容（大于10个字符）" />
+                            )}
+                        </FormItem>
+                    </Form>
+                    : null
+                }
+                
             </Modal>
         )
     }

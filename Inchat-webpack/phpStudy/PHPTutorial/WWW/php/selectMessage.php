@@ -24,9 +24,9 @@ if ($conn->connect_error) {
 $cate = $_GET["cate"];
 $userId = $_SESSION["userId"];
 if ($cate === "send") {
-	$sql = "SELECT * FROM message where senderId='" . $userId . "'";
+	$sql = "SELECT * FROM message where senderId='" . $userId . "' AND senderDelete=0";
 } else {
-	$sql = "SELECT * FROM message where receiverId='" . $userId . "'";
+	$sql = "SELECT * FROM message where receiverId='" . $userId . "' AND receiverDelete=0";
 }
 
 $result = $conn->query($sql);
