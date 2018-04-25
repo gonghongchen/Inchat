@@ -31,11 +31,9 @@ export default class Index extends React.Component < initProps, initState > {
     ]
     state = {
         current: 'random',
+        chatData: null
     }
-    /**
-     * @description 从数据库获取到的各个群聊卡片的内容数据
-     */
-    chatData = (() => {
+    componentWillMount() {
         let chatData = null;
 
         Ajax({
@@ -54,8 +52,34 @@ export default class Index extends React.Component < initProps, initState > {
             }
         });
 
-        return chatData;
-    })()
+        this.setState({
+            chatData
+        });
+    }
+    /**
+     * @description 从数据库获取到的各个群聊卡片的内容数据
+     */
+    // chatData = (() => {
+    //     let chatData = null;
+
+    //     Ajax({
+    //         url: "selectChat.php",
+    //         data: {
+    //             target: "all", //查询的对象是所有用户
+    //         },
+    //         success(data) {
+    //             data = JSON.parse(data);
+    //             if (data.mark === "haveData") {
+    //                 chatData = data.value;
+    //             }
+    //         },
+    //         error(status) {
+    //             console.log("error: ", status);
+    //         }
+    //     });
+
+    //     return chatData;
+    // })()
     handleClick(e) {
         e.domEvent.stopPropagation();
         this.setState({
@@ -84,8 +108,35 @@ export default class Index extends React.Component < initProps, initState > {
         event.stopPropagation();
         toURL("visitor.html?userId=" + userId, true);
     }
+    search(value) {
+        value = value.trim();
+        if (!value) {
+            return;
+        }
+        
+        let chatData = null;
+        Ajax({
+            url: "searchChat.php",
+            data: {
+                value
+            },
+            success(data) {
+                data = JSON.parse(data);
+                if (data.mark === "haveData") {
+                    chatData = data.value;
+                }
+            },
+            error(status) {
+                console.log("error: ", status);
+            }
+        });
+
+        this.setState({
+            chatData
+        });
+    }
     render(): JSX.Element {
-        const chatData = this.chatData,
+        const chatData = this.state.chatData,
             chatCardList = chatData ? ( //封装群聊卡片列表数据
                 chatData.map(item => (
                     <li onClick={this.toDetailPage.bind(this, item.chatId)} key={ item.chatId } title="进入群聊">
@@ -139,7 +190,7 @@ export default class Index extends React.Component < initProps, initState > {
                     <div className="search">
                         <Search
                             placeholder="点击回车搜索……"
-                            onSearch={value => console.log(value)}
+                            onSearch={this.search.bind(this)}
                             style={{ width: 300 }}
                         />
                     </div>
